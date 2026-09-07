@@ -2,7 +2,29 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
-## v0.1.0 — sin publicar
+## v0.1.1 — 2026-09-07
+
+Corrección de la **primera certificación externa real**. No añade normativa nueva: cierra
+la clase de fallo que ese run reveló, y escribe la regla que la generaliza.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-10 · D-C47** | El workflow pasa cada verificador a `bash` —igual que hace el hook—, los cuatro scripts pasan a modo `100755` en el índice, y `METODOLOGIA.md` gana la sección «Los dos niveles invocan igual» | El run `34152938074` sobre el commit `11b6d512` falló con `./verificadores/coherencia.sh: Permission denied` (exit 126). El hook aprobó en verde el mismo árbol: pasaba cada script a `bash`, que ignora el bit, mientras el workflow lo ejecutaba directamente, que lo exige. Sobre Windows con `core.filemode = false` el bit no existe en el sistema de archivos, así que **ninguna comprobación local podía verlo**. El caso incluye a `.githooks/pre-commit`, que tampoco era ejecutable: al clonar en Linux, git lo habría omitido **en silencio** y la prevención local habría desaparecido sin aviso |
+
+### Lo que este fallo demuestra
+
+Es la primera evidencia empírica de que OPS-07 nivel 2 no es ceremonia. El defecto era
+invisible desde dentro del working copy —no por descuido, sino porque el entorno local
+carecía del concepto que el externo comprueba— y se manifestó en el primer run fuera del
+perímetro del agente, sobre un commit ya empujado. Ninguna cantidad de prevención local
+lo habría encontrado.
+
+Queda registrado como el argumento de por qué el nivel 1 **no certifica**, escrito por el
+propio estándar contra sí mismo.
+
+---
+
+## v0.1.0 — publicada 2026-09-07 · `11b6d512` · tag `v0.1.0`
 
 Primera redacción de los artefactos normativos, derivada del **Documento Maestro de
 Diseño ALMA Dev v0.2.1** (2026-08-13). Es el paso 5 de ALMA-PLAN-01, pendiente desde
