@@ -1,0 +1,59 @@
+# OPS-07 NIVEL 2 — LA CERTIFICACION.
+#
+# Unica evidencia valida de la DoD: un run sobre un commit YA PUSHEADO, en
+# infraestructura fuera del working copy que el agente controla.
+#
+# Este archivo es la RAIZ DE CONFIANZA. Ver RAIZ-DE-CONFIANZA.md: su proteccion
+# NO vive aqui — vive en la configuracion de la plataforma, porque un control que
+# el commit puede cambiar no es un control.
+
+name: certificacion
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  # El nombre del JOB es la cadena que GitHub exige como "required status check".
+  # RAIZ-DE-CONFIANZA.md manda marcar `certificacion` como requerida: si el job se
+  # llamara de otro modo, la proteccion de rama no encontraria el check y quedaria
+  # configurada contra un nombre que no existe. Deben coincidir literalmente.
+  certificacion:
+    name: certificacion
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Coherencia interna, referencias y manifest
+        run: ./verificadores/coherencia.sh
+
+      - name: Puente @AGENTS.md (EST-01)
+        run: |
+          test -f CLAUDE.md || { echo "falta CLAUDE.md"; exit 1; }
+          grep -q '^@AGENTS\.md' CLAUDE.md || {
+            echo "CLAUDE.md no importa AGENTS.md."
+            echo "Debe ser import, no copia: git tiene que guardar el @import."
+            exit 1; }
+          echo "puente presente y guardado como import"
+
+      - name: Barrido de secretos (regla sin excepcion)
+        run: ./verificadores/secretos.sh
+
+      - name: Catalogo de interfaz
+        run: ./verificadores/catalogo.sh
+
+      - name: Veredicto — acotado a lo que este job realmente verifico
+        run: |
+          echo "DoD DOCUMENTAL de alma-standard verificada en run externo:"
+          echo "  coherencia interna, referencias, manifest, puente @AGENTS.md,"
+          echo "  barrido de secretos y catalogo de interfaz."
+          echo
+          echo "Esto NO certifica ningun producto. Un repo que copie este workflow"
+          echo "verifica markdown, no su suite: sin la DoD de SU stack corriendo"
+          echo "aqui, y sin checks requeridos configurados en la plataforma, la"
+          echo "palabra 'certificado' no aplica a ese repo."

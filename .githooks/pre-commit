@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+# OPS-07 nivel 1 — PREVENCION LOCAL. NO CERTIFICA.
+#
+# Proposito honesto: atrapar el DESCUIDO. Olvido de correr la DoD, edicion
+# accidental de un archivo verbatim, puente roto, secreto a punto de entrar.
+#
+# Quien QUIERA evadirlo, puede: modificar este hook, usar --no-verify, editar el
+# manifest local, falsear la salida. El estandar lo declara en vez de fingir lo
+# contrario, porque presentarlo como barrera dura seria un fail-open disfrazado —
+# justo lo que SAD-07 prohibe.
+#
+# La certificacion es el nivel 2, y vive fuera de este repositorio.
+
+set -u
+fallos=0
+aviso() { echo "  [OPS-07 n1] $*"; }
+
+echo "[OPS-07 n1] prevencion local — no es certificacion"
+
+# --- 1 · integridad de los archivos verbatim -------------------------------
+if [ -f .alma/manifest.sha256 ]; then
+  if ! sha256sum -c --quiet .alma/manifest.sha256 2>/dev/null; then
+    aviso "FALLO: un archivo verbatim del estandar fue modificado localmente."
+    aviso "       Los cambios al estandar se hacen en alma-standard, no aqui."
+    fallos=$((fallos+1))
+  fi
+else
+  aviso "aviso: no hay manifest. Corre 'alma:upgrade' para generarlo desde el tag remoto."
+fi
+
+# --- 2 · el puente @AGENTS.md (EST-01) -------------------------------------
+if [ -f AGENTS.md ]; then
+  if [ ! -f CLAUDE.md ]; then
+    aviso "FALLO: falta CLAUDE.md. Sin el puente, Claude Code carga CERO"
+    aviso "       instrucciones EN SILENCIO, sin error. Inaceptable bajo SAD-07."
+    fallos=$((fallos+1))
+  elif ! grep -q '^@AGENTS\.md' CLAUDE.md; then
+    aviso "FALLO: CLAUDE.md existe pero no importa AGENTS.md."
+    aviso "       Debe ser un import (@AGENTS.md), no una copia del contenido."
+    fallos=$((fallos+1))
+  fi
+fi
+
+# --- 3 · frontera de modo de mision (SAD-06) -------------------------------
+# El modo es OBLIGATORIO y su ausencia FALLA. Antes solo avisaba: un optimizador
+# literal que no creaba el archivo, o escribia cualquier otra cosa, no entraba a
+# ninguna rama y tocaba app/ y packages/ en el mismo commit sin que `fallos` subiera.
+MODO="$(cat .alma/modo-mision 2>/dev/null || echo '')"
+case "$MODO" in
+  aplicacion|paquete|genesis|estandar) : ;;
+  "") aviso "FALLO: modo de mision no declarado. Escribe uno de los cuatro en"
+      aviso "       .alma/modo-mision antes de commitear (EST-04 lo exige al abrir)."
+      fallos=$((fallos+1)) ;;
+  *)  aviso "FALLO: modo de mision invalido: '$MODO'."
+      aviso "       Validos: aplicacion | paquete | genesis | estandar."
+      fallos=$((fallos+1)) ;;
+esac
+
+if [ "$MODO" = "aplicacion" ]; then
+  if git diff --cached --name-only | grep -q '^packages/'; then
+    aviso "FALLO: mision de APLICACION con cambios en packages/."
+    aviso "       Legible siempre, inmodificable siempre. Pausa y bifurca."
+    fallos=$((fallos+1))
+  fi
+elif [ "$MODO" = "paquete" ]; then
+  if git diff --cached --name-only | grep -q '^app/'; then
+    aviso "FALLO: mision de PAQUETE con cambios en app/."
+    fallos=$((fallos+1))
+  fi
+fi
+
+# --- 4 · barrido de secretos -------------------------------------------------
+# No se reimplementa aqui: el job de certificacion corre el MISMO verificador.
+# Un hook no activado no corre, y una regla sin excepcion no puede depender de eso.
+if [ -f verificadores/secretos.sh ]; then
+  if ! bash verificadores/secretos.sh --diff; then
+    aviso "FALLO: barrido de secretos. Ver la salida de arriba."
+    fallos=$((fallos+1))
+  fi
+fi
+
+# --- 5 · catalogo de interfaz (AVISA, no bloquea en n1) ----------------------
+# D-C44 · la palanca se separa por reversibilidad del daño. Un catalogo
+# desatendido se arregla en el commit siguiente; un secreto empujado hay que
+# rotarlo. Compartir interruptor hacia que la comprobacion barata decidiera el
+# destino de la cara: un catalogo lento o con deuda ensenaba --no-verify, y
+# --no-verify apagaba tambien el barrido de secretos.
+#
+# ATENCION (H-ADV-8): mientras el nivel 2 NO EXISTA, esto no es un traslado del
+# bloqueo — es deteccion diferida. Hoy nadie detiene un catalogo roto: aqui avisa,
+# y el piso que deberia detenerlo todavia no esta construido. Se dice para que
+# nadie lo lea como una garantia que aun no hay.
+if [ -f verificadores/catalogo.sh ]; then
+  if ! bash verificadores/catalogo.sh --diff; then
+    aviso "aviso: el catalogo de interfaz no pasa. NO detiene este commit;"
+    aviso "       el job de certificacion si lo hara. Conviene arreglarlo ahora."
+  fi
+fi
+
+# --- veredicto ---------------------------------------------------------------
+if [ "$fallos" -gt 0 ]; then
+  echo "[OPS-07 n1] $fallos comprobacion(es) fallaron. Commit detenido."
+  echo "[OPS-07 n1] Si esto es un falso positivo, --no-verify existe y queda"
+  echo "            registrado como lo que es: una decision tuya, no del estandar."
+  exit 1
+fi
+echo "[OPS-07 n1] sin descuidos detectados. Recuerda: esto NO es certificacion."
+exit 0
