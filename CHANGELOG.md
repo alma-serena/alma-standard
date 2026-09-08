@@ -171,8 +171,17 @@ un optimizador literal?»**, no «¿la cumpliría alguien razonable?». Y recuer
 abandono por fricción es un modo de falla tan real como una vulnerabilidad: si cumplir
 cuesta más que evadir, la regla está mal diseñada, no el que la evade.
 
-### Pendiente antes de v0.1.0
+### Pendiente
 
-- Publicar el repo y crear el primer tag: sin él no hay manifest ni ancla.
-- Configurar las comprobaciones requeridas en la plataforma (`RAIZ-DE-CONFIANZA.md`).
-- `.agents/rules/anexos/android.md` sigue vacío a propósito, hasta la primera misión real.
+Se poda cuando algo se cierra. Los dos primeros ítems de esta lista —publicar el repo
+con su primer tag, y configurar las comprobaciones requeridas en la plataforma— se
+cumplieron el 2026-09-07 y salieron de aquí.
+
+- **`.agents/rules/anexos/android.md` sigue vacío a propósito**, hasta la primera
+  misión real que lo necesite. Un anexo escrito sin proyecto que lo use es adivinación.
+- **El paso 4 de `RAIZ-DE-CONFIANZA.md` no existe en una cuenta personal de GitHub**
+  —restringir quién puede empujar a `main` requiere organización—. Necesita excepción
+  declarada con sus cuatro campos, o mudanza a una organización.
+- **`v0.1.1` sin anclar.** El tag se crea después del verde de `certificacion` sobre el
+  PR, no antes. `v0.1.0` se ancló antes de que ninguna corrida externa hubiera pasado
+  nunca, y esa corrida falló.
