@@ -131,6 +131,21 @@ modo de misión, y el push es acto humano.
 
 ---
 
+## Caminos infelices
+
+El camino feliz estaba diseñado exhaustivamente en v0.2.1; estos no lo estaban, y por
+eso están aquí con el mismo rango. Un proyecto vivo envejece, se interrumpe, se
+equivoca y se actualiza.
+
+| Situación | Camino |
+|---|---|
+| Hay que parar a medias | estado `pausada` + plantilla |
+| El REQ estaba mal escrito | `AMEND REQ` |
+| Un feedback contradice algo cerrado | REQ de cambio, original superado |
+| Hay que deshacer lo commiteado | `.agents/workflows/reversion.md` |
+| El estándar subió de versión | `.agents/workflows/migracion-estandar.md` |
+| El agente no avanza | escala al humano (OPS-03). El traspaso entre agentes está diseñado en `.agents/workflows/intervencion.md`, **no normativo** hasta que exista certificación externa |
+
 ## Los dos niveles invocan igual `[D-C47]`
 
 > **El nivel 1 solo predice el nivel 2 si mira lo mismo.** Si difieren en cómo invocan
@@ -159,12 +174,6 @@ De ahí la regla, que es más ancha que su incidente:
 Cuando el nivel 1 y el nivel 2 no puedan coincidir —y a veces no podrán, porque uno
 corre en el equipo del humano y el otro en un contenedor limpio— **la diferencia se
 escribe**, para que nadie lea el verde local como una promesa.
-
-## Caminos infelices
-
-El camino feliz estaba diseñado exhaustivamente en v0.2.1; estos no lo estaban, y por
-eso están aquí con el mismo rango. Un proyecto vivo envejece, se interrumpe, se
-equivoca y se actualiza.
 
 ## Enumerar `[D-C46]`
 
@@ -197,12 +206,3 @@ se convierte en permiso permanente: se entra por una razón verdadera y no se sa
 
 La regla se enuncia aquí, y no en cada archivo, porque **el quinto estado de escape que
 inventemos debe nacer ya cerrado**.
-
-| Situación | Camino |
-|---|---|
-| Hay que parar a medias | estado `pausada` + plantilla |
-| El REQ estaba mal escrito | `AMEND REQ` |
-| Un feedback contradice algo cerrado | REQ de cambio, original superado |
-| Hay que deshacer lo commiteado | `.agents/workflows/reversion.md` |
-| El estándar subió de versión | `.agents/workflows/migracion-estandar.md` |
-| El agente no avanza | escala al humano (OPS-03). El traspaso entre agentes está diseñado en `.agents/workflows/intervencion.md`, **no normativo** hasta que exista certificación externa |
