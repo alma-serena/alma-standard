@@ -39,6 +39,29 @@ En `Settings → Branches → Branch protection rules` sobre `main`:
 Un cambio a `.github/workflows/` sigue siendo posible — pero pasa por rama, por CI y
 por revisión humana. Deja de ser un commit y pasa a ser un acto.
 
+### La consecuencia que sorprende al día siguiente
+
+No solo los cambios al workflow. **Ningún** cambio vuelve a entrar por `git push origin
+main`, y conviene saberlo antes de chocar con ello:
+
+```
+remote: error: GH006: Protected branch update failed for refs/heads/main.
+remote: - Required status check "certificacion" is expected.
+```
+
+La comprobación requerida no ha corrido sobre el commit nuevo, y no puede correr,
+porque corre al empujar. El primer push tras configurar estos cinco pasos es siempre
+el que rebota — **incluido el push que corrige el CI**. Nos pasó a nosotros, con la
+corrección de `v0.1.1` en la mano.
+
+El camino está previsto: el workflow dispara tambien en `pull_request`, así que el
+cambio entra por rama y PR. Lo que no está previsto es desmarcar la comprobación para
+pasar «solo esta vez» — eso es el punto 3 de esta misma lista, leído al revés.
+
+Si alguna vez el rebote se vuelve intolerable, la salida honesta no es abrir el
+candado: es preguntarse por qué hay tanta prisa por meter algo a `main` sin
+certificar.
+
 ## Por qué el runner autoalojado está descartado
 
 Es la salida que uno busca primero cuando aparece el problema de cuota: minutos
