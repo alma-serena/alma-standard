@@ -146,7 +146,17 @@ equivoca y se actualiza.
 | El estándar subió de versión | `.agents/workflows/migracion-estandar.md` |
 | El agente no avanza | escala al humano (OPS-03). El traspaso entre agentes está diseñado en `.agents/workflows/intervencion.md`, **no normativo** hasta que exista certificación externa |
 
-## Los dos niveles invocan igual `[D-C47]`
+## La regla vale lo que vale su comprobación
+
+Lo que sigue no trata del ciclo, sino de **la distancia entre una regla y su
+comprobación**. Una regla que no se puede comprobar completa, o que se comprueba
+mirando otra cosa, no es una regla más débil: es un permiso con redacción de regla.
+
+Entra aquí una sección cuando enuncia **cómo debe escribirse algo para que su
+comprobación signifique lo que dice**. No entran las reglas mismas — esas viven en su
+dominio— ni las excepciones operativas, que están en «Caminos infelices».
+
+### Los dos niveles invocan igual `[D-C47]`
 
 > **El nivel 1 solo predice el nivel 2 si mira lo mismo.** Si difieren en cómo invocan
 > los verificadores, en qué entorno corren o en qué archivos leen, el verde local deja
@@ -175,7 +185,7 @@ Cuando el nivel 1 y el nivel 2 no puedan coincidir —y a veces no podrán, porq
 corre en el equipo del humano y el otro en un contenedor limpio— **la diferencia se
 escribe**, para que nadie lea el verde local como una promesa.
 
-## Enumerar `[D-C46]`
+### Enumerar `[D-C46]`
 
 > **Se enumera lo permitido, nunca lo prohibido.** Una lista de lo prohibido es finita
 > y el mundo no lo es: cada nombre que falta es un permiso.
@@ -191,7 +201,7 @@ produce cualquier efecto— **no se enumera: se autoriza**. Una autorización de
 firmada por un humano al abrir la misión, es comprobable porque está escrita. Una
 derivación a partir de nombres no lo es.
 
-## Estados que eximen `[D-C41]`
+### Estados que eximen `[D-C41]`
 
 Un estado que exime de una obligación **declara su condición de salida, y esa condición
 es comprobable por máquina.** Sin condición de salida, un estado legítimo el primer día
