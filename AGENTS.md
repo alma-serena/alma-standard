@@ -1,9 +1,9 @@
 # AGENTS.md — ALMA Dev
 
 Este archivo se copia **verbatim** en todo proyecto ALMA. No se edita nunca: su
-checksum está en el manifest anclado al tag remoto de `alma-standard` (OPS-07 n1).
-Hasta que exista el primer tag publicado **esa verificación está pendiente**: sin
-manifest, el hook avisa y no compara (ver `INSTALACION.md`).
+checksum está en el manifest publicado con el tag de `alma-standard` (OPS-07 n1).
+Mientras el proyecto no haya descargado ese manifest **la verificación está
+pendiente**: sin él, el hook avisa y no compara (ver `INSTALACION.md`).
 Si tu proyecto necesita algo distinto, va en `proyecto-<nombre>.md`, el único
 archivo editable de la capa de proyecto (OPS-05).
 

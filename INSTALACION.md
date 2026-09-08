@@ -14,10 +14,12 @@ Se lee **una vez, al empezar**. No es material de misión.
 commit `11b6d512`. Queda una pieza sin construir y conviene tenerla delante durante
 toda la instalación:
 
-- **Todavía no hay `.alma/manifest.sha256`.** El tag ya no es el impedimento —
-  existe—, pero el manifest no se ha generado. Mientras no exista, la comprobación de
-  integridad del hook **avisa y no falla**: no tiene contra qué comparar, así que una
-  edición local de un archivo verbatim no la detecta nadie.
+- **Todavía no hay manifest que descargar.** El tag ya no es el impedimento —existe—,
+  pero `v0.1.0` se publicó antes de que existiera el job que lo produce, así que ese
+  release no lleva activo. Desde `v0.1.1` sí. Mientras el proyecto no tenga
+  `.alma/manifest.sha256`, la comprobación de integridad del hook **avisa y no
+  falla**: no tiene contra qué comparar, así que una edición local de un archivo
+  verbatim no la detecta nadie.
 
 Nada de esto se disimula en el resto del documento. Cuando un paso no puede
 verificarse todavía, lo dice.
@@ -59,8 +61,22 @@ algo se rompió.
 
 ### 1 · Copiar el estándar verbatim
 
-Al raíz del proyecto: `AGENTS.md`, `CLAUDE.md`, `METODOLOGIA.md`, `.agents/`,
-`.githooks/`, `.github/workflows/`, `verificadores/`.
+Al raíz del proyecto, exactamente estas rutas. **Esta lista es la fuente única del
+conjunto verbatim** `[D-C48]`: la lee `verificadores/manifest.sh` para saber qué cubre
+el manifest, y no se enuncia en ningún otro sitio — dos listas de lo mismo terminan
+diciendo cosas distintas, que es la divergencia que SAD-05 prohíbe.
+
+<!-- verbatim:inicio -->
+```
+AGENTS.md
+CLAUDE.md
+METODOLOGIA.md
+.agents/
+.githooks/
+.github/workflows/
+verificadores/
+```
+<!-- verbatim:fin -->
 
 > **Si el proyecto ya tiene `AGENTS.md` o `CLAUDE.md`, se respaldan antes de copiar:**
 > `AGENTS.md.previo`, `CLAUDE.md.previo`. La versión anterior de este paso copiaba
@@ -192,8 +208,8 @@ Escrito aquí para que nadie confunda «instalado» con «certificado»:
 - **El nivel 1 no certifica**, ni siquiera bien instalado. Lo dice el propio hook en
   su cabecera: atrapa el descuido; quien quiera evadirlo puede, y `--no-verify`
   existe. La certificación es el nivel 2 y vive fuera del repositorio.
-- **Sin manifest no hay integridad verificable** de los archivos verbatim. El tag ya
-  existe; lo que falta es generar `.alma/manifest.sha256`.
+- **Sin manifest no hay integridad verificable** de los archivos verbatim. No se
+  genera aquí: se descarga del release del tag `[D-C48]`.
 - **Y el CI no cubre el paso 3 mientras la plataforma no esté configurada.** El job
   `certificacion` corre sobre `push` a `main`: cuando barre, un secreto empujado **ya
   está en la rama**. La compensación real son los tres pasos de
@@ -201,12 +217,16 @@ Escrito aquí para que nadie confunda «instalado» con «certificado»:
   directo a `main` prohibido—. Hasta que estén, **saltarse el paso 3 cuesta seguridad,
   no velocidad**.
 
-## Qué cambia cuando exista el manifest
+## Qué cambia cuando el proyecto tenga el manifest
 
-El tag ya está; el que falta es el manifest. Cuando exista, el paso 1 deja de hacerse
-a mano y pasa a ser `alma:upgrade`, que copia desde el tag remoto y regenera
-`.alma/manifest.sha256`. A partir de ahí la comprobación de integridad del hook tiene
-contra qué comparar, y `proyecto-<nombre>.md` puede anclar una versión real en su
-sección **Ancla de versión** en lugar de `v0.0.0`.
+El paso 1 deja de hacerse a mano y pasa a ser `alma:upgrade`, que copia desde el tag
+remoto y **descarga** `.alma/manifest.sha256` del release de ese tag — no lo calcula,
+por la razón que `ALMA-UPGRADE.md` explica en «Quién lo genera».
+
+A partir de ahí pasan tres cosas: la comprobación de integridad del hook tiene contra
+qué comparar; `verificadores/catalogo.sh` **deriva del manifest** qué rutas son
+andamiaje del estándar, en vez de recordarlas en una lista escrita a mano; y
+`proyecto-<nombre>.md` puede anclar una versión real en su sección **Ancla de versión**
+en lugar de `v0.0.0`.
 
 El contrato de ese comando está en `ALMA-UPGRADE.md`.

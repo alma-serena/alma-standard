@@ -43,7 +43,19 @@ bloque_anexo() { # $1 marcador, $2 archivo
 # (Al estrenar esta lista faltaban ALMA-UPGRADE.md y RAIZ-DE-CONFIANZA.md, y el
 #  verificador fallo sobre el arbol del propio estandar: la lista blanca tambien
 #  necesita una fuente derivable, no memoria.)
-ANDAMIAJE_DEF='AGENTS.md CLAUDE.md METODOLOGIA.md INSTALACION.md CHANGELOG.md ALMA-UPGRADE.md RAIZ-DE-CONFIANZA.md .agents .github .githooks verificadores plantillas .alma docs .gitignore .gitattributes README.md LICENSE'
+ANDAMIAJE_RESPALDO='AGENTS.md CLAUDE.md METODOLOGIA.md INSTALACION.md CHANGELOG.md ALMA-UPGRADE.md RAIZ-DE-CONFIANZA.md .agents .github .githooks verificadores plantillas'
+# Lo que es andamiaje en cualquier proyecto, venga o no del estandar.
+ANDAMIAJE_EXTRA='.git .alma docs .gitignore .gitattributes README.md LICENSE'
+# D-C48 · DERIVACION. Si el proyecto tiene manifest, el andamiaje que aporta el
+# estandar se lee de el en vez de recordarse. Eso cierra el hueco que esta misma
+# lista confesaba mas arriba: una lista escrita de memoria olvida lo que no se mira.
+ANDAMIAJE_ESTANDAR="$ANDAMIAJE_RESPALDO"
+if [ -f .alma/manifest.sha256 ]; then
+  derivado="$(awk '{ $1=""; sub(/^[[:space:]]+/,""); print }' .alma/manifest.sha256 \
+              | sed 's#/.*##' | grep -v '^$' | sort -u | tr '\n' ' ')"
+  [ -n "$derivado" ] && ANDAMIAJE_ESTANDAR="$derivado"
+fi
+ANDAMIAJE_DEF="$ANDAMIAJE_ESTANDAR $ANDAMIAJE_EXTRA"
 hay_producto() {
   lista="${1:-$ANDAMIAJE_DEF}"
   find . -mindepth 1 -not -path './.git' -not -path './.git/*' 2>/dev/null \

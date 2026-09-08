@@ -7,7 +7,7 @@ estándar; el lenguaje no.**
 ## Por qué existe
 
 Sin él, propagar el estándar a mano produce exactamente la divergencia que SAD-05
-prohíbe. Y sin él el manifest de checksums no se puede regenerar, que es lo que hace
+prohíbe. Y sin él el manifest de checksums no llega al proyecto, que es lo que hace
 verificable el nivel 1 de OPS-07.
 
 ## Contrato
@@ -64,17 +64,41 @@ de una migración real.
 
 ## El manifest
 
-`.alma/manifest.sha256`, formato `sha256sum` estándar para que cualquier máquina lo
-verifique sin herramientas propias.
+Formato `sha256sum` estándar, para que cualquier máquina lo verifique sin herramientas
+propias.
 
-- Cubre **todos** los archivos verbatim del estándar.
+- Cubre **todos** los archivos verbatim del estándar, y solo esos. El conjunto se
+  declara una sola vez, en el bloque `verbatim` del paso 1 de `INSTALACION.md`, que es
+  lo que lee `verificadores/manifest.sh`.
 - **No cubre** `proyecto-<nombre>.md`: es el único editable, y por eso no puede estar.
-- Se genera **solo** desde el tag remoto.
 
-> **Orden de arranque.** El manifest no puede existir antes de que `alma-standard`
-> esté publicado con su primer tag. Hasta entonces el nivel 1 corre sin comprobación
-> de integridad y lo dice en voz alta — que es la conducta correcta: avisar del hueco,
-> no simular la comprobación.
+### Quién lo genera, y por qué no el proyecto `[D-C48]`
+
+> **El manifest lo produce el CI del estándar al publicarse un tag, y se adjunta al
+> release como activo. `alma:upgrade` lo DESCARGA y compara contra él. No lo calcula.**
+
+La versión anterior de esta sección decía «se genera solo desde el tag remoto», y esa
+frase admitía la lectura equivocada: bajar los archivos del tag y calcularles el
+checksum uno mismo. Eso no verifica nada. Comprueba que la copia coincide con lo que el
+proyecto se descargó — no con lo que el estándar publicó—, y un `alma:upgrade` alterado
+produce un manifest perfectamente consistente de archivos alterados.
+
+Es la misma frase que este documento ya traía escrita tres párrafos más arriba, sobre
+el paso 1: *«un checksum calculado contra sí mismo no verifica nada»*. Aquí se aplica a
+quien calcula.
+
+De ahí se siguen dos cosas que parecen detalles y no lo son:
+
+| | Por qué |
+|---|---|
+| El repositorio del estándar **no lleva** `manifest.sha256` en su árbol | Estaría firmado por quien puede editar los archivos. `verificadores/coherencia.sh` **falla** si aparece |
+| Sin red, el comando falla y no cae a caché | Ya estaba escrito para el paso 1, y por la misma razón: el ancla es externa o no es ancla |
+
+### Dónde vive en el proyecto
+
+Descargado, en `.alma/manifest.sha256`. Ahí lo leen dos cosas: el hook, para comprobar
+integridad de los archivos verbatim; y `verificadores/catalogo.sh`, que **deriva de él**
+qué rutas son andamiaje del estándar en vez de recordarlas en una lista `[D-C46]`.
 
 ## Lo que `alma:upgrade` NO hace
 

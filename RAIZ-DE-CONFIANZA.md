@@ -36,6 +36,15 @@ En `Settings → Branches → Branch protection rules` sobre `main`:
    los autorizados.
 5. Y en `Settings → Actions`: **Read-only** para `GITHUB_TOKEN` por defecto.
 
+> **Excepción declarada al punto 5.** El workflow `.github/workflows/manifest.yml`
+> pide `contents: write`, porque adjuntar el manifest al release exige escritura.
+> · **Qué:** un job con permiso de escritura sobre releases.
+> · **Por qué:** el manifest tiene que producirlo alguien que no sea el agente, y ese
+>   alguien tiene que poder publicarlo.
+> · **Qué lo compensa:** el permiso se declara por job y no por repositorio, el job
+>   solo dispara sobre tags, y crear un tag ya pasa por `main`, que está protegido.
+> · **Cuándo se revisa:** si alguna vez el job hace algo más que subir ese activo.
+
 Un cambio a `.github/workflows/` sigue siendo posible — pero pasa por rama, por CI y
 por revisión humana. Deja de ser un commit y pasa a ser un acto.
 

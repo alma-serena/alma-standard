@@ -1,0 +1,46 @@
+# OPS-07 · EL MANIFEST DE INTEGRIDAD, PRODUCIDO FUERA DEL ALCANCE DEL AGENTE.
+#
+# `certificacion.yml` responde "este arbol cumple". Este responde otra pregunta:
+# "estos son los bytes exactos que publica el tag". Son trabajos distintos y por eso
+# son workflows distintos — este necesita permiso de escritura, y `certificacion`
+# no debe tenerlo nunca.
+#
+# D-C48 · El manifest NO se commitea. Vive como activo del release, generado aqui a
+# partir del arbol del tag. Un manifest dentro del arbol seria un checksum calculado
+# contra si mismo, que es lo que ALMA-UPGRADE.md prohibe explicitamente.
+
+name: manifest
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  manifest:
+    name: manifest
+    runs-on: ubuntu-latest
+    # Excepcion declarada al paso 5 de RAIZ-DE-CONFIANZA.md (GITHUB_TOKEN read-only
+    # por defecto): adjuntar un activo a un release exige escritura. Se acota a este
+    # job, a este permiso, y solo dispara sobre tags.
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generar el manifest desde el arbol del tag
+        run: bash ./verificadores/manifest.sh > manifest.sha256
+
+      - name: Dejarlo en el log del run
+        run: |
+          echo "Manifest de ${GITHUB_REF_NAME} — registro publico:"
+          cat manifest.sha256
+
+      - name: Publicarlo como activo del release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          gh release view "$tag" >/dev/null 2>&1 \
+            || gh release create "$tag" --title "$tag" --verify-tag \
+                 --notes "Manifest de integridad adjunto. Ver ALMA-UPGRADE.md."
+          gh release upload "$tag" manifest.sha256 --clobber

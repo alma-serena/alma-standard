@@ -25,7 +25,7 @@ if [ -f .alma/manifest.sha256 ]; then
     fallos=$((fallos+1))
   fi
 else
-  aviso "aviso: no hay manifest. Corre 'alma:upgrade' para generarlo desde el tag remoto."
+  aviso "aviso: no hay manifest. Corre 'alma:upgrade': lo DESCARGA del release del tag. No se calcula aqui (D-C48)."
 fi
 
 # --- 2 · el puente @AGENTS.md (EST-01) -------------------------------------

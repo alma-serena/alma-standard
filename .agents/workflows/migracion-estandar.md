@@ -14,7 +14,8 @@ SAD-05 prohíbe. La migración es una misión, con su REQ y su cierre.
    contradice algo declarado en `proyecto-<nombre>.md`?
 5. **Revisar las excepciones declaradas.** Cada una vuelve a justificarse o cae. Una
    excepción que nadie revisa deja de ser excepción y pasa a ser costumbre.
-6. **Regenerar el manifest de checksums** desde el tag remoto.
+6. **Descargar el manifest** del release del tag y dejarlo en `.alma/manifest.sha256`.
+   No se calcula localmente: ver `ALMA-UPGRADE.md`, «Quién lo genera».
 7. **Actualizar el ancla de versión** en `proyecto-<nombre>.md` y cerrar la misión.
 
 Este orden es la **fuente única**: `ALMA-UPGRADE.md` especifica el comando que lo
@@ -24,4 +25,4 @@ ejecuta y no vuelve a enunciarlo.
 
 - Un archivo verbatim modificado localmente.
 - Una excepción sin revisar.
-- El manifest regenerado desde una copia local en vez del tag remoto.
+- El manifest calculado localmente en vez de descargado del release del tag.

@@ -56,11 +56,19 @@ else
   [ "$malos" -eq 0 ] && ok "$(echo "$borradores" | wc -l) borrador(es) declarado(s), ninguno citado como norma"
 fi
 
-echo "== 4 · integridad del manifest =="
+echo "== 4 · el manifest se puede generar =="
+# D-C48 · El arbol del estandar NO lleva manifest, y no es una carencia: un checksum
+# calculado por quien puede editar los archivos no verifica nada (ALMA-UPGRADE.md).
+# Lo produce el job `manifest` al publicarse el tag y vive como activo del release.
+# Lo que si se comprueba aqui es que el generador corre y cubre algo.
 if [ -f .alma/manifest.sha256 ]; then
-  sha256sum -c --quiet .alma/manifest.sha256 && ok "manifest intacto" || err "manifest no coincide"
+  err ".alma/manifest.sha256 esta en el arbol. No debe estar (D-C48): el manifest se genera en el release, no se commitea"
+elif [ ! -f verificadores/manifest.sh ]; then
+  err "falta verificadores/manifest.sh: sin generador no hay manifest que publicar"
+elif salida="$(bash verificadores/manifest.sh 2>&1)"; then
+  ok "el generador corre y cubre $(printf '%s\n' "$salida" | wc -l | tr -d ' ') archivos verbatim"
 else
-  echo "  aviso · sin manifest: el estandar aun no tiene primer tag publicado"
+  err "verificadores/manifest.sh fallo: $salida"
 fi
 
 echo "== 5 · CHANGELOG al dia =="
