@@ -32,12 +32,80 @@ En `Settings → Branches → Branch protection rules` sobre `main`:
 2. **Require branches to be up to date before merging.**
 3. **Do not allow bypassing the above settings** — incluidos administradores. Poder
    saltárselo «solo esta vez» es la puerta que anula todo lo demás.
-4. **Restringir quién puede empujar a `main`.** Ninguna credencial de agente entre
-   los autorizados.
+4. **Que ninguna credencial pueda poner código en `main` por su cuenta.** Tiene dos
+   formas según dónde viva el repositorio, y la segunda no es un sucedáneo de la
+   primera: cierra el mismo atajo.
+   - **Repositorio de organización:** restringir quién puede empujar a `main`, sin
+     ninguna credencial de agente entre los autorizados.
+   - **Repositorio de cuenta personal:** **Require a pull request before merging.** La
+     restricción por usuario no existe aquí —la API responde *Only organization
+     repositories can have users and team restrictions*—, pero exigir PR cierra lo que
+     esa restricción cerraba. Ver el recuadro.
 5. Y en `Settings → Actions`: **Read-only** para `GITHUB_TOKEN` por defecto.
+
+> **Por qué el punto 4 no es redundante con el 1, y qué pasa si falta.**
+>
+> Parece que con la comprobación requerida ya está: un push a `main` rebota porque el
+> check no corrió sobre ese commit. Pero hay un commit para el que **sí corrió**: el de
+> la cabeza de un PR abierto. El workflow dispara en `pull_request`, la corrida se
+> ancla a ese SHA, y una vez en verde ese SHA puede empujarse **directo a `main`**, sin
+> merge y sin mirar el PR. La comprobación requerida se da por cumplida, porque
+> literalmente lo está.
+>
+> Eso es lo que el punto 4 cierra. Sin él, el camino largo tiene un atajo del mismo
+> largo, y una barrera que se rodea sin esfuerzo deja de ser una barrera.
+>
+> **Excepción declarada al punto 4 — repositorios de cuenta personal.**
+> · **Qué:** no se puede restringir *quién* empuja a `main`. Ese cerrojo no existe
+>   fuera de una organización.
+> · **Por qué:** GitHub solo ofrece restricciones por usuario y equipo en repositorios
+>   de organización. No es una decisión nuestra ni un paso pendiente.
+> · **Qué lo compensa:** «Require a pull request before merging». `main` deja de
+>   aceptar *cualquier* push —verde o no—, así que el atajo del párrafo anterior
+>   desaparece y el único camino de entrada es el merge de un PR.
+> · **Cuándo se revisa:** cuando los repos se muden a una organización, si se mudan.
+>
+> **Lo que la compensación NO cubre, dicho sin adornos:** el dueño. Con un solo
+> participante no hay revisión aprobatoria posible —nadie puede aprobar su propio PR—,
+> así que quien tiene la credencial mergea lo que quiera. Es exactamente lo que este
+> documento declara más abajo: *ninguna barrera detiene al dueño; el nivel 2 hace la
+> trampa más cara que el camino recto*. Pasar de un acto a dos es todo lo que este
+> contexto puede lograr, y se registra como tal, no como seguridad.
+
+> **Excepción declarada al punto 5.** El workflow `.github/workflows/manifest.yml`
+> pide `contents: write`, porque adjuntar el manifest al release exige escritura.
+> · **Qué:** un job con permiso de escritura sobre releases.
+> · **Por qué:** el manifest tiene que producirlo alguien que no sea el agente, y ese
+>   alguien tiene que poder publicarlo.
+> · **Qué lo compensa:** el permiso se declara por job y no por repositorio, el job
+>   solo dispara sobre tags, y crear un tag ya pasa por `main`, que está protegido.
+> · **Cuándo se revisa:** si alguna vez el job hace algo más que subir ese activo.
 
 Un cambio a `.github/workflows/` sigue siendo posible — pero pasa por rama, por CI y
 por revisión humana. Deja de ser un commit y pasa a ser un acto.
+
+### La consecuencia que sorprende al día siguiente
+
+No solo los cambios al workflow. **Ningún** cambio vuelve a entrar por `git push origin
+main`, y conviene saberlo antes de chocar con ello:
+
+```
+remote: error: GH006: Protected branch update failed for refs/heads/main.
+remote: - Required status check "certificacion" is expected.
+```
+
+La comprobación requerida no ha corrido sobre el commit nuevo, y no puede correr,
+porque corre al empujar. El primer push tras configurar estos cinco pasos es siempre
+el que rebota — **incluido el push que corrige el CI**. Nos pasó a nosotros, con la
+corrección de `v0.1.1` en la mano.
+
+El camino está previsto: el workflow dispara tambien en `pull_request`, así que el
+cambio entra por rama y PR. Lo que no está previsto es desmarcar la comprobación para
+pasar «solo esta vez» — eso es el punto 3 de esta misma lista, leído al revés.
+
+Si alguna vez el rebote se vuelve intolerable, la salida honesta no es abrir el
+candado: es preguntarse por qué hay tanta prisa por meter algo a `main` sin
+certificar.
 
 ## Por qué el runner autoalojado está descartado
 

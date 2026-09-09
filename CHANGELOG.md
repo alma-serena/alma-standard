@@ -2,7 +2,34 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
-## v0.1.0 — sin publicar
+## v0.1.1 — 2026-09-07
+
+Corrección de la **primera certificación externa real**. No añade normativa nueva: cierra
+la clase de fallo que ese run reveló, y escribe la regla que la generaliza.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-10 · D-C47** | El workflow pasa cada verificador a `bash` —igual que hace el hook—, los cuatro scripts pasan a modo `100755` en el índice, y `METODOLOGIA.md` gana la sección «Los dos niveles invocan igual» | El run `34152938074` sobre el commit `11b6d512` falló con `./verificadores/coherencia.sh: Permission denied` (exit 126). El hook aprobó en verde el mismo árbol: pasaba cada script a `bash`, que ignora el bit, mientras el workflow lo ejecutaba directamente, que lo exige. Sobre Windows con `core.filemode = false` el bit no existe en el sistema de archivos, así que **ninguna comprobación local podía verlo**. El caso incluye a `.githooks/pre-commit`, que tampoco era ejecutable: al clonar en Linux, git lo habría omitido **en silencio** y la prevención local habría desaparecido sin aviso |
+| **V-11** | `INSTALACION.md` deja de declararse inedito y gana la seccion «Y el regimen que impone: a `main` no se empuja»; `RAIZ-DE-CONFIANZA.md` gana «La consecuencia que sorprende al dia siguiente» | Configurar la raiz de confianza vuelve `git push origin main` estructuralmente imposible: la comprobacion requerida no ha corrido sobre el commit nuevo y no puede correr, porque corre al empujar. Los dos documentos que llevan a esa configuracion no lo decian, asi que todo proyecto que los siguiera en orden se estrellaria en su segundo commit — nosotros nos estrellamos con la correccion de este mismo CHANGELOG en la mano. Se escribe en los dos: en el instalador porque es quien lo sufre, y en la raiz de confianza porque es quien lo causa |
+| **V-12 · D-C48** | El manifest de integridad deja de calcularse y pasa a **publicarse**: lo produce `.github/workflows/manifest.yml` al empujarse un tag, desde `verificadores/manifest.sh`, y se adjunta al release. El arbol del estandar NO lo lleva y `verificadores/coherencia.sh` **falla** si aparece. `alma:upgrade` lo descarga en vez de regenerarlo, y `verificadores/catalogo.sh` **deriva de el** que rutas son andamiaje. El conjunto verbatim se declara una sola vez, en el bloque `verbatim` del paso 1 de `INSTALACION.md` | El registro se contradecia: `INSTALACION.md` decia que `verificadores/coherencia.sh` exige el manifest del estandar, y `ALMA-UPGRADE.md` decia que un checksum calculado contra si mismo no verifica nada. Las dos no podian ser verdad. Un manifest que el proyecto calcula sobre los archivos que se descargo comprueba que coinciden con lo que se descargo, no con lo que el estandar publico: un `alma:upgrade` alterado produce un manifest consistente de archivos alterados. Es la misma linea que ya separaba OPS-07 nivel 1 de nivel 2, aplicada a la integridad. De paso cierra el hueco que `verificadores/catalogo.sh` confesaba en un comentario: su lista blanca de andamiaje estaba escrita de memoria, y al estrenarse olvido dos archivos `[D-C46]` |
+| **V-13** | `METODOLOGIA.md` se reordena: la tabla `Situación / Camino` vuelve bajo su encabezado `Caminos infelices`, y las tres secciones de principio —`[D-C47]`, `[D-C46]`, `[D-C41]`— pasan detras de ese bloque. Contenido identico, verificado linea a linea | Al insertarlas en sesiones anteriores quedaron **entre** el encabezado y la tabla que ese encabezado presenta, a 38 lineas de distancia, y ademas mezclaban principios transversales dentro de un bloque sobre excepciones operativas. Se corrige ahora porque ningun proyecto ha instalado todavia `v0.1.0`: es la ultima ventana en que mover texto verbatim cuesta cero atencion humana |
+| **V-14** | El paso 4 de `RAIZ-DE-CONFIANZA.md` se reformula por su INTENCION —que ninguna credencial ponga codigo en `main` por su cuenta— con dos formas: restriccion por usuario en organizacion, «Require a pull request before merging» en cuenta personal. Excepcion declarada con sus cuatro campos, y el limite de la compensacion escrito | El paso estaba redactado por su MECANISMO, y ese mecanismo no existe en cuenta personal: la API responde que solo los repos de organizacion admiten restricciones por usuario. Un paso irrealizable se salta y deja de leerse. Al reformularlo aparecio ademas que no era redundante con el paso 1: el SHA de la cabeza de un PR en verde puede empujarse directo a `main`, y la comprobacion requerida se da por cumplida porque literalmente lo esta. El paso 4 cerraba ese atajo, y exigir PR lo cierra igual |
+| **V-15**| Las tres secciones de principio de `METODOLOGIA.md` pasan a colgar de un encabezado propio, **«La regla vale lo que vale su comprobación»**, con el criterio de entrada escrito | No eran tres temas sueltos: `[D-C46]` dice que una regla escrita como lista de prohibiciones no se puede comprobar completa; `[D-C41]`, que una exencion sin condicion de salida no se puede comprobar temporal; `[D-C47]`, que una comprobacion que mira otra cosa no comprueba nada y encima dice que si. Es el mismo eje tres veces, y estaba implicito. Un encabezado que agrupa sin decir que agrupa es un cajon, asi que el criterio de entrada va escrito |
+
+### Lo que este fallo demuestra
+
+Es la primera evidencia empírica de que OPS-07 nivel 2 no es ceremonia. El defecto era
+invisible desde dentro del working copy —no por descuido, sino porque el entorno local
+carecía del concepto que el externo comprueba— y se manifestó en el primer run fuera del
+perímetro del agente, sobre un commit ya empujado. Ninguna cantidad de prevención local
+lo habría encontrado.
+
+Queda registrado como el argumento de por qué el nivel 1 **no certifica**, escrito por el
+propio estándar contra sí mismo.
+
+---
+
+## v0.1.0 — publicada 2026-09-07 · `11b6d512` · tag `v0.1.0`
 
 Primera redacción de los artefactos normativos, derivada del **Documento Maestro de
 Diseño ALMA Dev v0.2.1** (2026-08-13). Es el paso 5 de ALMA-PLAN-01, pendiente desde
@@ -147,8 +174,17 @@ un optimizador literal?»**, no «¿la cumpliría alguien razonable?». Y recuer
 abandono por fricción es un modo de falla tan real como una vulnerabilidad: si cumplir
 cuesta más que evadir, la regla está mal diseñada, no el que la evade.
 
-### Pendiente antes de v0.1.0
+### Pendiente
 
-- Publicar el repo y crear el primer tag: sin él no hay manifest ni ancla.
-- Configurar las comprobaciones requeridas en la plataforma (`RAIZ-DE-CONFIANZA.md`).
-- `.agents/rules/anexos/android.md` sigue vacío a propósito, hasta la primera misión real.
+Se poda cuando algo se cierra. Los dos primeros ítems de esta lista —publicar el repo
+con su primer tag, y configurar las comprobaciones requeridas en la plataforma— se
+cumplieron el 2026-09-07 y salieron de aquí.
+
+- **`.agents/rules/anexos/android.md` sigue vacío a propósito**, hasta la primera
+  misión real que lo necesite. Un anexo escrito sin proyecto que lo use es adivinación.
+- **El paso 4 de `RAIZ-DE-CONFIANZA.md` no existe en una cuenta personal de GitHub**
+  —restringir quién puede empujar a `main` requiere organización—. Necesita excepción
+  declarada con sus cuatro campos, o mudanza a una organización.
+- **`v0.1.1` sin anclar.** El tag se crea después del verde de `certificacion` sobre el
+  PR, no antes. `v0.1.0` se ancló antes de que ninguna corrida externa hubiera pasado
+  nunca, y esa corrida falló.
