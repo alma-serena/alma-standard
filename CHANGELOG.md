@@ -238,3 +238,12 @@ corrigen: la corrección es una versión, sacarlos de un log append-only no.
   cambio en el estándar: separar «certificar el estándar» de «certificar un consumidor»,
   corriendo en el consumidor solo lo que `INSTALACION.md` ya marca como su DoD
   —`verificadores/catalogo.sh`, `verificadores/secretos.sh` y el puente `CLAUDE.md`—.
+
+**Sobre la numeración —los huecos.** Los identificadores `H-H` son el registro del
+trabajo sobre el primer consumidor, no una serie propia de este CHANGELOG; por eso
+llegan con saltos. Aquí solo entran los que son deuda del estándar —H-H5, H-H7, H-H10,
+H-H11— más H-H8 por venir de la misma tanda. Los que faltan viven fuera de este
+registro: H-H1 a H-H4 son defectos de `adapters/hermes.py`, del Runtime de Hermes y no
+del estándar, y H-H6 —ligar `HERMES_HOME` no aísla los secretos— se anota en
+`proyecto-hermes.md` de alma-hermes. Los números ausentes no corresponden a deudas del
+estándar.
