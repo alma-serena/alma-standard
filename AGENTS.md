@@ -36,10 +36,17 @@ estructura desde el estándar y genera el REQ retroactivo en el cierre.
 - **Cerrar en orden invariante:** verificar → respaldar → documentar → commitear.
 - **La evidencia válida es un run externo.** Output pegado por el agente no es
   evidencia (OPS-07). Hasta que exista CI remoto hay prevención, no certificación.
+  Y toda medición —un conteo, un `grep`, la salida de una herramienta— se cita junto
+  al corpus sobre el que corrió: una medición cuyo corpus incluye la salida de quien
+  mide no es evidencia, se confirma sola.
 - **Toda declaración de conformidad exige ancla externa** — push al remoto. Es acto
   humano: el agente no lo ejecuta.
 - **Un objetivo verificable y un cierre por misión.** Si aparecen dos, son dos
   misiones.
+- **Un commit redactado con un agente lo declara**, con un único trailer al pie:
+  `Co-Authored-By: <nombre del modelo> <correo>`. Nada más. Una URL de sesión apunta
+  a una conversación privada que ningún lector de un repositorio público puede abrir,
+  y una cita que no se puede seguir no es registro.
 
 ## Must Never
 
