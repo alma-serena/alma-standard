@@ -188,3 +188,53 @@ cumplieron el 2026-09-07 y salieron de aquí.
 - **`v0.1.1` sin anclar.** El tag se crea después del verde de `certificacion` sobre el
   PR, no antes. `v0.1.0` se ancló antes de que ninguna corrida externa hubiera pasado
   nunca, y esa corrida falló.
+
+### Primer consumidor real (alma-hermes) — deudas para v0.1.2
+
+Cinco hallazgos que solo aparecieron al instalar el estándar en un proyecto de verdad
+—no en una lectura ni en un test sintético—. Cuatro son del estándar; H-H8 es del
+instalador de Hermes y se anota aquí por venir de la misma tanda. Se registran, no se
+corrigen: la corrección es una versión, sacarlos de un log append-only no.
+
+- **H-H5 · el modo `estandar` de `.alma/modo-mision` exime sin condición de salida.** La
+  salida temprana de la sección 0 de `verificadores/catalogo.sh` devuelve «sin fallas»
+  sin comprobar nada en cuanto el modo es `estandar` —o el árbol tiene `AGENTS.md`,
+  `INSTALACION.md` y `plantillas/`—, y esa exención no declara condición de salida, a
+  diferencia de `genesis`, que falla en cuanto hay código de producto. D-C41 se enunció
+  como regla general —«todo estado que exime declara su condición de salida, y es
+  comprobable»— y el modo `estandar` la incumple: nada saca a un árbol de ese estado.
+- **H-H7 · el estándar exige `.gitattributes` y no lo distribuye.** `METODOLOGIA.md` lo
+  pide con `* text=auto eol=lf` —«un `\r` en la shebang es `exit 126` con otro nombre»—,
+  pero el bloque verbatim del paso 1 de `INSTALACION.md` no lo lista: copia `AGENTS.md`,
+  `CLAUDE.md`, `METODOLOGIA.md`, `.agents/`, `.githooks/`, `.github/workflows/` y
+  `verificadores/`, y nada más. Un proyecto que siga la instalación al pie de la letra
+  queda sin `.gitattributes`; en Windows los archivos verbatim entran con CRLF y reaparece
+  la clase de fallo que V-10/D-C47 ya cerró.
+- **H-H8 · `distribution_owned` omitido copia el árbol entero** *(instalador de Hermes, no
+  el estándar)*. Si se omite `distribution_owned`, el instalador de perfiles de Hermes no
+  restringe a su lista por defecto: copia todas las entradas de primer nivel menos las de
+  usuario, con un comentario explícito —«Do NOT narrow to DEFAULT_DIST_OWNED»— que
+  contradice su propia documentación. Consecuencia para un perfil ALMA: hay que declarar
+  `distribution_owned` explícito, o el estándar entero viajaría dentro del perfil. La
+  corrección es de Hermes; se anota aquí para no perderla.
+- **H-H10 · el estándar no instala la identidad del ejecutor.** El paso 3 de
+  `INSTALACION.md` fija `git config core.hooksPath .githooks`, pero no `user.name` ni
+  `user.email`. Un proyecto nuevo en una máquina con identidad global ajena registra
+  commits con el autor equivocado en silencio —le pasó a alma-hermes, cuyo commit raíz
+  cayó a otra cuenta y hubo que rehacerlo—. D-C37 exige registrar la identidad del
+  ejecutor; para que el autor del commit lo refleje, el proyecto necesita identidad local,
+  y la instalación no la pone.
+- **H-H11 · el nivel 2 distribuido certifica el árbol del estándar, no el del consumidor.**
+  El bloque verbatim del paso 1 copia `.github/workflows/`, y el job `certificacion` corre
+  en su paso 3 `verificadores/coherencia.sh` y `verificadores/manifest.sh`, que comprueban
+  la estructura del árbol del estándar —sus referencias internas, `INSTALACION.md`,
+  `plantillas/`, `ALMA-UPGRADE.md`, `CHANGELOG.md`—. El propio `INSTALACION.md` ya lo dice
+  en el paso 1: coherencia «en un proyecto copiado va a fallar, y ese fallo no significa
+  nada». La contradicción es que aun así se distribuye el workflow que la corre como
+  comprobación requerida. Evidencia: el primer push de alma-hermes dejó `certificacion` en
+  rojo con 109 fallas, y solo la sección 2 —orden de lectura de `AGENTS.md`— en verde. Un
+  consumidor queda con tres salidas y dos son malas —rojo permanente, o modificar su raíz
+  de confianza, que es justo lo que OPS-07 prohíbe que el commit toque—; la buena exige
+  cambio en el estándar: separar «certificar el estándar» de «certificar un consumidor»,
+  corriendo en el consumidor solo lo que `INSTALACION.md` ya marca como su DoD
+  —`verificadores/catalogo.sh`, `verificadores/secretos.sh` y el puente `CLAUDE.md`—.
