@@ -98,11 +98,41 @@ if [ -f verificadores/catalogo.sh ]; then
 fi
 
 # --- veredicto ---------------------------------------------------------------
+# D-C46 · se enumera lo comprobado Y lo que quedo sin comprobar. "Sin descuidos"
+# a secas se lee como "todo bien", y el nivel 1 no puede afirmar eso: la mitad de
+# la DoD corre solo en el nivel 2. Correrla aqui haria el hook lento, y un hook
+# lento ensena --no-verify, que apaga tambien el barrido de secretos (D-C44).
+# Asi que el nivel 1 no predice al nivel 2: declara en que se diferencia de el.
 if [ "$fallos" -gt 0 ]; then
   echo "[OPS-07 n1] $fallos comprobacion(es) fallaron. Commit detenido."
   echo "[OPS-07 n1] Si esto es un falso positivo, --no-verify existe y queda"
   echo "            registrado como lo que es: una decision tuya, no del estandar."
   exit 1
 fi
-echo "[OPS-07 n1] sin descuidos detectados. Recuerda: esto NO es certificacion."
+
+echo "[OPS-07 n1] comprobado aqui: integridad verbatim, puente, modo de mision,"
+echo "            barrido de secretos sobre el DIFF, catalogo (solo aviso)."
+
+PROY="$(ls proyecto-*.md 2>/dev/null | head -1 || true)"
+TESTS=""
+[ -n "$PROY" ] && TESTS="$(sed -n 's/^tests:[[:space:]]*//p' "$PROY" | head -1)"
+
+echo "[OPS-07 n1] NO comprobado aqui, y el job 'certificacion' SI lo hara:"
+echo "            . catalogo de interfaz, como bloqueo y no como aviso"
+echo "            . barrido de secretos sobre el ARBOL COMPLETO, no solo el diff"
+if [ -z "$PROY" ]; then
+  echo "            . la DoD del proyecto: no hay proyecto-<nombre>.md, y el job"
+  echo "              fallara por eso. Modo genesis no exime al nivel 2."
+else
+  case "$TESTS" in
+    ""|"no existe"|"ninguno"|"<"*)
+      echo "            . la DoD del proyecto: $PROY no declara un 'tests:' ejecutable."
+      echo "              El job fallara salvo excepcion vigente declarada ahi mismo." ;;
+    *)
+      echo "            . la DoD que $PROY declara:"
+      echo "                $TESTS" ;;
+  esac
+fi
+
+echo "[OPS-07 n1] Esto NO es certificacion. La certificacion vive fuera del repo."
 exit 0
