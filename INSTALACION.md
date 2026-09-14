@@ -62,7 +62,7 @@ algo se rompió.
 ### 1 · Copiar el estándar verbatim
 
 Al raíz del proyecto, exactamente estas rutas. **Esta lista es la fuente única del
-conjunto verbatim** `[D-C48]`: la lee `verificadores/manifest.sh` para saber qué cubre
+conjunto verbatim** `[D-C48]`: la lee `verificadores-estandar/manifest.sh` para saber qué cubre
 el manifest, y no se enuncia en ningún otro sitio — dos listas de lo mismo terminan
 diciendo cosas distintas, que es la divergencia que SAD-05 prohíbe.
 
@@ -93,10 +93,11 @@ que haya manifest hará fallar el nivel 1 en cada commit.
 `INSTALACION.md` y `plantillas/` **no** se copian: son material del estándar, no del
 proyecto.
 
-> **Sobre `verificadores/`:** `verificadores/catalogo.sh` y `verificadores/secretos.sh` verifican **tu** proyecto y
-> por eso viajan. `verificadores/coherencia.sh` verifica el árbol del **estándar** —exige su
-> `CHANGELOG.md`, sus referencias internas, su manifest— y **no es parte de tu DoD**: en
-> un proyecto copiado va a fallar, y ese fallo no significa nada sobre tu instalación.
+> **Sobre `verificadores/`:** lo que está ahí verifica **tu** proyecto y por eso viaja.
+> La DoD documental del propio estándar vive en `verificadores-estandar/`, hermano y
+> no hijo: el bloque de arriba enumera `verificadores/`, y `git ls-files` no alcanza
+> al hermano. Un verificador nuevo del consumidor viaja por caer en la carpeta
+> correcta, no porque alguien se acuerde de listarlo `[D-C46]`.
 
 ### 2 · Comprobar el puente `CLAUDE.md`
 

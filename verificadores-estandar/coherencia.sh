@@ -63,12 +63,12 @@ echo "== 4 · el manifest se puede generar =="
 # Lo que si se comprueba aqui es que el generador corre y cubre algo.
 if [ -f .alma/manifest.sha256 ]; then
   err ".alma/manifest.sha256 esta en el arbol. No debe estar (D-C48): el manifest se genera en el release, no se commitea"
-elif [ ! -f verificadores/manifest.sh ]; then
-  err "falta verificadores/manifest.sh: sin generador no hay manifest que publicar"
-elif salida="$(bash verificadores/manifest.sh 2>&1)"; then
+elif [ ! -f verificadores-estandar/manifest.sh ]; then
+  err "falta verificadores-estandar/manifest.sh: sin generador no hay manifest que publicar"
+elif salida="$(bash verificadores-estandar/manifest.sh 2>&1)"; then
   ok "el generador corre y cubre $(printf '%s\n' "$salida" | wc -l | tr -d ' ') archivos verbatim"
 else
-  err "verificadores/manifest.sh fallo: $salida"
+  err "verificadores-estandar/manifest.sh fallo: $salida"
 fi
 
 echo "== 5 · CHANGELOG al dia =="

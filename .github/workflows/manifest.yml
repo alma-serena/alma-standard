@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Generar el manifest desde el arbol del tag
-        run: bash ./verificadores/manifest.sh > manifest.sha256
+        run: bash ./verificadores-estandar/manifest.sh > manifest.sha256
 
       - name: Dejarlo en el log del run
         run: |

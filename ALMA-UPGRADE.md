@@ -69,7 +69,7 @@ propias.
 
 - Cubre **todos** los archivos verbatim del estándar, y solo esos. El conjunto se
   declara una sola vez, en el bloque `verbatim` del paso 1 de `INSTALACION.md`, que es
-  lo que lee `verificadores/manifest.sh`.
+  lo que lee `verificadores-estandar/manifest.sh`.
 - **No cubre** `proyecto-<nombre>.md`: es el único editable, y por eso no puede estar.
 
 ### Quién lo genera, y por qué no el proyecto `[D-C48]`
@@ -91,7 +91,7 @@ De ahí se siguen dos cosas que parecen detalles y no lo son:
 
 | | Por qué |
 |---|---|
-| El repositorio del estándar **no lleva** `manifest.sha256` en su árbol | Estaría firmado por quien puede editar los archivos. `verificadores/coherencia.sh` **falla** si aparece |
+| El repositorio del estándar **no lleva** `manifest.sha256` en su árbol | Estaría firmado por quien puede editar los archivos. `verificadores-estandar/coherencia.sh` **falla** si aparece |
 | Sin red, el comando falla y no cae a caché | Ya estaba escrito para el paso 1, y por la misma razón: el ancla es externa o no es ancla |
 
 ### Dónde vive en el proyecto
