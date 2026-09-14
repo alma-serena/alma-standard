@@ -76,12 +76,6 @@ hay_producto() {
 PROY="$(ls proyecto-*.md 2>/dev/null | head -1 || true)"
 MODO="$(cat .alma/modo-mision 2>/dev/null || echo '')"
 
-# El repositorio del propio estandar no es un proyecto que lo adopte: es el estandar.
-if [ "$MODO" = "estandar" ] || { [ -f AGENTS.md ] && [ -f INSTALACION.md ] && [ -d plantillas ]; }; then
-  ok "arbol del propio estandar: no aplica la capa de proyecto"
-  echo "catalogo: sin fallas"; exit 0
-fi
-
 if [ -z "$PROY" ]; then
   if [ -n "$(hay_producto)" ]; then
     err "no hay proyecto-<nombre>.md y el arbol YA tiene archivos que no son andamiaje."
