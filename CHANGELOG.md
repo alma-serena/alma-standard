@@ -2,6 +2,45 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.2 — 2026-09-15
+
+Las cuatro deudas que dejó el **primer consumidor real**. Ninguna se descubrió leyendo:
+todas aparecieron al instalar el estándar en un proyecto de verdad y ver qué se rompía.
+El hilo común es el mismo en las diez filas — donde había una declaración, ahora hay una
+derivación o una comprobación.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-16** | La viñeta de evidencia de `AGENTS.md` se ensancha: toda medición se cita junto al corpus sobre el que corrió | La regla cubría los runs de certificación, no las mediciones ad-hoc, y por ahí se coló un conteo de hallazgos cuyo corpus incluía la salida de quien medía. Una medición así se confirma sola: es `C-15` en forma de medición. No abre número de decisión — es el alcance que a la regla le faltaba |
+| **V-17** | `AGENTS.md` fija la atribución: un único `Co-Authored-By`, sin URL de sesión | La convención no estaba escrita, así que la fijaba el arnés de cada sesión —los commits de `v0.1.x` llevan dos líneas, los posteriores ninguna, y ninguna de las dos cosas fue una decisión—. Eso es un actor no declarado escribiendo en el registro. La URL no viaja porque el repositorio es público y apunta a una sesión privada: una cita que ningún lector puede seguir |
+| **V-18 · H-H11** | El nivel 2 se parte en **piso no declarable** —puente, `verificadores/secretos.sh`, `verificadores/catalogo.sh`— más la **DoD que el proyecto declara** en `tests:`. Sin `tests:` ejecutable el job falla, salvo excepción con `dod-excepcion-desde:` y `dod-revision:` que el propio job comprueba `[D-C41]`. El veredicto imprime el límite de lo que el verde afirma | `.github/workflows/certificacion.yml` viajaba verbatim y corría sobre el consumidor la DoD documental **del estándar**. En alma-hermes: 109 fallas —98 referencias de material importado, 9 de borradores, 1 de manifest, 1 de CHANGELOG ausente—, ninguna con significado sobre esa instalación. `INSTALACION.md` ya lo admitía en prosa mientras `RAIZ-DE-CONFIANZA.md` mandaba hacer requerido ese mismo check: la prosa avisaba y el mecanismo obligaba. Lo que el verde puede afirmar queda acotado en el propio job, porque `tests:` vive en el repositorio y un commit puede debilitarlo |
+| **V-19 · H-H5** | El estándar estrena `proyecto-estandar.md` y pasa por el mismo workflow que impone. Se elimina la salida temprana «árbol del propio estándar» de `verificadores/catalogo.sh` | Esa exención no declaraba condición de salida, que es justo lo que `D-C41` exige. Al someterse el estándar a su propia regla la excepción deja de hacer falta: se borra en vez de documentarse. Medido antes de escribirlo — `verificadores/catalogo.sh` pasa sobre el árbol del estándar sin el escape |
+| **V-20** | `verificadores-estandar/coherencia.sh` y `verificadores-estandar/manifest.sh` se mudan a `verificadores-estandar/`, **hermano y no hijo** de `verificadores/` | Son maquinaria del estándar y no DoD del consumidor. Como subdirectorio no servía: `git ls-files -- verificadores` arrastra los hijos, comprobado. Hermano sí queda fuera, y la pertenencia pasa a derivarse de dónde vive el archivo en vez de que alguien la recuerde `[D-C46]`. Un verificador nuevo del consumidor viaja por caer en la carpeta correcta |
+| **V-21** | El veredicto del nivel 1 enumera **lo comprobado y lo NO comprobado**, con el comando textual que correrá el job | «Sin descuidos detectados» se lee como «todo bien», y el hook no puede afirmar eso: no corre la DoD del proyecto. Correrla aquí lo haría lento, y un hook lento enseña `--no-verify`, que apaga también el barrido de secretos `[D-C44]`. Así que el nivel 1 no pasa a predecir al nivel 2 — pasa a declarar en qué se diferencia |
+| **V-22** | El cierre de misión corre el barrido de secretos **sobre el árbol**, no sobre el diff | De las cuatro comprobaciones de `verificadores/secretos.sh` dos son diff-only. Un secreto que entró en un commit anterior es invisible en local para siempre; la CI lo atrapa, pero ahí ya está en la rama. La ventana sin cubrir es la de en medio — commiteado y sin empujar, la única en que arreglarlo cuesta un `rebase` y no una rotación—, y la cadencia de misión es la que lo caro admite sin enseñar `--no-verify` |
+| **V-23 · H-H12** | `plantillas/` entra al bloque verbatim; lo que vive solo en el repositorio del estándar se **enlaza**, no se cita por ruta; y `verificadores-estandar/coherencia.sh` gana la sección **1b**: todo archivo verbatim solo cita rutas del conjunto verbatim | Cuatro archivos que viajan citaban rutas que no viajan, y la sección 1 no las veía porque en el árbol del estándar sí resuelven: solo faltan del otro lado. Un agente en el consumidor recibía la orden de leer archivos que ahí no existen. `ALMA-UPGRADE.md` no viaja porque tres de sus cinco citas apuntan a lo que por diseño se queda: meterlo al bloque no lo arreglaría. Lo que impide la quinta cita rota es 1b, probada también en negativo |
+| **V-24 · H-H7** | `verificadores/lineas.sh`: falla si algo que el andamiaje **ejecuta o parsea** tiene CRLF en el índice. Corre en el hook —antes del modo— y en el piso de la CI | Meter `.gitattributes` al bloque verbatim era lo obvio y lo peor: casi todo repositorio ya tiene el suyo, y «verbatim» significa copiar encima — el mismo daño que `INSTALACION.md` documenta haber causado con `AGENTS.md`. Así que se comprueba el efecto y no el mecanismo `[D-C46]`. Con `bash ./x.sh` el CRLF casi nunca grita: `cat .alma/modo-mision` devuelve `aplicacion\r`, ninguna rama del `case` coincide, y el hook acusa un modo inválido sobre un archivo que se ve correcto. Por eso va antes de la comprobación del modo. **No se pudo hacer fallar en el árbol del estándar** —su `.gitattributes` impide la condición—; se probó en negativo sobre un árbol sin normalizar |
+| **V-25 · H-H10** | El hook **falla** si el repositorio no declara `user.name` y `user.email` locales. La instalación gana los dos comandos y una fila en su tabla de comprobación | Sin identidad local se hereda la global, y en una máquina con más de una cuenta el primer commit queda atribuido a la equivocada en silencio — le pasó al commit raíz de alma-hermes. Que una identidad sea la **correcta** no es comprobable; que el repositorio la **declare** sí, y es la diferencia entre una decisión y una herencia. Solo nivel 1: la CI no tiene configuración local de git |
+
+### Lo que esta versión demuestra
+
+Los cuatro hallazgos son de la misma familia y ninguno era visible desde dentro: el
+estándar se comprobaba a sí mismo con reglas que solo tenían sentido sobre su propio
+árbol, y creía estar comprobando a sus consumidores. El arreglo estructural no fue
+corregir cuatro archivos — fue que **el estándar pasara a ser su propio primer
+consumidor**, con su `proyecto-estandar.md` y su turno en el mismo workflow.
+
+Tres de las comprobaciones nuevas —1b, `verificadores/lineas.sh` y la identidad— tienen la misma
+forma: no exigen un archivo ni una declaración, comprueban un efecto. Un proyecto que
+lo consiga de otro modo pasa igual `[D-C46]`.
+
+Y una que conviene no olvidar: **`verificadores/lineas.sh` no puede fallar en el repositorio donde
+vive.** Su condición la impide el `.gitattributes` del propio estándar. Se verificó en
+un árbol sin normalizar, porque un verificador que no se puede hacer fallar no prueba
+nada `[C-16]`.
+
+---
+
 ## v0.1.1 — 2026-09-07
 
 Corrección de la **primera certificación externa real**. No añade normativa nueva: cierra
@@ -176,18 +215,20 @@ cuesta más que evadir, la regla está mal diseñada, no el que la evade.
 
 ### Pendiente
 
-Se poda cuando algo se cierra. Los dos primeros ítems de esta lista —publicar el repo
-con su primer tag, y configurar las comprobaciones requeridas en la plataforma— se
-cumplieron el 2026-09-07 y salieron de aquí.
+Se poda cuando algo se cierra. Los dos primeros ítems se cumplieron el 2026-09-07; el
+paso 4 de `RAIZ-DE-CONFIANZA.md` y el anclaje de `v0.1.1` salieron de aquí con esa
+versión.
 
 - **`.agents/rules/anexos/android.md` sigue vacío a propósito**, hasta la primera
   misión real que lo necesite. Un anexo escrito sin proyecto que lo use es adivinación.
-- **El paso 4 de `RAIZ-DE-CONFIANZA.md` no existe en una cuenta personal de GitHub**
-  —restringir quién puede empujar a `main` requiere organización—. Necesita excepción
-  declarada con sus cuatro campos, o mudanza a una organización.
-- **`v0.1.1` sin anclar.** El tag se crea después del verde de `certificacion` sobre el
-  PR, no antes. `v0.1.0` se ancló antes de que ninguna corrida externa hubiera pasado
-  nunca, y esa corrida falló.
+- **El barrido de secretos del nivel 1 sigue mirando el diff**, no el árbol. Queda
+  declarado en el veredicto del hook en cada commit, y el cierre de misión cubre el
+  árbol `[V-22]`. Cerrarlo del todo exigiría correrlo en cada commit, y eso choca con
+  `[D-C44]`.
+- **Qué significa «cerrado» para un repositorio cuyo producto son prompts.** alma-hermes
+  declara hoy como `tests:` exactamente el piso, así que su verde no diría nada más que
+  el piso. Hasta resolverlo, lo honesto es que declare la excepción fechada que
+  `[V-18]` prevé.
 
 ### Primer consumidor real (alma-hermes) — deudas para v0.1.2
 
