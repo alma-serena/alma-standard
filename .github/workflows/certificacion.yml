@@ -35,6 +35,9 @@ jobs:
             exit 1; }
           echo "puente presente y guardado como import"
 
+      - name: Piso · fin de linea del andamiaje
+        run: bash ./verificadores/lineas.sh
+
       - name: Piso · barrido de secretos (regla sin excepcion)
         run: bash ./verificadores/secretos.sh
 
@@ -76,7 +79,7 @@ jobs:
       - name: Veredicto — acotado a lo que este job realmente verifico
         run: |
           echo "Verde significa DOS cosas, y solo dos:"
-          echo "  1. El piso paso: puente @AGENTS.md, barrido de secretos, catalogo."
+          echo "  1. El piso paso: puente @AGENTS.md, fin de linea, secretos, catalogo."
           echo "  2. El proyecto corrio lo que EL MISMO declaro en 'tests:' —o declaro"
           echo "     una excepcion vigente, y entonces el paso anterior lo dijo."
           echo
