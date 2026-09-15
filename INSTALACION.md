@@ -75,6 +75,7 @@ METODOLOGIA.md
 .githooks/
 .github/workflows/
 verificadores/
+plantillas/
 ```
 <!-- verbatim:fin -->
 
@@ -90,8 +91,10 @@ partes (qué · por qué · qué lo compensa · cuándo se revisa). Editar un ar
 copiado produce exactamente la divergencia que SAD-05 existe para impedir, y el día
 que haya manifest hará fallar el nivel 1 en cada commit.
 
-`INSTALACION.md` y `plantillas/` **no** se copian: son material del estándar, no del
-proyecto.
+`INSTALACION.md` **no** se copia: se lee una vez, desde el repositorio del estándar,
+antes de que exista la copia. `plantillas/` sí viaja — no es material de instalación:
+es el inventario de secciones de tu `proyecto-<nombre>.md` y la forma de tu catálogo,
+y se consulta cada vez que uno de los dos cambia.
 
 > **Sobre `verificadores/`:** lo que está ahí verifica **tu** proyecto y por eso viaja.
 > La DoD documental del propio estándar vive en `verificadores-estandar/`, hermano y

@@ -3,7 +3,8 @@
 Este archivo se copia **verbatim** en todo proyecto ALMA. No se edita nunca: su
 checksum está en el manifest publicado con el tag de `alma-standard` (OPS-07 n1).
 Mientras el proyecto no haya descargado ese manifest **la verificación está
-pendiente**: sin él, el hook avisa y no compara (ver `INSTALACION.md`).
+pendiente**: sin él, el hook avisa y no compara. Cómo obtenerlo está en
+[ALMA-UPGRADE.md](https://github.com/alma-serena/alma-standard/blob/main/ALMA-UPGRADE.md), que vive en el repositorio del estándar.
 Si tu proyecto necesita algo distinto, va en `proyecto-<nombre>.md`, el único
 archivo editable de la capa de proyecto (OPS-05).
 
@@ -14,8 +15,9 @@ del manifest de integridad justamente el archivo con las reglas duras.
 
 ## Orden de lectura
 
-0. `INSTALACION.md` — **una sola vez, al instalar el estándar**. No es material de
-   misión: si el proyecto ya está instalado, se salta.
+0. [INSTALACION.md](https://github.com/alma-serena/alma-standard/blob/main/INSTALACION.md) — **una sola vez, al instalar el estándar**.
+   Vive en el repositorio del estándar y no se copia: si estás leyendo esto dentro de
+   un proyecto, la instalación ya ocurrió y este punto se salta.
 1. Este archivo — reglas universales, sin excepciones.
 2. `proyecto-<nombre>.md` — identidad, stack, comandos, excepciones declaradas. Se
    crea en la instalación a partir de `plantillas/proyecto-EJEMPLO.md`.
