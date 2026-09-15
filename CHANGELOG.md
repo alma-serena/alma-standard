@@ -2,6 +2,16 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.4 — 2026-09-15
+
+El segundo hallazgo del primer upgrade real, también encontrado antes de ejecutarlo.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-27** | `.github/workflows/manifest.yml` comprueba si existe el generador antes de hacer nada. Si no está, el run sale limpio explicando que este repositorio no publica manifest sino que lo descarga | El workflow viaja dentro de `.github/workflows/` y publicar un manifest es un acto del estándar, no de quien lo adopta. Hasta `v0.1.1` era solo inútil en un consumidor; con el generador mudado a `verificadores-estandar/` pasó a **fallar** en cuanto alguien etiquetara `v*`. Y no había salida: `verificadores/andamiaje.sh` exime `.github/workflows/`, el manifest lo lista, así que quedaría listado, presente y roto — imposible de borrar sin romper la integridad. La condición es sobre lo que hay, no sobre quién se es: preguntar «¿soy el estándar?» es el escape que `[V-19]` borró |
+
+---
+
 ## v0.1.3 — 2026-09-15
 
 Un hallazgo del primer upgrade real, encontrado antes de ejecutarlo.
