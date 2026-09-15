@@ -35,6 +35,9 @@ jobs:
             exit 1; }
           echo "puente presente y guardado como import"
 
+      - name: Piso · nada sobra bajo el andamiaje
+        run: bash ./verificadores/andamiaje.sh
+
       - name: Piso · fin de linea del andamiaje
         run: bash ./verificadores/lineas.sh
 

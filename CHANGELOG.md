@@ -2,6 +2,16 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.3 — 2026-09-15
+
+Un hallazgo del primer upgrade real, encontrado antes de ejecutarlo.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-26** | `verificadores/andamiaje.sh`: falla si bajo una raíz del manifest hay un archivo que el manifest no lista. Corre en el hook y en el piso. El paso 3 de `.agents/workflows/migracion-estandar.md` manda borrar lo que salió del conjunto | El upgrade reemplaza lo verbatim, pero nada borra lo que dejó de pertenecer: el hook comprueba que lo listado coincida, no que no sobre nada. `v0.1.2` sacó dos archivos de `verificadores/`, y en un consumidor se habrían quedado ahí para siempre — quien corriera el viejo coherencia.sh vería otra vez las 109 fallas de un problema ya resuelto. El manifest ya es la enumeración, así que no hace falta recordar el anterior: basta que no sobre nada `[D-C46]`. Con una excepción declarada y sus cuatro campos — `.github/workflows/` admite añadidos porque la plataforma fija esa ruta, y un proyecto tiene que poder poner ahí su propia CI |
+
+---
+
 ## v0.1.2 — 2026-09-15
 
 Las cuatro deudas que dejó el **primer consumidor real**. Ninguna se descubrió leyendo:
