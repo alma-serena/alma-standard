@@ -10,19 +10,13 @@ Se lee **una vez, al empezar**. No es material de misión.
 
 ## Antes de empezar: en qué estado está el estándar
 
-`v0.1.0` está **publicada**: repositorio remoto y primer tag existen, anclados al
-commit `11b6d512`. Queda una pieza sin construir y conviene tenerla delante durante
-toda la instalación:
+`v0.1.2` es la versión vigente. Desde `v0.1.1` cada tag publica su manifest de
+integridad como activo del release `[D-C48]`, así que `alma:upgrade` lo **descarga** en
+vez de calcularlo, y la comprobación de integridad del nivel 1 tiene contra qué comparar
+desde el primer día.
 
-- **Todavía no hay manifest que descargar.** El tag ya no es el impedimento —existe—,
-  pero `v0.1.0` se publicó antes de que existiera el job que lo produce, así que ese
-  release no lleva activo. Desde `v0.1.1` sí. Mientras el proyecto no tenga
-  `.alma/manifest.sha256`, la comprobación de integridad del hook **avisa y no
-  falla**: no tiene contra qué comparar, así que una edición local de un archivo
-  verbatim no la detecta nadie.
-
-Nada de esto se disimula en el resto del documento. Cuando un paso no puede
-verificarse todavía, lo dice.
+Nada de esto se disimula en el resto del documento. Cuando un paso no puede verificarse
+todavía, lo dice.
 
 ## Y el régimen que impone: a `main` no se empuja
 
