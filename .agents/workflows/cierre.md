@@ -23,9 +23,14 @@ local, no certificación: se declara así y no se finge lo contrario.
 - **Cambios en `tests/`**: admisibles sin REQ solo si el árbol sintáctico de las
   aserciones no cambió. Renombrar un método o reordenar imports, sí; alterar qué se
   asevera o mover aserciones entre tests renombrados, no — se llame como se llame.
-- **Barrido de secretos** antes de commitear: `verificadores/secretos.sh --diff`. El
-  mismo verificador lo corre el job `certificacion` sobre el árbol — el local previene,
-  el remoto certifica.
+- **Barrido de secretos** antes de commitear, y **sobre el árbol**, no sobre el diff:
+  `bash verificadores/secretos.sh`. El hook ya miró lo escenificado en cada commit;
+  esto es lo que atrapa un secreto que entró **antes** —de que el hook existiera, por
+  `--no-verify`, o en el historial previo de un repo que adopta el estándar después—.
+  Corre una vez por misión y no una por commit, que es la cadencia que lo caro admite
+  sin enseñar `--no-verify` `[D-C44]`. El mismo verificador lo corre el job
+  `certificacion`: el local previene mientras arreglarlo cuesta un `rebase`, el remoto
+  certifica cuando ya cuesta una rotación.
 
 ## Commit
 

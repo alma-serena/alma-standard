@@ -120,6 +120,7 @@ TESTS=""
 echo "[OPS-07 n1] NO comprobado aqui, y el job 'certificacion' SI lo hara:"
 echo "            . catalogo de interfaz, como bloqueo y no como aviso"
 echo "            . barrido de secretos sobre el ARBOL COMPLETO, no solo el diff"
+echo "              —y el cierre de mision lo corre en local antes de commitear—"
 if [ -z "$PROY" ]; then
   echo "            . la DoD del proyecto: no hay proyecto-<nombre>.md, y el job"
   echo "              fallara por eso. Modo genesis no exime al nivel 2."
