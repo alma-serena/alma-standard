@@ -41,6 +41,17 @@ if [ -f AGENTS.md ]; then
   fi
 fi
 
+# --- 2b · fin de linea del andamiaje (H-H7) ---------------------------------
+# Va ANTES del modo a proposito: un .alma/modo-mision con CRLF hace que la seccion
+# siguiente acuse "modo invalido" sobre un archivo que se ve correcto. Primero se
+# nombra la causa.
+if [ -f verificadores/lineas.sh ]; then
+  if ! bash verificadores/lineas.sh; then
+    aviso "FALLO: fin de linea. Ver la salida de arriba."
+    fallos=$((fallos+1))
+  fi
+fi
+
 # --- 3 · frontera de modo de mision (SAD-06) -------------------------------
 # El modo es OBLIGATORIO y su ausencia FALLA. Antes solo avisaba: un optimizador
 # literal que no creaba el archivo, o escribia cualquier otra cosa, no entraba a
@@ -110,7 +121,8 @@ if [ "$fallos" -gt 0 ]; then
   exit 1
 fi
 
-echo "[OPS-07 n1] comprobado aqui: integridad verbatim, puente, modo de mision,"
+echo "[OPS-07 n1] comprobado aqui: integridad verbatim, puente, fin de linea,"
+echo "            modo de mision,"
 echo "            barrido de secretos sobre el DIFF, catalogo (solo aviso)."
 
 PROY="$(ls proyecto-*.md 2>/dev/null | head -1 || true)"
