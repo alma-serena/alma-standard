@@ -123,6 +123,8 @@ estándar no lo daba por dicho y había que inventarlo.
 ```
 git init      # solo si aún no hay repositorio
 git config core.hooksPath .githooks
+git config user.name  "Tu Nombre"
+git config user.email "tu@correo"
 ```
 
 **Sin este comando, `.githooks/pre-commit` no se ejecuta nunca.** Git solo corre
@@ -136,6 +138,14 @@ roto, ni el modo de misión ausente, ni la edición de un archivo verbatim.
 
 Comprobación: `git config --get core.hooksPath` debe devolver `.githooks`. Si
 devuelve vacío, el paso no está hecho.
+
+**Las dos últimas no son cortesía.** Sin identidad local el repositorio hereda la
+global, y en una máquina con más de una cuenta el primer commit puede quedar atribuido
+a la equivocada **sin ningún aviso** — le pasó al commit raíz de `alma-hermes` y hubo
+que rehacerlo. D-C37 exige registrar la identidad del ejecutor; para que el autor del
+commit la refleje, el repositorio tiene que declararla. El hook lo comprueba y **falla**
+si falta: no se puede saber si una identidad es la correcta, pero sí exigir que sea
+una decisión y no una herencia.
 
 ### 4 · Crear `proyecto-<nombre>.md`
 
@@ -196,6 +206,7 @@ Se corre a mano, en el raíz del proyecto:
 | Comprobar | Comando | Esperado |
 |---|---|---|
 | hook activo | `git config --get core.hooksPath` | `.githooks` |
+| identidad | `git config --local user.email` | tu correo, no vacío |
 | puente | `head -1 CLAUDE.md` | `@AGENTS.md` |
 | capa de proyecto | `ls proyecto-*.md` | un archivo, o modo génesis declarado |
 | modo de misión | `cat .alma/modo-mision` | uno de los cuatro valores |

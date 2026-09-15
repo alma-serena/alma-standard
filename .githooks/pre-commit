@@ -52,6 +52,21 @@ if [ -f verificadores/lineas.sh ]; then
   fi
 fi
 
+# --- 2c · identidad del ejecutor (D-C37, H-H10) -----------------------------
+# No se puede comprobar que una identidad sea la CORRECTA. Si se puede exigir que el
+# repositorio la DECLARE en vez de heredar la global en silencio, que es como el
+# commit raiz de un proyecto acaba atribuido a otra cuenta sin que nadie lo note.
+# Misma forma que el modo de mision: no se interpreta el silencio.
+if [ -z "$(git config --local user.email 2>/dev/null)" ] \
+|| [ -z "$(git config --local user.name 2>/dev/null)" ]; then
+  aviso "FALLO: este repositorio no declara la identidad del ejecutor."
+  aviso "       Sin ella se hereda la identidad global, y un commit puede quedar"
+  aviso "       atribuido a otra cuenta sin aviso. Declarala aqui:"
+  aviso "           git config user.name  \"Tu Nombre\""
+  aviso "           git config user.email \"tu@correo\""
+  fallos=$((fallos+1))
+fi
+
 # --- 3 · frontera de modo de mision (SAD-06) -------------------------------
 # El modo es OBLIGATORIO y su ausencia FALLA. Antes solo avisaba: un optimizador
 # literal que no creaba el archivo, o escribia cualquier otra cosa, no entraba a
@@ -122,7 +137,7 @@ if [ "$fallos" -gt 0 ]; then
 fi
 
 echo "[OPS-07 n1] comprobado aqui: integridad verbatim, puente, fin de linea,"
-echo "            modo de mision,"
+echo "            identidad del ejecutor, modo de mision,"
 echo "            barrido de secretos sobre el DIFF, catalogo (solo aviso)."
 
 PROY="$(ls proyecto-*.md 2>/dev/null | head -1 || true)"
