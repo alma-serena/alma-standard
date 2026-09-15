@@ -31,6 +31,35 @@ done <<< "$(grep -rnoE '`[.A-Za-z0-9_/-]+\.(md|sh|yml|json)`' --include='*.md' .
             | sed 's/`//g' | awk -F: '{print $1":"$3}')"
 [ "$faltan" -eq 0 ] && ok "todas las referencias resuelven a su ruta"
 
+echo "== 1b · lo que viaja solo cita lo que viaja =="
+# H-H12 · un archivo verbatim que cita una ruta fuera del conjunto verbatim le da al
+# consumidor una instruccion imposible: el archivo citado no esta en su arbol. La
+# seccion 1 no lo veia porque aqui, en el arbol del estandar, la ruta SI resuelve.
+# Lo que vive solo en el repositorio del estandar se ENLAZA, no se cita por ruta.
+verb="$(awk '/verbatim:inicio/{f=1;next} /verbatim:fin/{f=0} f' INSTALACION.md \
+        | grep -v '^```' | tr -d ' \t' | grep -v '^$' || true)"
+if [ -z "$verb" ]; then
+  err "el bloque verbatim de INSTALACION.md esta vacio: no se pudo comprobar 1b"
+else
+  norm() { printf '%s\n' "$1" | awk -F/ '{n=0;for(i=1;i<=NF;i++){if($i==".."){if(n>0)n--}else if($i!="."&&$i!=""){a[++n]=$i}};s="";for(i=1;i<=n;i++)s=s (i>1?"/":"") a[i];print s}'; }
+  viaja() { for e in $verb; do e="${e%/}"; case "$1" in "$e"|"$e"/*) return 0 ;; esac; done; return 1; }
+  rotas=0
+  # shellcheck disable=SC2086
+  for f in $(git ls-files -- $verb | grep '\.md$'); do
+    d="$(dirname "$f")"
+    for r in $(grep -oE '`[.A-Za-z0-9_/-]+\.(md|sh|yml|json)`' "$f" | sed 's/`//g' | sort -u); do
+      case "$r" in proyecto-*.md|*'<'*) continue ;; esac
+      case "$externos" in *" $(basename "$r") "*) continue ;; esac
+      res="$(norm "$d/$r")"; [ -e "$res" ] || res="$(norm "$r")"
+      if ! viaja "$res"; then
+        err "$f viaja y cita '$r', que NO viaja. Enlazalo en vez de citarlo por ruta"
+        rotas=$((rotas+1))
+      fi
+    done
+  done
+  [ "$rotas" -eq 0 ] && ok "ningun archivo verbatim cita fuera del conjunto verbatim"
+fi
+
 echo "== 2 · el orden de lectura de AGENTS.md existe =="
 for f in METODOLOGIA.md .agents/rules .agents/workflows; do
   [ -e "$f" ] && ok "$f" || err "AGENTS.md apunta a $f y no existe"
