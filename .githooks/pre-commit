@@ -28,6 +28,14 @@ else
   aviso "aviso: no hay manifest. Corre 'alma:upgrade': lo DESCARGA del release del tag. No se calcula aqui (D-C48)."
 fi
 
+# --- 1b · nada sobra bajo el andamiaje --------------------------------------
+if [ -f verificadores/andamiaje.sh ]; then
+  if ! bash verificadores/andamiaje.sh; then
+    aviso "FALLO: hay archivos bajo el andamiaje que el manifest no lista."
+    fallos=$((fallos+1))
+  fi
+fi
+
 # --- 2 · el puente @AGENTS.md (EST-01) -------------------------------------
 if [ -f AGENTS.md ]; then
   if [ ! -f CLAUDE.md ]; then
@@ -136,7 +144,7 @@ if [ "$fallos" -gt 0 ]; then
   exit 1
 fi
 
-echo "[OPS-07 n1] comprobado aqui: integridad verbatim, puente, fin de linea,"
+echo "[OPS-07 n1] comprobado aqui: integridad y completitud verbatim, puente, fin de linea,"
 echo "            identidad del ejecutor, modo de mision,"
 echo "            barrido de secretos sobre el DIFF, catalogo (solo aviso)."
 

@@ -9,7 +9,10 @@ SAD-05 prohíbe. La migración es una misión, con su REQ y su cierre.
    checksum contra sí mismo no verifica nada.
 2. **Diff contra la versión anclada** en la capa de proyecto. Qué cambió de verdad
    entre la que se tiene y la que se adopta.
-3. **Reemplazar los archivos verbatim.** Todos. No se elige cuáles.
+3. **Reemplazar los archivos verbatim.** Todos. No se elige cuáles. **Y borrar lo que
+   salió del conjunto:** un archivo que pertenecía al andamiaje en la versión anterior y
+   ya no está en el manifest nuevo no se queda huérfano — `verificadores/andamiaje.sh`
+   lo hace fallar hasta que desaparece.
 4. **Validar la capa de proyecto** contra la versión nueva: ¿alguna regla nueva
    contradice algo declarado en `proyecto-<nombre>.md`?
 5. **Revisar las excepciones declaradas.** Cada una vuelve a justificarse o cae. Una
