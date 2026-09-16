@@ -23,6 +23,35 @@ de confianza fuera del alcance del agente, que es exactamente lo que OPS-07 pide
 Es configuración manual, una vez por repositorio, y **no puede automatizarse desde
 dentro del repositorio** — precisamente porque si se pudiera, no serviría.
 
+### Antes de configurar: comprueba que tu combinación lo permite
+
+La protección de rama **no está disponible en todas las combinaciones de plan y
+visibilidad**, y donde no lo está no hay compensación parcial: faltan los cinco puntos,
+no solo el 4. Compruébalo antes de seguir:
+
+```
+gh api repos/<owner>/<repo>/branches/main/protection
+```
+
+`Branch not protected` significa que se puede configurar y aún no lo está. Un **403**
+significa que la plataforma no lo ofrece aquí.
+
+| combinación | los cinco puntos | cómo lo sabemos |
+|---|---|---|
+| cuenta personal · repo **público** | **sí**, con el punto 4 en su forma de PR obligatorio | medido — es la configuración de este repositorio |
+| cuenta personal · repo **privado** | **no**, ninguno | medido 2026-09-15 — `403: Upgrade to GitHub Pro or make this repository public` |
+| organización · público o privado | **sin comprobar** | nadie lo ha medido todavía; las condiciones por plan cambian y no se afirman de memoria |
+
+**Si tu combinación no lo permite, hay cuatro salidas y ninguna es cómoda:** pagar el
+plan que lo habilita; hacer el repositorio público; mudarlo a una organización —
+comprobando antes, porque una organización gratuita puede tener el mismo límite—; o
+**declarar la excepción con sus cuatro campos** y aceptar que ese repositorio no tiene
+raíz de confianza.
+
+La cuarta es legítima y el estándar la admite, pero **cámbiale el nombre a lo que pasa**:
+la certificación externa sigue corriendo y sigue significando lo que dice, pero nada
+obliga a esperarla. El cerrojo pasa a ser una persona, y eso se escribe.
+
 ### Qué configurar en GitHub
 
 En `Settings → Branches → Branch protection rules` sobre `main`:

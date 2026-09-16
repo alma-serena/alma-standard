@@ -2,6 +2,17 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.5 — 2026-09-16
+
+Dos precisiones que salieron de usar el estándar, no de leerlo.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-28** | El paso 3 de `.agents/workflows/migracion-estandar.md` manda borrar con `git rm`, y dice que la comprobación mira el índice | `verificadores/andamiaje.sh` lee `git ls-files`. Un `rm` a secas deja la entrada indexada, así que el verificador sigue acusando huérfanos que ya no están en el disco. Apareció en el primer upgrade real: la instrucción normativa decía mal cómo borrar |
+| **V-29** | `RAIZ-DE-CONFIANZA.md` gana la matriz de plataforma, **antes** de los cinco puntos, con lo medido y lo no medido separados | El documento advertía de una sola limitación —el punto 4 en cuenta personal— y hay una combinación entera donde no funciona nada: en cuenta personal con repositorio privado, GitHub responde 403 a la protección de rama. Un lector seguía cinco pasos irrealizables sin nada que se lo dijera, y un paso irrealizable se salta y deja de leerse `[V-14]`. La fila de organización queda **sin comprobar** y escrita como tal: una tabla con una celda honesta vale más que tres con una de memoria |
+
+---
+
 ## v0.1.4 — 2026-09-15
 
 El segundo hallazgo del primer upgrade real, también encontrado antes de ejecutarlo.
