@@ -71,7 +71,7 @@ forma de encontrarla no entra.
 | Cero color literal | prohibido `#rrggbb`, `rgb()` y las utilidades arbitrarias tipo `bg-[#...]` dentro del directorio de componentes | `grep -rnE '#[0-9a-fA-F]{3,8}\b\|rgba?\(\|-\[#' resources/views/components/` |
 | Estilo en atributo | prohibido `style="…"` en plantillas | `grep -rn 'style="' resources/views/` |
 | Maqueta | ruta solo en entorno de desarrollo, generada desde el archivo de catálogo | `grep` de la ruta en `routes/` + `app()->environment()` |
-| Base recomendada | cuando exista `alma/ui`, es la base sugerida para este stack — **se declara en `proyecto-<nombre>.md`, no aquí** | campo `origen` del catálogo |
+| Base recomendada | cuando exista `alma/ui-laravel`, es la base sugerida para este stack — **se declara en `proyecto-<nombre>.md`, no aquí** | campo `origen` del catálogo |
 
 > El estándar no nombra ninguna base concreta: la dependencia apunta hacia abajo. Este
 > anexo puede recomendar; quien adopta y versiona es la capa de proyecto.
