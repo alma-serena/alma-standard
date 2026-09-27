@@ -70,7 +70,7 @@ forma de encontrarla no entra.
 | Tokens | variables CSS en un único archivo declarado, o la configuración de tema de Tailwind | archivo declarado en `tokens:` |
 | Cero color literal | prohibido `#rrggbb`, `rgb()` y las utilidades arbitrarias tipo `bg-[#...]` dentro del directorio de componentes | `grep -rnE '#[0-9a-fA-F]{3,8}\b\|rgba?\(\|-\[#' resources/views/components/` |
 | Estilo en atributo | prohibido `style="…"` en plantillas | `grep -rn 'style="' resources/views/` |
-| Maqueta | ruta solo en entorno de desarrollo, generada desde el archivo de catálogo | `grep` de la ruta en `routes/` + `app()->environment()` |
+| Maqueta | ruta solo en entorno de desarrollo, generada desde el archivo de catálogo | **revisión humana.** El `grep` de `routes/` + `app()->environment()` que esta fila prescribía hasta el 2026-09-27 daba rojo sobre una implementación correcta: la ruta puede venir del paquete adoptado y la guarda de entorno puede estar en su *service provider*, no dentro de la ruta. Medido en WorldWeaver con `alma/ui-laravel` |
 | Base recomendada | cuando exista `alma/ui-laravel`, es la base sugerida para este stack — **se declara en `proyecto-<nombre>.md`, no aquí** | campo `origen` del catálogo |
 
 > El estándar no nombra ninguna base concreta: la dependencia apunta hacia abajo. Este

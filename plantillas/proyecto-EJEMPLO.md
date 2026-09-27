@@ -32,6 +32,10 @@ Deben funcionar copiados y pegados. Un comando que no corre es peor que ninguno.
 Campos que lee `verificadores/catalogo.sh`. **La ausencia de `interfaz:` falla:** no se
 interpreta el silencio.
 
+`maqueta:` se exige presente y **no se comprueba que responda** — ninguna máquina puede
+hacerlo sin levantar la aplicación. Es declarativo, y su condición de salida está escrita
+en `verificadores/catalogo.sh`. Los demás se comprueban de verdad.
+
 ```
 andamiaje: AGENTS.md, CLAUDE.md, METODOLOGIA.md, .agents/, .githooks/, .github/, verificadores/, proyecto-*.md, .alma/, docs/
 anexo: laravel
@@ -39,7 +43,7 @@ interfaz: si
 componentes: resources/views/components, app/Livewire
 catalogo: docs/catalogo.md
 tokens: resources/css/tokens.css
-maqueta: /dev/catalogo
+maqueta: <ruta de la maqueta en desarrollo>
 origen: desde cero
 ```
 
