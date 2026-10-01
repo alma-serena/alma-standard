@@ -2,6 +2,21 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.8 — 2026-10-01
+
+Identidad visual comprobable: el verificador deja de mirar solo el color. Decisiones
+E.1–E.5 de la revisión de identidad visual 2026-09-30 (ESP-006).
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-35** | `verificadores/catalogo.sh` extiende la comprobación 6: **6b** número+unidad fuera de `var()`, **6c** `font-*`/`line-height`/`letter-spacing` no-`var()`, **6d** unidad pegada a interpolación Blade. Exentos: `0` y `%`. `.agents/rules/diseno.md` §4 lo documenta | §4 ya prohibía literales de tipografía y espaciado; el script solo miraba color. Medido en WorldWeaver: quince literales en ocho pantallas que el verde no veía |
+| **V-36** | Bloque `roles-tokens` (17 roles) en `.agents/rules/diseno.md`; el verificador comprueba por sufijo `--alma-<rol>` en la unión base+marca. Aviso en convergencia, falla en conforme. Recomendados sin máquina: acento, media, tema oscuro, medidas de layout | Sin roles con nombre cada consumidor inventaba el suyo. La revisión fijó el piso comprobable |
+| **V-37** | Campo opcional `tokens-base:` en la plantilla y en el verificador: toda propiedad `--alma-*` de `tokens:` debe existir en la base (**FALLA**). El anexo Laravel documenta `@import` + solo overrides. Las demás comprobaciones leen la unión | Hace falta capa de marca sin copiar la base; sin el campo el verificador no podía exigir inclusión de nombres |
+| **V-38** | Contraste AA medido en pares de rol (ambos temas): 4.5 texto/acción/acento/sobre-acción; 3.0 `color-borde-control`. No resoluble → aviso con nombre. `outline: none\|0` sin `:focus-visible` en el mismo archivo → **FALLA** | Borde decorativo medido a 1.45:1; acento al límite. Sin medición el verde no afirmaba contraste ni foco de teclado |
+| **V-39** | `.agents/rules/diseno.md` §7: la maqueta renderiza roles de token (contraste, escala, ambos temas). §9 nombra lo humano nuevo: jerarquía tipográfica, acento decorativo, calidad de marca, movimiento reducido, proporción en el marco. `verificadores-estandar/casos.sh` (14 casos) entra a `tests:` | Lo que la máquina no mide necesita nombre y ancla visual; sin casos el verificador nuevo no se puede hacer fallar `[C-16]` |
+
+---
+
 ## v0.1.7 — 2026-09-27
 
 Dos campos que el estándar exigía y nadie leía, encontrados por usar el estándar en el

@@ -68,6 +68,7 @@ forma de encontrarla no entra.
 |---|---|---|
 | Directorio de componentes | `resources/views/components/` (Blade) o `app/Livewire/` según el proyecto; se **declara** en `proyecto-<nombre>.md` | `verificadores/catalogo.sh` |
 | Tokens | variables CSS en un único archivo declarado, o la configuración de tema de Tailwind | archivo declarado en `tokens:` |
+| Capa de marca (`tokens-base:`) | `tokens:` es la marca; `tokens-base:` la hoja base. La marca hace `@import` de la base y **solo redefine** nombres `--alma-*` que existen en la base | `tokens-base:` en `proyecto-<nombre>.md` + `verificadores/catalogo.sh` (E.3). Patrón: `@import './tokens-base.css';` (o la URL que sirva el paquete) al inicio de la marca; debajo, solo overrides |
 | Cero color literal | prohibido `#rrggbb`, `rgb()` y las utilidades arbitrarias tipo `bg-[#...]` dentro del directorio de componentes | `grep -rnE '#[0-9a-fA-F]{3,8}\b\|rgba?\(\|-\[#' resources/views/components/` |
 | Estilo en atributo | prohibido `style="…"` en plantillas | `grep -rn 'style="' resources/views/` |
 | Maqueta | ruta solo en entorno de desarrollo, generada desde el archivo de catálogo | **revisión humana.** El `grep` de `routes/` + `app()->environment()` que esta fila prescribía hasta el 2026-09-27 daba rojo sobre una implementación correcta: la ruta puede venir del paquete adoptado y la guarda de entorno puede estar en su *service provider*, no dentro de la ruta. Medido en WorldWeaver con `alma/ui-laravel` |

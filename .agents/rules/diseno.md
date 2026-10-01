@@ -119,6 +119,76 @@ desgana.
 - **Confirmación explícita en toda acción destructiva, con el nombre de lo que se va a
   destruir dentro del diálogo.**
 
+> **Por qué cambió el verificador (E.1).** `.agents/rules/diseno.md` §4 ya decía «cero
+> literal de color, tipografía o espaciado»; `verificadores/catalogo.sh` solo miraba
+> color. Medido en la revisión de identidad visual 2026-09-30 sobre WorldWeaver: quince
+> literales de medida y tipografía en ocho pantallas (`1px`, `minmax(…rem)`, sangrías
+> calculadas con `}}rem`) que la comprobación 6 no veía. Se extiende: **6b** número+unidad
+> (`px|rem|em|ch|vh|vw|pt`) fuera de `var()`; **6c** `font-*`, `line-height`,
+> `letter-spacing` con valor no-`var()`; **6d** unidad pegada a interpolación Blade
+> (`}}rem`). Exentos: `0` y porcentajes. **FALLA**, como el color.
+
+### Roles de token mínimos
+
+Todo archivo de tokens (unión de `tokens:` y, si existe, `tokens-base:`) debe definir
+estas propiedades `--alma-<rol>`. La lista es de **roles de token**, no de valores.
+
+<!-- roles-tokens:inicio -->
+color-fondo
+color-superficie
+color-texto
+color-texto-secundario
+color-borde
+color-borde-control
+color-accion
+color-sobre-accion
+color-peligro
+fuente
+fuente-display
+fuente-dato
+tamano-cuerpo
+tamano-titulo
+espacio
+radio
+borde-ancho
+<!-- roles-tokens:fin -->
+
+**El piso de diecisiete roles es condición de salida, no puerta de entrada** — misma
+máquina que D-C45: aviso en `en convergencia`, **FALLA** en `conforme`.
+
+> **Por qué cambió (E.2).** Sin roles de token con nombre, cada consumidor inventaba el
+> suyo y el verificador no podía decir qué faltaba. La revisión de identidad visual
+> 2026-09-30 fijó diecisiete roles comprobables por sufijo (`--alma-<rol>`).
+
+**Recomendados sin comprobación de máquina:** acento (`color-acento`, decorativo: nunca
+acción ni estado), media (`media-retrato`, `media-portada`), tema oscuro
+(`@media (prefers-color-scheme: dark)`), medidas de layout (`columna-min`,
+`columna-min-corta`, `sangria`). Se adoptan cuando el producto los necesita; no bloquean
+conformidad.
+
+**Capa de marca (`tokens-base:`, E.3).** Campo opcional en `proyecto-<nombre>.md`. Si
+existe, **toda** propiedad `--alma-*` definida en `tokens:` debe existir también en
+`tokens-base:` (cualquier selector, incluido `@media`). Sin excepción, **FALLA**. Las
+demás comprobaciones leen la unión base+marca.
+
+> **Por qué cambió (E.3).** WorldWeaver necesita redefinir tipografía y acento de marca
+> sin copiar la base entera. Sin el campo, el verificador no distinguía base de marca y
+> no podía exigir que la marca solo toque nombres que la base ya declara.
+
+**Contraste y foco (E.4).** El verificador mide contraste sobre pares de rol, en ambos
+temas (`:root` y `@media (prefers-color-scheme: dark)`), unión base+marca: **4.5:1**
+para texto (`color-texto`, `color-texto-secundario`, `color-peligro`, `color-accion`,
+`color-acento` si existe) contra fondo y superficie, y para
+`color-sobre-accion`/`color-accion`; **3.0:1** para `color-borde-control` contra fondo y
+superficie. Valor no resoluble → **aviso con nombre**, nunca verde silencioso. Ratio
+insuficiente → **FALLA**. Prohibido `outline: none|0` sin `:focus-visible` en el mismo
+archivo (bajo raíces de componentes y archivos de tokens). `prefers-reduced-motion`:
+revisión humana (§9).
+
+> **Por qué cambió (E.4).** La revisión midió borde decorativo a 1.45:1 sobre superficie
+> y acento al límite del AA. Sin medición en el verificador, el verde no decía nada del
+> contraste. El `outline: none` sin foco visible es el mismo silencio en teclado.
+
 > **Estas no son «los innegociables».** Ese término queda reservado a
 > `.agents/rules/seguridad.md`, donde el daño es externo e irreversible. Estas son
 > reglas sin excepción de interfaz: igual de obligatorias, distinta familia. Mantener la
@@ -154,6 +224,14 @@ del que diverger.
 generada desde el catálogo. Usa el mismo tema, los mismos tokens y el mismo runtime que
 las pantallas reales — si un token se rompe, se rompe también ahí.
 
+**También renderiza los roles de token** generados del archivo: muestras con contraste
+medido, escala tipográfica y ambos temas. Lo que la máquina mide en §4 (E.4) se ve aquí;
+lo que no mide (§9) se captura en la puerta de cierre.
+
+> **Por qué cambió (E.5).** La revisión de identidad visual 2026-09-30 exige captura en
+> tema claro y oscuro de la pantalla o maqueta tocada: el verificador no ve jerarquía ni
+> proporción. Sin muestras de token en la maqueta, esa revisión no tenía dónde anclarse.
+
 > **No exigible todavía:** publicar la maqueta como artefacto estático desde el CI.
 > Bajo OPS-07 la evidencia válida es un run externo, así que una maqueta construida por
 > la certificación convertiría «el catálogo corresponde al código» en un hecho producido
@@ -182,21 +260,28 @@ Congelar el inventario es lo que convierte «sigo corrigiendo» en una lista fin
 
 ## 9 · Mapa de verificabilidad
 
-Ocho comprobaciones deterministas, siete de ellas sobre archivos de texto. Las corre
+Comprobaciones deterministas sobre archivos de texto. Las corre
 `verificadores/catalogo.sh`, invocado por el hook local hoy y por el job `certificacion`
 cuando exista — **un script, dos llamadores**, para que no haya dos definiciones de qué
 significa que el catálogo esté sano.
 
 | | Comprobación |
 |---|---|
-| 1 | El diff toca el directorio de componentes y no toca el catálogo |
+| 1 | Índice inverso: archivo bajo una raíz de componentes sin ficha `[D-C40]` |
 | 2 | Dos entradas `vigente` con el mismo rol |
-| 3 | Un rol canónico sin entrada `vigente` |
+| 3 | Un rol canónico sin entrada `vigente` (aviso en convergencia; falla en conforme) |
 | 4 | Ficha sin sus campos |
 | 5 | `superado por <id>` apuntando a una entrada inexistente |
 | 6 | Valor literal de color fuera de los tokens |
+| 6b | Número+unidad (`px\|rem\|em\|ch\|vh\|vw\|pt`) fuera de `var()` (exentos: `0`, `%`) |
+| 6c | `font-*`, `line-height`, `letter-spacing` con valor no-`var()` |
+| 6d | Unidad pegada a interpolación Blade (`}}rem` y equivalentes) |
 | 7 | `origen:` ausente, o nombrando una base sin su versión |
-| 8 | Un campo con el marcador de la plantilla sin rellenar |
+| 8 | Un campo con el marcador de la plantilla sin rellenar; `maqueta:` ausente |
+| 9 | Rol de token del bloque `roles-tokens` ausente (aviso en convergencia; falla en conforme) |
+| 10 | Con `tokens-base:`: propiedad `--alma-*` en `tokens:` que no existe en la base |
+| 11 | Contraste insuficiente en pares de rol (ambos temas); valor no resoluble → aviso |
+| 12 | `outline: none\|0` sin `:focus-visible` en el mismo archivo |
 
 **Lo que ninguna máquina comprueba, dicho con nombre:**
 
@@ -211,3 +296,18 @@ significa que el catálogo esté sano.
   vivir en su *service provider*, así que el `grep` que el anexo Laravel prescribía
   daba rojo sobre código correcto. Condición de salida escrita en el verificador
   `[D-C41]`.
+- **Jerarquía tipográfica** — si display, cuerpo y dato se leen como escala, no como
+  tres tamaños sueltos.
+- **Acento como decorativo** — nunca acción, nunca estado; la máquina solo comprueba
+  contraste si el token existe.
+- **Calidad de valores de marca** — si Cinzel u oro «se sienten» a marca; el verificador
+  mide ratio, no carácter.
+- **Movimiento reducido** (`prefers-reduced-motion`) — excepción declarable; revisión
+  humana.
+- **Proporción del contenido dentro del marco** — si la media reserva el marco y el
+  contenido no lo desborda ni lo deja ambiguo.
+
+> **Por qué cambió el mapa (E.1–E.5).** La revisión de identidad visual 2026-09-30
+> amplió lo comprobable (medida, tipografía, roles de token, capa de marca, contraste,
+> foco) y nombró lo que sigue siendo humano. Un mapa que no lista las comprobaciones
+> nuevas miente sobre lo que el verde afirma.
