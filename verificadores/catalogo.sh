@@ -24,8 +24,12 @@ CON_DIFF=0
 
 echo "== catalogo de interfaz =="
 
+# RAIZ_PROYECTO · ancla a un arbol de prueba (verificadores-estandar/casos.sh).
+# Sin ella, se ancla al toplevel de git como siempre.
 raiz_repo="$(git rev-parse --show-toplevel 2>/dev/null || true)"
-if [ -n "$raiz_repo" ]; then
+if [ -n "${RAIZ_PROYECTO:-}" ]; then
+  cd "$RAIZ_PROYECTO" || { echo "  FALLA · no se pudo anclar a RAIZ_PROYECTO=$RAIZ_PROYECTO"; exit 1; }
+elif [ -n "$raiz_repo" ]; then
   cd "$raiz_repo" || { echo "  FALLA · no se pudo anclar a la raiz del repo"; exit 1; }
 fi
 
@@ -93,7 +97,7 @@ ANDAMIAJE="$(campo andamiaje "$PROY" | tr ',' ' ')"
 # ruta no existia. No fue deriva: fue un valor plausible que nadie comprobaba.
 # Un valor con `<` o `>` es la plantilla sin rellenar, y eso SI es comprobable con
 # certeza mecanica. Cubre cualquier campo copiado, no solo el que se descubrio.
-for c in andamiaje anexo interfaz componentes catalogo tokens maqueta origen; do
+for c in andamiaje anexo interfaz componentes catalogo tokens tokens-base maqueta origen; do
   v="$(campo "$c" "$PROY")"
   case "$v" in
     *"<"*|*">"*) err "'$PROY': '$c' sigue con el marcador de la plantilla: '$v'" ;;
@@ -153,6 +157,7 @@ esac
 DIRS_COMP="$(campo componentes "$PROY" | tr ',' ' ')"
 ARCH_CAT="$(campo catalogo "$PROY")"
 ARCH_TOK="$(campo tokens "$PROY")"
+ARCH_TOK_BASE="$(campo tokens-base "$PROY")"
 [ -z "$DIRS_COMP" ] && err "'$PROY' declara interfaz y no declara 'componentes:'"
 [ -z "$ARCH_CAT" ]  && err "'$PROY' declara interfaz y no declara 'catalogo:'"
 [ -z "$ARCH_TOK" ]  && err "'$PROY' declara interfaz y no declara 'tokens:'"
@@ -187,6 +192,10 @@ for d in $DIRS_COMP; do
   [ -d "$d" ] || err "raiz de componentes declarada que no existe: $d"
 done
 [ -f "$ARCH_CAT" ] || err "el archivo de catalogo no existe: $ARCH_CAT"
+[ -f "$ARCH_TOK" ] || err "el archivo de tokens no existe: $ARCH_TOK"
+if [ -n "$ARCH_TOK_BASE" ]; then
+  [ -f "$ARCH_TOK_BASE" ] || err "tokens-base declarado que no existe: $ARCH_TOK_BASE"
+fi
 [ $fallos -gt 0 ] && { echo "catalogo: $fallos FALLA(S)"; exit 1; }
 
 # --- 0b · raices conocidas del anexo no declaradas ---------------------------
@@ -305,12 +314,283 @@ done
 [ "$superadas" -gt 0 ] && aviso "el proyecto esta EN CONVERGENCIA: $superadas entrada(s) superada(s)"
 
 # --- 6 · literales de color fuera de tokens ---------------------------------
+excluir_tok() {
+  # Filtra lineas que pertenecen a archivos de tokens (marca y/o base).
+  grep -v -F "$ARCH_TOK" | {
+    if [ -n "$ARCH_TOK_BASE" ]; then grep -v -F "$ARCH_TOK_BASE"; else cat; fi
+  }
+}
 for d in $DIRS_COMP; do
-  lit="$(grep -rnE '#[0-9a-fA-F]{3,8}\b|rgba?\(' "$d" 2>/dev/null | grep -v "$ARCH_TOK" | head -10)"
+  lit="$(grep -rnE '#[0-9a-fA-F]{3,8}\b|rgba?\(' "$d" 2>/dev/null | excluir_tok | head -10)"
   if [ -n "$lit" ]; then
     err "valores de color literales fuera de los tokens en '$d':"
     printf '%s\n' "$lit" | sed 's/^/           /'
   fi
+done
+
+# --- 6b/6c/6d · tipografia y espaciado fuera de tokens (E.1) ---------------
+# Quita var(...) no anidados para no acusar fallbacks ni calc dentro del token.
+sin_var() { sed -E 's/var\([^)]*\)/var()/g'; }
+
+for d in $DIRS_COMP; do
+  # 6b · numero+unidad fuera de var(). Exentos: 0 desnudo (no matchea) y %.
+  lit6b="$(grep -rnE '[0-9]+(\.[0-9]+)?(px|rem|em|ch|vh|vw|pt)\b' "$d" 2>/dev/null \
+          | excluir_tok | while IFS= read -r linea; do
+              cuerpo="${linea#*:}"
+              cuerpo="${cuerpo#*:}"
+              limpio="$(printf '%s\n' "$cuerpo" | sin_var)"
+              printf '%s\n' "$limpio" | grep -qE '[0-9]+(\.[0-9]+)?(px|rem|em|ch|vh|vw|pt)\b' \
+                && printf '%s\n' "$linea"
+            done | head -10)"
+  if [ -n "$lit6b" ]; then
+    err "6b · numero+unidad fuera de var() en '$d':"
+    printf '%s\n' "$lit6b" | sed 's/^/           /'
+  fi
+
+  # 6c · font-*/line-height/letter-spacing cuyo valor no es solo var(...)
+  lit6c="$(grep -rnE '\b(font-[a-z-]+|line-height|letter-spacing)[[:space:]]*:' "$d" 2>/dev/null \
+          | excluir_tok | while IFS= read -r linea; do
+              val="$(printf '%s\n' "$linea" \
+                    | sed -E 's/.*\b(font-[a-z-]+|line-height|letter-spacing)[[:space:]]*:[[:space:]]*//' \
+                    | sed 's/[[:space:]]*!important//' | sed 's/[;"].*//' | sed 's/[[:space:]]*$//')"
+              case "$val" in
+                var\(*\)) continue ;;
+                0|0%|[0-9]*%) continue ;;
+                *) printf '%s\n' "$linea" ;;
+              esac
+            done | head -10)"
+  if [ -n "$lit6c" ]; then
+    err "6c · tipografia con valor no-var() en '$d':"
+    printf '%s\n' "$lit6c" | sed 's/^/           /'
+  fi
+
+  # 6d · unidad pegada a interpolacion Blade: }}rem
+  lit6d="$(grep -rnE '\}\}(px|rem|em|ch|vh|vw|pt)\b' "$d" 2>/dev/null | excluir_tok | head -10)"
+  if [ -n "$lit6d" ]; then
+    err "6d · unidad pegada a interpolacion Blade en '$d':"
+    printf '%s\n' "$lit6d" | sed 's/^/           /'
+  fi
+done
+
+# Union de archivos de tokens (base + marca). Marca gana en resolución de color.
+ARCHIVOS_TOK="$ARCH_TOK"
+[ -n "$ARCH_TOK_BASE" ] && ARCHIVOS_TOK="$ARCH_TOK_BASE $ARCH_TOK"
+
+# --- 10 · tokens-base: toda propiedad de tokens: debe existir en la base (E.3) -
+if [ -n "$ARCH_TOK_BASE" ]; then
+  props_en() { grep -oE -- '--alma-[a-z0-9-]+[[:space:]]*:' "$1" 2>/dev/null | sed 's/[[:space:]]*://' | sort -u; }
+  while IFS= read -r p; do
+    [ -z "$p" ] && continue
+    grep -qE -- "${p}[[:space:]]*:" "$ARCH_TOK_BASE" \
+      || err "tokens-base: '$p' esta en '$ARCH_TOK' y no existe en '$ARCH_TOK_BASE'"
+  done <<EOF
+$(props_en "$ARCH_TOK")
+EOF
+fi
+
+# --- 9 · roles de token (E.2) · misma maquina que D-C45 ---------------------
+faltan_tok=0
+if [ -f "$DIS" ]; then
+  union_tmp="$(mktemp)"
+  # shellcheck disable=SC2086
+  cat $ARCHIVOS_TOK >"$union_tmp" 2>/dev/null || true
+  for r in $(bloque_anexo 'roles-tokens' "$DIS"); do
+    if ! grep -qE -- "--alma-${r}[[:space:]]*:" "$union_tmp"; then
+      faltan_tok=$((faltan_tok+1))
+      if [ "$EST_PROY" = "conforme" ]; then
+        err "'conforme' declarado y falta el rol de token '--alma-$r'"
+      fi
+    fi
+  done
+  rm -f "$union_tmp"
+  [ $faltan_tok -gt 0 ] && [ "$EST_PROY" != "conforme" ] \
+    && aviso "convergencia: faltan $faltan_tok rol(es) de token para poder declararse conforme"
+else
+  aviso "no se encontro diseno.md: no se pudo comprobar roles de token"
+fi
+
+# --- 11 · contraste por pares de rol, ambos temas (E.4) ---------------------
+# Extrae --alma-*:valor de un archivo para un tema (light|dark) a un mapa.
+mapa_tema() {
+  # $1 archivo $2 light|dark $3 destino
+  awk -v tema="$2" '
+    BEGIN { t="light"; depth=0; en_dark=0 }
+    /@media[[:space:]]*\([[:space:]]*prefers-color-scheme:[[:space:]]*dark/ {
+      en_dark=1; dark_depth=0; next
+    }
+    {
+      line=$0
+      if (en_dark) {
+        for (i=1;i<=length(line);i++) {
+          c=substr(line,i,1)
+          if (c=="{") dark_depth++
+          if (c=="}") {
+            dark_depth--
+            if (dark_depth<=0) { en_dark=0 }
+          }
+        }
+        cur="dark"
+      } else {
+        cur="light"
+      }
+      if (cur!=tema) next
+      while (match(line, /--alma-[a-z0-9-]+[[:space:]]*:[[:space:]]*[^;]+/)) {
+        decl=substr(line, RSTART, RLENGTH)
+        sub(/[[:space:]]*:[[:space:]]*/, "=", decl)
+        print decl
+        line=substr(line, RSTART+RLENGTH)
+      }
+    }
+  ' "$1" >>"$3"
+}
+
+contraste_awk='
+function hexval(h,   i,c,v,n) {
+  n = 0
+  for (i=1; i<=length(h); i++) {
+    c = tolower(substr(h,i,1))
+    v = index("0123456789abcdef", c) - 1
+    if (v < 0) return -1
+    n = n * 16 + v
+  }
+  return n
+}
+function parsehex(s,   h) {
+  sub(/^#/, "", s)
+  h = tolower(s)
+  if (length(h)==3) {
+    R = hexval(substr(h,1,1) substr(h,1,1))
+    G = hexval(substr(h,2,1) substr(h,2,1))
+    B = hexval(substr(h,3,1) substr(h,3,1))
+  } else if (length(h)==6 || length(h)==8) {
+    R = hexval(substr(h,1,2)); G = hexval(substr(h,3,2)); B = hexval(substr(h,5,2))
+  } else return 0
+  if (R<0 || G<0 || B<0) return 0
+  return 1
+}
+function lin(c,   s) {
+  s = c/255
+  return (s <= 0.03928) ? s/12.92 : ((s+0.055)/1.055)^2.4
+}
+function rel() {
+  return 0.2126*lin(R) + 0.7152*lin(G) + 0.0722*lin(B)
+}
+function ratio(c1, c2,   L1,L2,t) {
+  if (!parsehex(c1)) return -1
+  L1 = rel()
+  if (!parsehex(c2)) return -1
+  L2 = rel()
+  if (L1 < L2) { t=L1; L1=L2; L2=t }
+  return (L1+0.05)/(L2+0.05)
+}
+BEGIN {
+  while ((getline < mapa) > 0) {
+    split($0, a, "=")
+    gsub(/^[[:space:]]+|[[:space:]]+$/, "", a[1])
+    gsub(/^[[:space:]]+|[[:space:]]+$/, "", a[2])
+    m[a[1]] = a[2]
+  }
+  close(mapa)
+}
+function resolve(name,   v,n,guard) {
+  v = m["--alma-" name]
+  if (v=="") return ""
+  guard=0
+  while (guard++ < 12) {
+    if (v ~ /^#/) return v
+    if (v ~ /^var\(--alma-/) {
+      n = v
+      sub(/^var\(--alma-/, "", n)
+      sub(/[^a-z0-9-].*$/, "", n)
+      if (!(("--alma-" n) in m)) return ""
+      v = m["--alma-" n]
+      continue
+    }
+    return ""
+  }
+  return ""
+}
+{
+  fg=$1; bg=$2; minr=$3+0; label=$4
+  c1=resolve(fg); c2=resolve(bg)
+  if (c1=="" || c2=="") { print "AVISO\t" label "\t" fg "/" bg; next }
+  r=ratio(c1,c2)
+  if (r < 0) { print "AVISO\t" label "\t" fg "/" bg; next }
+  if (r+0 < minr) printf "FALLA\t%s\t%.2f < %.1f (%s sobre %s)\n", label, r, minr, c1, c2
+  else printf "OK\t%s\t%.2f\n", label, r
+}
+'
+
+medir_contraste_tema() {
+  # $1 etiqueta tema  $2 archivo mapa
+  local mapa="$2" tema_lbl="$1"
+  local pares out
+  out="$(mktemp)"
+  pares=""
+  for fg in color-texto color-texto-secundario color-peligro color-accion; do
+    pares="${pares}${fg} color-fondo 4.5 ${tema_lbl}/${fg}-fondo
+${fg} color-superficie 4.5 ${tema_lbl}/${fg}-superficie
+"
+  done
+  if grep -q '^--alma-color-acento=' "$mapa" 2>/dev/null; then
+    pares="${pares}color-acento color-fondo 4.5 ${tema_lbl}/acento-fondo
+color-acento color-superficie 4.5 ${tema_lbl}/acento-superficie
+"
+  fi
+  pares="${pares}color-sobre-accion color-accion 4.5 ${tema_lbl}/sobre-accion
+color-borde-control color-fondo 3.0 ${tema_lbl}/borde-control-fondo
+color-borde-control color-superficie 3.0 ${tema_lbl}/borde-control-superficie
+"
+  printf '%s' "$pares" | awk -v mapa="$mapa" "$contraste_awk" >"$out"
+  while IFS=$'\t' read -r tipo resto; do
+    [ -z "${tipo:-}" ] && continue
+    case "$tipo" in
+      FALLA) err "contraste $resto" ;;
+      AVISO) aviso "contraste no resoluble: $resto" ;;
+    esac
+  done <"$out"
+  rm -f "$out"
+}
+
+mapa_light="$(mktemp)"; mapa_dark="$(mktemp)"
+: >"$mapa_light"; : >"$mapa_dark"
+for f in $ARCHIVOS_TOK; do
+  mapa_tema "$f" light "$mapa_light"
+  mapa_tema "$f" dark  "$mapa_dark"
+done
+# Ultima definicion gana (marca despues de base): recompactar
+compactar_mapa() {
+  awk -F= '{ m[$1]=$2 } END { for (k in m) print k"="m[k] }' "$1" >"$1.compact" && mv "$1.compact" "$1"
+}
+compactar_mapa "$mapa_light"
+compactar_mapa "$mapa_dark"
+medir_contraste_tema "light" "$mapa_light"
+# Solo mide dark si el mapa dark tiene algun color
+if grep -q '^--alma-color-' "$mapa_dark" 2>/dev/null; then
+  medir_contraste_tema "dark" "$mapa_dark"
+fi
+rm -f "$mapa_light" "$mapa_dark"
+
+# --- 12 · outline: none|0 sin :focus-visible en el mismo archivo (E.4) ------
+archivos_foco="$DIRS_COMP $ARCH_TOK"
+[ -n "$ARCH_TOK_BASE" ] && archivos_foco="$archivos_foco $ARCH_TOK_BASE"
+for ruta in $archivos_foco; do
+  if [ -d "$ruta" ]; then
+    lista="$(find "$ruta" -type f 2>/dev/null)"
+  elif [ -f "$ruta" ]; then
+    lista="$ruta"
+  else
+    continue
+  fi
+  while IFS= read -r f; do
+    [ -z "$f" ] && continue
+    if grep -qE 'outline[[:space:]]*:[[:space:]]*(none|0)\b' "$f" 2>/dev/null; then
+      grep -q ':focus-visible' "$f" 2>/dev/null \
+        || err "outline: none|0 sin :focus-visible en el mismo archivo: $f"
+    fi
+  done <<EOF
+$lista
+EOF
 done
 
 if [ $fallos -eq 0 ]; then

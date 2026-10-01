@@ -43,9 +43,16 @@ interfaz: si
 componentes: resources/views/components, app/Livewire
 catalogo: docs/catalogo.md
 tokens: resources/css/tokens.css
+tokens-base: <ruta de la hoja base si hay capa de marca; si no, borrar esta línea>
 maqueta: <ruta de la maqueta en desarrollo>
 origen: desde cero
 ```
+
+`tokens-base:` es **opcional**. Si el proyecto no tiene capa de marca, **borra la línea**
+entera (no dejes el marcador). Si está, apunta a la hoja base (p. ej. la del paquete
+adoptado); `tokens:` es la capa de marca que solo redefine nombres `--alma-*` ya
+presentes en la base. El verificador exige esa inclusión y lee la unión en el resto de
+comprobaciones.
 
 `andamiaje:` es la **lista blanca**: lo que el estándar aportó y no es producto. Todo lo
 demás es producto — así `genesis` no depende de una lista de extensiones que siempre deja
