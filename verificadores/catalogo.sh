@@ -101,6 +101,18 @@ fi
 raices_conocidas=""
 if [ -n "$ARCH_ANEXO" ]; then
   raices_conocidas="$(bloque_anexo 'raices-componentes' "$ARCH_ANEXO")"
+  # D-C41 · un anexo PRESENTE pero SIN bloque de raices es un tercer estado que exime,
+  # y la version anterior lo dejaba pasar en silencio. 'ninguno' avisaba; un anexo que
+  # existe y no declara raices —`anexos/android.md` lo esta a proposito— caia por esta
+  # primera rama con la lista vacia y sin una linea que lo dijera. La comprobacion 0b
+  # recorre esa lista: vacia, no recorre nada, y el control que diseno.md §3 justifica
+  # —«una lista que escribe quien se beneficia de que sea corta no es un control»—
+  # desaparecia sin ruido. Un verificador que calla donde no puede comprobar mide de
+  # menos sin equivocarse en ninguna celda.
+  if [ -z "$raices_conocidas" ]; then
+    aviso "el anexo '$ANEXO' no declara bloque 'raices-componentes': no hay raices"
+    aviso "        conocidas con que comparar, igual que con anexo 'ninguno'."
+  fi
 elif [ "$ANEXO" = "ninguno" ]; then
   aviso "anexo 'ninguno': no hay raices conocidas con que comparar. No se puede"
   aviso "        comprobar si falta declarar una raiz; queda a revision humana."
@@ -140,12 +152,31 @@ done
 [ $fallos -gt 0 ] && { echo "catalogo: $fallos FALLA(S)"; exit 1; }
 
 # --- 0b · raices conocidas del anexo no declaradas ---------------------------
+# `Estado del proyecto` se calcula AQUI y no mas abajo: desde la ronda del 2026-09-23 la
+# severidad del anexo sin raices depende de el. Se calcula una vez y la comprobacion 3 lo
+# reutiliza. La ausencia se lee `en convergencia` [D-C45]: no declararse es no reclamar
+# nada, y conformidad es lo que se reclama.
+EST_PROY="$(sed -n 's/.*Estado del proyecto:[^`]*`\([a-z ]*\)`.*/\1/p' "$ARCH_CAT" | head -1)"
+[ -z "$EST_PROY" ] && EST_PROY="en convergencia"
+
 for r in $raices_conocidas; do
   if [ -d "$r" ]; then
     echo " $DIRS_COMP " | grep -q " $r " \
       || err "el anexo '$ANEXO' declara la raiz '$r', existe en el arbol y no esta en 'componentes:'"
   fi
 done
+
+# D-C41/D-C45 · un anexo sin raices deja 'componentes:' sin contraparte, y esa es una
+# lista que escribe quien se beneficia de que sea corta (diseno.md §3). ENTRAR asi es
+# legitimo —el anexo se deriva de la primera mision real del stack, no se inventa antes,
+# y exigirlo por delante seria el error que D-C45 corrigio en el piso de diez roles—.
+# RECLAMAR CONFORMIDAD asi, no: es un estado que exime sin condicion de salida
+# comprobable [D-C41]. Misma maquina que el piso de roles: aviso mientras el catalogo
+# este `en convergencia`, FALLA cuando se declare `conforme`.
+if [ -z "$raices_conocidas" ] && [ "$EST_PROY" = "conforme" ]; then
+  err "'conforme' declarado y el anexo '$ANEXO' no declara 'raices-componentes':"
+  err "       nada comprueba si 'componentes:' omite una raiz. Llenar el anexo primero."
+fi
 
 # --- entradas del catalogo --------------------------------------------------
 ids="$(grep -E '^## ' "$ARCH_CAT" | sed 's/^##[[:space:]]*//')"
@@ -187,8 +218,8 @@ for r in $dups; do err "dos o mas entradas 'vigente' para el rol '$r'"; done
 # que el producto no usa, y era el punto donde un proyecto con historia abandonaba.
 # La ausencia de 'Estado del proyecto' se lee como `en convergencia`: no declararse
 # es no reclamar nada, y conformidad es lo que se reclama.
-EST_PROY="$(sed -n 's/.*Estado del proyecto:[^`]*`\([a-z ]*\)`.*/\1/p' "$ARCH_CAT" | head -1)"
-[ -z "$EST_PROY" ] && EST_PROY="en convergencia"
+# EST_PROY se calcula junto a la comprobacion 0b, que desde 2026-09-23 tambien depende
+# de el. Una sola lectura, dos consumidores.
 DIS="$RAIZ_ESTANDAR/.agents/rules/diseno.md"
 [ -f "$DIS" ] || DIS="$raiz_repo/.agents/rules/diseno.md"
 faltan=0

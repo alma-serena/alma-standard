@@ -2,6 +2,18 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.6 — 2026-09-23
+
+Dos precisiones que salieron de revisar si el estándar llega hasta la interfaz. Llega; lo
+que no llegaba era nada de lo que alimentarse —y donde no podía comprobar, callaba.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-30** | `.agents/rules/anexos/laravel.md` nombra `alma/ui-laravel`, no `alma/ui`, como base recomendada de este stack | Lo que ese anexo recomienda es Blade, Livewire y un tema de Tailwind: específico de un stack por construcción. Un nombre neutro sobre contenido de un solo stack es el defecto que `[V-2 / D-C21]` ya corrigió en las cinco reglas, que eran Laravel de principio a fin bajo nombres universales. Aquí el mismo defecto estaba escrito **en futuro** —«cuando exista `alma/ui`»— y por eso todavía era gratis: renombrar sin consumidores cuesta esta línea; con el paquete instalado, cuesta un renombre en cada proyecto que lo declare. El contrato neutro no se pierde, porque nunca estuvo en el nombre: es el bloque `roles-canonicos` de `.agents/rules/diseno.md`, diez roles sin una línea de código, que es lo que `verificadores/catalogo.sh` lee |
+| **V-31** | `verificadores/catalogo.sh` **avisa** cuando el anexo declarado existe pero no trae bloque `raices-componentes`, y **falla** si en ese estado el catálogo se declara `conforme` | Había tres estados, no dos. `anexo: ninguno` avisaba; un anexo declarado que no existe fallaba; y un anexo que **existe y no declara raíces** —`.agents/rules/anexos/android.md` lo está a propósito— caía por la primera rama con la lista vacía y sin una línea que lo dijera. La comprobación 0b recorre esa lista: vacía, no recorre nada, y el control que `.agents/rules/diseno.md` §3 justifica con «una lista que escribe quien se beneficia de que sea corta no es un control» desaparecía sin ruido. Medido sobre un repo de prueba con `anexo: android`: antes, `0 aviso/s` y un `ok` que afirmaba «ninguna raíz conocida existe» —verdad porque la lista estaba vacía, no porque comprobara algo—. La severidad sigue la máquina del piso de diez roles `[D-C45]`: **entrar** así es legítimo, porque el anexo se deriva de la primera misión real del stack y exigirlo por delante es el error que D-C45 ya corrigió; **reclamar conformidad** así, no, porque es un estado que exime sin condición de salida comprobable `[D-C41]` |
+
+---
+
 ## v0.1.5 — 2026-09-16
 
 Dos precisiones que salieron de usar el estándar, no de leerlo.
