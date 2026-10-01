@@ -2,6 +2,19 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.7 — 2026-09-27
+
+Dos campos que el estándar exigía y nadie leía, encontrados por usar el estándar en el
+primer proyecto que adopta una base.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-32** | `verificadores/catalogo.sh` **lee `origen:`** —exigido cuando `interfaz: si`, y con una de las dos formas de `.agents/rules/diseno.md` §1: `desde cero`, o una base **con su versión**— y exige `maqueta:` presente. Y cualquier campo cuyo valor conserve el marcador de la plantilla es **FALLA** | `origen` y `maqueta` se declaraban y ningún verificador los miraba: escribirlos o no daba el mismo resultado, que es `[V-6]` una capa más abajo. El daño está medido: `plantillas/proyecto-EJEMPLO.md` traía `maqueta: /dev/catalogo` como ejemplo, WorldWeaver lo copió, nadie lo cambió, y esa ruta no existía —la que responde es `/alma-ui/maqueta`—. No fue deriva: fue un valor plausible que nadie comprobaba. De ahí que el chequeo general no sea «la maqueta es correcta» sino «este campo sigue sin rellenar», que es mecánicamente cierto y cubre **todos** los campos copiados, no solo el que se descubrió |
+| **V-33** | `plantillas/proyecto-EJEMPLO.md` deja de traer una ruta plausible en `maqueta:` y trae un marcador. Su encabezado deja de afirmar que se comprueban todos los campos que lista | La plantilla plantaba el valor y afirmaba que se verificaba. Dos afirmaciones falsas que se sostenían entre ellas: la primera sobrevivía porque la segunda decía que alguien la miraba |
+| **V-34** | La fila **Maqueta** de `.agents/rules/anexos/laravel.md` pasa a revisión humana, y `.agents/rules/diseno.md` §9 la nombra en «lo que ninguna máquina comprueba» | Esa fila prescribía `grep` de la ruta en `routes/` más `app()->environment()`. Medido sobre WorldWeaver con `alma/ui-laravel`: la ruta vive en `routes/maqueta.php` **del paquete** y la guarda de entorno está en su *service provider*, no dentro de la ruta. Las dos mitades fallan sobre una implementación correcta, y un chequeo que da rojo sobre código bueno es el que alguien desactiva —`.agents/rules/diseno.md` §4 ya lo dice de otra forma—. La causa es que el estándar se escribió cuando no existía ninguna base: «una ruta de la propia aplicación» no tenía competencia. Condición de salida declarada `[D-C41]`: se comprobará cuando haya forma de distinguir una maqueta propia de una que aporta la base, sin grepear `vendor/` |
+
+---
+
 ## v0.1.6 — 2026-09-23
 
 Dos precisiones que salieron de revisar si el estándar llega hasta la interfaz. Llega; lo

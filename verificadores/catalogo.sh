@@ -86,6 +86,19 @@ if [ -z "$PROY" ]; then
   echo "catalogo: sin fallas ($avisos aviso/s)"; exit 0
 fi
 ANDAMIAJE="$(campo andamiaje "$PROY" | tr ',' ' ')"
+
+# --- 0a · plantilla sin rellenar ---------------------------------------------
+# El defecto medido el 2026-09-27: `plantillas/proyecto-EJEMPLO.md` traia
+# `maqueta: /dev/catalogo` como ejemplo, WorldWeaver lo copio, nadie lo cambio, y la
+# ruta no existia. No fue deriva: fue un valor plausible que nadie comprobaba.
+# Un valor con `<` o `>` es la plantilla sin rellenar, y eso SI es comprobable con
+# certeza mecanica. Cubre cualquier campo copiado, no solo el que se descubrio.
+for c in andamiaje anexo interfaz componentes catalogo tokens maqueta origen; do
+  v="$(campo "$c" "$PROY")"
+  case "$v" in
+    *"<"*|*">"*) err "'$PROY': '$c' sigue con el marcador de la plantilla: '$v'" ;;
+  esac
+done
 if [ "$MODO" = "genesis" ] && [ -n "$(hay_producto "$ANDAMIAJE")" ]; then
   err "modo 'genesis' declarado sobre un arbol con archivos fuera del andamiaje (D-C41/D-C46)."
 fi
@@ -143,6 +156,31 @@ ARCH_TOK="$(campo tokens "$PROY")"
 [ -z "$DIRS_COMP" ] && err "'$PROY' declara interfaz y no declara 'componentes:'"
 [ -z "$ARCH_CAT" ]  && err "'$PROY' declara interfaz y no declara 'catalogo:'"
 [ -z "$ARCH_TOK" ]  && err "'$PROY' declara interfaz y no declara 'tokens:'"
+
+# ORIGEN · diseno.md §1: "una base adoptada con su version, o «desde cero»". Se exige
+# y se enumera. Hasta el 2026-09-27 el campo se declaraba y NADIE lo leia, asi que
+# escribirlo o no escribirlo daba el mismo resultado: la regla existia sin dientes,
+# el mismo defecto que [V-6] corrigio una capa mas arriba.
+ORIGEN="$(campo origen "$PROY")"
+if [ -z "$ORIGEN" ]; then
+  err "'$PROY' declara interfaz y no declara 'origen:' (base adoptada con su version, o 'desde cero')"
+elif [ "$ORIGEN" != "desde cero" ]; then
+  # Una base sin version no es una base adoptada: es un nombre.
+  printf '%s\n' "$ORIGEN" | grep -qE '[^[:space:]]+[[:space:]]+v?[0-9]' \
+    || err "'origen: $ORIGEN' nombra una base sin version. §1 exige la version, o 'desde cero'"
+fi
+
+# MAQUETA · se exige presente y sin marcador, y NO se comprueba que responda.
+# Medido el 2026-09-27 sobre WorldWeaver: la ruta vive en el paquete adoptado
+# (`alma-ui-laravel/routes/maqueta.php`) y la guarda de entorno esta en el provider,
+# no dentro de la ruta. El `grep` que `anexos/laravel.md` prescribia daba rojo sobre
+# una implementacion CORRECTA, y un chequeo que falla sobre codigo bueno es el que
+# alguien desactiva. Queda declarativo, con su condicion de salida [D-C41]: se
+# comprobara cuando exista una forma que distinga una maqueta propia de una que
+# aporta la base, sin grepear `vendor/`.
+MAQUETA="$(campo maqueta "$PROY")"
+[ -z "$MAQUETA" ] && err "'$PROY' declara interfaz y no declara 'maqueta:' (ruta de desarrollo generada desde el catalogo)"
+
 [ $fallos -gt 0 ] && { echo "catalogo: $fallos FALLA(S)"; exit 1; }
 
 for d in $DIRS_COMP; do

@@ -182,7 +182,7 @@ Congelar el inventario es lo que convierte «sigo corrigiendo» en una lista fin
 
 ## 9 · Mapa de verificabilidad
 
-Seis comprobaciones deterministas, cinco de ellas sobre archivos de texto. Las corre
+Ocho comprobaciones deterministas, siete de ellas sobre archivos de texto. Las corre
 `verificadores/catalogo.sh`, invocado por el hook local hoy y por el job `certificacion`
 cuando exista — **un script, dos llamadores**, para que no haya dos definiciones de qué
 significa que el catálogo esté sano.
@@ -195,6 +195,8 @@ significa que el catálogo esté sano.
 | 4 | Ficha sin sus campos |
 | 5 | `superado por <id>` apuntando a una entrada inexistente |
 | 6 | Valor literal de color fuera de los tokens |
+| 7 | `origen:` ausente, o nombrando una base sin su versión |
+| 8 | Un campo con el marcador de la plantilla sin rellenar |
 
 **Lo que ninguna máquina comprueba, dicho con nombre:**
 
@@ -204,3 +206,8 @@ significa que el catálogo esté sano.
   detecta una revisión de diff humana.
 - Si el `no-usar-cuando` dice la verdad.
 - Si los tres estados están **diseñados** o solo **presentes**.
+- **Si la maqueta responde.** `maqueta:` se exige presente desde v0.1.7 y no se
+  comprueba: la ruta puede venir del paquete adoptado y la guarda de entorno puede
+  vivir en su *service provider*, así que el `grep` que el anexo Laravel prescribía
+  daba rojo sobre código correcto. Condición de salida escrita en el verificador
+  `[D-C41]`.
