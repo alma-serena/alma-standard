@@ -24,6 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # El verificador de mensajes necesita el rango (PR: base..head;
+          # push: before..after). 0 es el minimo que siempre alcanza.
+          fetch-depth: 0
 
       # --- PISO. Ningun campo de la capa de proyecto lo quita ni lo sustituye. ---
       - name: Piso · puente @AGENTS.md (EST-01)
@@ -46,6 +50,35 @@ jobs:
 
       - name: Piso · catalogo de interfaz
         run: bash ./verificadores/catalogo.sh
+
+      - name: Piso · URLs de sesion en mensajes
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: bash ./verificadores/sesion.sh
+
+      # --- ANEXO DE RUNTIME. Solo corre si proyecto-<nombre>.md declara php:. ---
+      - name: Anexo · runtime PHP (si el proyecto lo declara)
+        id: anexo_php
+        run: bash ./verificadores/anexo-php.sh
+
+      - name: Anexo · instalar PHP
+        if: steps.anexo_php.outputs.activar == 'si'
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ steps.anexo_php.outputs.version }}
+          extensions: ${{ steps.anexo_php.outputs.extensiones }}
+          coverage: none
+
+      # COMPOSER_AUTH solo en este paso. Nunca se imprime. Sin set -x.
+      - name: Anexo · composer install
+        if: steps.anexo_php.outputs.activar == 'si'
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+        run: composer install --no-interaction --prefer-dist --no-progress
 
       # --- DoD DEL PROYECTO. La declara el proyecto; el piso no la reemplaza. ---
       - name: DoD declarada en proyecto-<nombre>.md
@@ -82,7 +115,7 @@ jobs:
       - name: Veredicto — acotado a lo que este job realmente verifico
         run: |
           echo "Verde significa DOS cosas, y solo dos:"
-          echo "  1. El piso paso: puente @AGENTS.md, fin de linea, secretos, catalogo."
+          echo "  1. El piso paso: puente @AGENTS.md, fin de linea, secretos, catalogo, mensajes."
           echo "  2. El proyecto corrio lo que EL MISMO declaro en 'tests:' —o declaro"
           echo "     una excepcion vigente, y entonces el paso anterior lo dijo."
           echo

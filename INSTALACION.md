@@ -121,10 +121,11 @@ git config user.name  "Tu Nombre"
 git config user.email "tu@correo"
 ```
 
-**Sin este comando, `.githooks/pre-commit` no se ejecuta nunca.** Git solo corre
-`.git/hooks/*` por defecto; un archivo dentro de `.githooks/` no se activa por estar
-ahí. Tras un clon el nivel 1 de OPS-07 **no atrapa nada**: ni secretos, ni el puente
-roto, ni el modo de misión ausente, ni la edición de un archivo verbatim.
+**Sin este comando, los hooks de `.githooks/` no se ejecutan nunca.** Git solo
+corre `.git/hooks/*` por defecto; un archivo dentro de `.githooks/` no se
+activa por estar ahí. Tras un clon el nivel 1 de OPS-07 **no atrapa nada**: ni
+secretos, ni el puente roto, ni el modo de misión ausente, ni la edición de un
+archivo verbatim, ni una URL de sesión de agente en el mensaje (`commit-msg`).
 
 > **Este es el paso que más fácil se salta y peor falla al saltarse.** No produce
 > error: produce un proyecto donde el archivo del hook está presente, se ve en el

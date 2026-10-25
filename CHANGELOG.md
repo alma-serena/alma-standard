@@ -2,6 +2,25 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.9 — 2026-10-25
+
+El primer run de `certificacion` en un consumidor Laravel (copihuelpe, run
+40210232087) pasó el piso y murió en `vendor/autoload.php`. El workflow
+verbatim no instalaba PHP ni Composer. A la vez, el barrido de secretos
+castigaba un `.env` local ignorado, y la regla de un único trailer chocaba
+con lo que inyecta el editor.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-40 · H-e** | Campo `php:` (`N.N`) en `proyecto-<nombre>.md` activa el anexo de runtime: `setup-php` fijado por SHA y `composer install` con `COMPOSER_AUTH` solo en ese paso. Independiente de `anexo:`. Inválido → FALLA. El anexo no crea `.env` ni `APP_KEY` | El job distribuido evaluaba `php artisan test` sobre un runner sin `vendor/`. Un secret de repo no llega al job si el workflow no lo declara. Medido: 40210232087, piso verde, DoD exit 255 |
+| **V-41 · I-01-H1** | `verificadores/secretos.sh` (árbol) barre `git ls-files --cached --others --exclude-standard`, filtra rutas ausentes en disco, mantiene las exclusiones. Sin repo git: FALLA. `--diff` no cambia. Ajuste: el prefijo de ruta no pasa por `sed` (`#` y `&` en el nombre) | El `grep` sobre el disco incluía `.env` ignorados. Un proyecto real no podía cerrar misión sin borrar su `.env`. En CI no hay `.env`; el daño era local. El `sed` del prefijo interpretaba `#` como delimitador y `&` como el match |
+| **V-42 · I-01-H4** | `AGENTS.md` permite trailers de agente (cualquier capitalización, también los que inyecta el editor) y prohíbe URLs de sesión. `verificadores/sesion.sh` revisa el rango del PR o del push y corre como hook `commit-msg` | La regla de un único trailer la rompía el editor. Nadie miraba los mensajes. Una URL de sesión apunta a una conversación privada: no es registro |
+
+Hallazgo abierto (no entra en esta versión): `actions/checkout@v4` sigue
+sin fijarse por SHA. El resto de acciones nuevas sí. Otra versión.
+
+---
+
 ## v0.1.8 — 2026-10-01
 
 Identidad visual comprobable: el verificador deja de mirar solo el color. Decisiones

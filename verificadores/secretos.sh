@@ -58,29 +58,41 @@ $(git diff --cached -U0 -- "$f" 2>/dev/null)"
   fi
 else
   ambito="el arbol completo"
-  raiz="$(git rev-parse --show-toplevel 2>/dev/null || true)"
-  if [ -n "$raiz" ]; then
-    cd "$raiz" || exit 1
-  else
-    echo "  aviso · fuera de un repositorio git: se barre el directorio actual, no la raiz"
+  if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    echo "  FALLA · fuera de un repositorio git: no hay corpus que barrer y no se"
+    echo "           puede certificar lo que no se miro"
+    echo "secretos: 1 FALLA(S)"; exit 1
   fi
-  ex=(--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=vendor
-      --exclude=secretos.sh --exclude=pre-commit)
-  hits="$( { grep -rnEI  "$PAT_FIRMAS"  . "${ex[@]}" 2>/dev/null;
-             grep -rniEI "$PAT_NOMBRES" . "${ex[@]}" 2>/dev/null; } | sort -u )"
+  raiz="$(git rev-parse --show-toplevel)"
+  cd "$raiz" || exit 1
+  # I-01-H1 · corpus = rastreados + no rastreados no ignorados. Un .env local
+  # ignorado no entra. Rutas del indice que ya no estan en disco (borradas
+  # sin commitear) se filtran. Exclusiones: las mismas que el grep anterior.
+  hits=""
+  while IFS= read -r -d '' f; do
+    [ -e "$f" ] || continue
+    case "$f" in
+      verificadores/secretos.sh|.githooks/pre-commit) continue ;;
+      node_modules|node_modules/*|*/node_modules|*/node_modules/*) continue ;;
+      vendor|vendor/*|*/vendor|*/vendor/*) continue ;;
+    esac
+    h="$( { grep -nEI  "$PAT_FIRMAS"  -- "$f" 2>/dev/null;
+            grep -niEI "$PAT_NOMBRES" -- "$f" 2>/dev/null; } || true)"
+    if [ -n "$h" ]; then
+      while IFS= read -r l; do
+        [ -n "$l" ] || continue
+        hits="$hits"$'\n'"$f:$l"
+      done <<< "$h"
+    fi
+  done < <(git ls-files -z --cached --others --exclude-standard)
+  hits="$(printf '%s\n' "$hits" | sed '/^$/d' | sort -u)"
   if [ -n "$hits" ]; then
-    # H-MIS-4 · RUTA Y LINEA, NUNCA EL VALOR. La version anterior volcaba la linea
-    # completa a la terminal y por tanto al contexto del agente, que es la
-    # superficie 4 de D-C36: el verificador de los innegociables incumplia los
-    # innegociables. Lo encontro el rol que uso el estandar, corriendo el comando
-    # que INSTALACION.md manda correr.
+    # H-MIS-4 · RUTA Y LINEA, NUNCA EL VALOR.
     echo "  FALLA · posible secreto en el arbol (se muestra ruta:linea, nunca el valor):"
     printf '%s\n' "$hits" | head -10 | cut -d: -f1,2 | sed 's/^/           /'
     fallos=$((fallos+1))
   fi
-  # H-MIS-5 · TRACKEADO, no presente. Un .env local e ignorado por git es lo normal
-  # en cualquier proyecto real; hacerlo fallar obligaba a borrarlo, y borrarlo rompe
-  # la aplicacion. Lo que importa no es que exista: es que haya entrado al repositorio.
+  # H-MIS-5 · TRACKEADO, no presente.
   if git ls-files 2>/dev/null | grep -qE '(^|/)\.env$'; then
     echo "  FALLA · hay un .env TRACKEADO por git"; fallos=$((fallos+1))
   fi

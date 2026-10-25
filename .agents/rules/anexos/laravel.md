@@ -112,3 +112,33 @@ storage/oauth-public.key
 - **Frontend:** `tsc --noEmit` · linter · pruebas con el consumidor real.
 
 Se aplica por superficie tocada. Extiende, nunca reduce.
+
+## CI — anexo de runtime (H-e)
+
+El workflow `.github/workflows/certificacion.yml` **no** asume PHP. El interruptor es el campo
+`php:` de `proyecto-<nombre>.md` (formato `N.N`, p. ej. `8.3`). Independiente
+de `anexo:`. Sin el campo, el job es el de siempre: piso + `eval` de `tests:`.
+Con un valor inválido, el job **falla** y lo dice.
+
+Cuando `php:` es válido, el job instala esa versión (acción `setup-php` fijada
+por SHA) y corre `composer install --no-interaction --prefer-dist --no-progress`
+**con dependencias de desarrollo**, porque `tests:` las necesita. Sin caché en
+esta versión. `php-extensiones:` es opcional; vacío = las que trae el build.
+
+**El anexo solo deja PHP y `vendor/`.** No crea `.env`, no corre `key:generate`
+ni prepara una base: eso le toca al `tests:` del proyecto.
+
+### Secret `COMPOSER_AUTH`
+
+Las dependencias privadas (p. ej. `alma/auth` desde `alma-serena/alma-auth-v2`
+por VCS) necesitan un PAT. El workflow lo inyecta **solo** en el paso de
+`composer install`, como `COMPOSER_AUTH`, con este formato:
+
+```
+{"github-oauth":{"github.com":"<PAT>"}}
+```
+
+El PAT de CI **no es** el del servidor. Fine-grained, un solo repositorio
+(`alma-auth-v2`), permiso Contents: read, vigencia ≤ 90 días. Si el secret no
+está, queda vacío y Composer instala sin auth: lo público sigue; lo privado
+falla con el error de Composer (404 / not found), no con un silencio.
