@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# OPS-07 n1 — el mensaje no lleva URLs de sesion de agente (I-01-H4).
+set -u
+raiz="$(cd "$(dirname "$0")/.." && pwd)"
+if [ -f "$raiz/verificadores/sesion.sh" ]; then
+  bash "$raiz/verificadores/sesion.sh" --archivo "$1" || exit 1
+fi
+exit 0

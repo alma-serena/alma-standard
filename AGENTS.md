@@ -45,10 +45,12 @@ estructura desde el estándar y genera el REQ retroactivo en el cierre.
   humano: el agente no lo ejecuta.
 - **Un objetivo verificable y un cierre por misión.** Si aparecen dos, son dos
   misiones.
-- **Un commit redactado con un agente lo declara**, con un único trailer al pie:
-  `Co-Authored-By: <nombre del modelo> <correo>`. Nada más. Una URL de sesión apunta
-  a una conversación privada que ningún lector de un repositorio público puede abrir,
-  y una cita que no se puede seguir no es registro.
+- **Un commit redactado con un agente lo declara** con trailers de autoría al
+  pie (`Co-Authored-By: <nombre del modelo> <correo>`). Están permitidos los que
+  inyecta el editor, en cualquier capitalización. Una URL de sesión de agente
+  —enlace a una conversación privada del producto— está prohibida: apunta a
+  algo que ningún lector de un repositorio público puede abrir, y una cita que
+  no se puede seguir no es registro.
 
 ## Must Never
 
