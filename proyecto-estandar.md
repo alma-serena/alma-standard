@@ -21,7 +21,7 @@ No hay lenguaje ni framework: `bash` + coreutils, sin dependencias.
 ```
 setup:  git config core.hooksPath .githooks
 correr: no aplica
-tests:  bash verificadores-estandar/coherencia.sh && bash verificadores-estandar/casos.sh
+tests:  bash verificadores-estandar/coherencia.sh && bash verificadores-estandar/casos.sh && bash verificadores-estandar/casos-anexo-php.sh
 lint:   no existe
 ```
 

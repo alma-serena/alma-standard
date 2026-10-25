@@ -2,6 +2,23 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.9 — 2026-10-25
+
+El primer run de `certificacion` en un consumidor Laravel (copihuelpe, run
+40210232087) pasó el piso y murió en `vendor/autoload.php`. El workflow
+verbatim no instalaba PHP ni Composer. A la vez, el barrido de secretos
+castigaba un `.env` local ignorado, y la regla de un único trailer chocaba
+con lo que inyecta el editor.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-40 · H-e** | Campo `php:` (`N.N`) en `proyecto-<nombre>.md` activa el anexo de runtime: `setup-php` fijado por SHA y `composer install` con `COMPOSER_AUTH` solo en ese paso. Independiente de `anexo:`. Inválido → FALLA. El anexo no crea `.env` ni `APP_KEY` | El job distribuido evaluaba `php artisan test` sobre un runner sin `vendor/`. Un secret de repo no llega al job si el workflow no lo declara. Medido: 40210232087, piso verde, DoD exit 255 |
+
+Hallazgo abierto (no entra en esta versión): `actions/checkout@v4` sigue
+sin fijarse por SHA. El resto de acciones nuevas sí. Otra versión.
+
+---
+
 ## v0.1.8 — 2026-10-01
 
 Identidad visual comprobable: el verificador deja de mirar solo el color. Decisiones

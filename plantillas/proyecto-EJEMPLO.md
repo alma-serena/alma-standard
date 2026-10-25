@@ -27,6 +27,25 @@ lint:   <comando>
 
 Deben funcionar copiados y pegados. Un comando que no corre es peor que ninguno.
 
+## Runtime de CI (opcional)
+
+El job `certificacion` no instala PHP ni Composer a menos que lo pidas.
+`anexo:` (más abajo) es el anexo de *stack* — raíces y rutas secretas — y **no**
+enciende este runtime.
+
+```
+php: 8.3
+php-extensiones:
+```
+
+- **`php:`** — formato `N.N`. Presente y válido: el job instala esa versión y
+  corre `composer install` (con dev). Ausente: el anexo no corre. Inválido: el
+  job falla. `verificadores/catalogo.sh` no mira este campo.
+- **`php-extensiones:`** — opcional, CSV para `setup-php`. Vacío = las del build.
+- Si tu DoD no necesita PHP, **no copies estas líneas**.
+
+El anexo no crea `.env` ni `APP_KEY`: eso lo resuelve tu `tests:`.
+
 ## Catálogo de interfaz
 
 Campos que lee `verificadores/catalogo.sh`. **La ausencia de `interfaz:` falla:** no se

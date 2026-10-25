@@ -47,6 +47,26 @@ jobs:
       - name: Piso · catalogo de interfaz
         run: bash ./verificadores/catalogo.sh
 
+      # --- ANEXO DE RUNTIME. Solo corre si proyecto-<nombre>.md declara php:. ---
+      - name: Anexo · runtime PHP (si el proyecto lo declara)
+        id: anexo_php
+        run: bash ./verificadores/anexo-php.sh
+
+      - name: Anexo · instalar PHP
+        if: steps.anexo_php.outputs.activar == 'si'
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ steps.anexo_php.outputs.version }}
+          extensions: ${{ steps.anexo_php.outputs.extensiones }}
+          coverage: none
+
+      # COMPOSER_AUTH solo en este paso. Nunca se imprime. Sin set -x.
+      - name: Anexo · composer install
+        if: steps.anexo_php.outputs.activar == 'si'
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+        run: composer install --no-interaction --prefer-dist --no-progress
+
       # --- DoD DEL PROYECTO. La declara el proyecto; el piso no la reemplaza. ---
       - name: DoD declarada en proyecto-<nombre>.md
         run: |
