@@ -94,6 +94,21 @@ correr borrado pasa
 mkdir -p "$TMP/nongit"
 correr nongit falla 'fuera de un repositorio git'
 
+# 7 · ruta con # — el sed anterior tomaba # como delimitador
+repo "$TMP/hash"
+mkdir -p "$TMP/hash/dir#raro"
+printf '%s\n' "$FAKE" >"$TMP/hash/dir#raro/x.txt"
+git -C "$TMP/hash" add -- 'dir#raro/x.txt'
+git -C "$TMP/hash" commit -qm 'init'
+correr hash falla 'dir#raro/x.txt'
+
+# 8 · ruta con & — el sed anterior interpretaba & como el match
+repo "$TMP/amp"
+printf '%s\n' "$FAKE" >"$TMP/amp/a&b.txt"
+git -C "$TMP/amp" add -- 'a&b.txt'
+git -C "$TMP/amp" commit -qm 'init'
+correr amp falla 'a&b.txt'
+
 echo
 if [ "$fallos" -gt 0 ]; then
   echo "casos-secretos: $fallos FALLA(S) / $ok ok"

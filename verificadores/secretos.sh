@@ -79,8 +79,10 @@ else
     h="$( { grep -nEI  "$PAT_FIRMAS"  -- "$f" 2>/dev/null;
             grep -niEI "$PAT_NOMBRES" -- "$f" 2>/dev/null; } || true)"
     if [ -n "$h" ]; then
-      hits="$hits
-$(printf '%s\n' "$h" | sed "s#^#$f:#")"
+      while IFS= read -r l; do
+        [ -n "$l" ] || continue
+        hits="$hits"$'\n'"$f:$l"
+      done <<< "$h"
     fi
   done < <(git ls-files -z --cached --others --exclude-standard)
   hits="$(printf '%s\n' "$hits" | sed '/^$/d' | sort -u)"
