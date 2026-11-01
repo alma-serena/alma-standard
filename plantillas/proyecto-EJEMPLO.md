@@ -29,9 +29,9 @@ Deben funcionar copiados y pegados. Un comando que no corre es peor que ninguno.
 
 ## Runtime de CI (opcional)
 
-El job `certificacion` no instala PHP ni Composer a menos que lo pidas.
-`anexo:` (más abajo) es el anexo de *stack* — raíces y rutas secretas — y **no**
-enciende este runtime.
+El job `certificacion` instala PHP y Composer si declaras `php: N.N` **o** si
+existe `composer.json` con `require.php`. `anexo:` (más abajo) es el anexo de
+*stack* — raíces y rutas secretas — y **no** enciende este runtime.
 
 ```
 php: 8.3
