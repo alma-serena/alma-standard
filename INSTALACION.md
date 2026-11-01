@@ -34,7 +34,12 @@ remote: - Required status check "certificacion" is expected.
 ```
 
 **No es un candado que haya que abrir. Es el candado funcionando.** El camino que sí
-existe está previsto en el propio workflow, que dispara igual en `pull_request`:
+existe está previsto en el propio workflow, que dispara igual en `pull_request`.
+
+Y si la plataforma no ofrece el candado (cuenta personal · repo privado, 403), la
+convención sigue: **nunca push directo a `main`**. `.github/workflows/guardia-main.yml`
+viaja con `.github/workflows/`, hace visible el atajo y no lo impide. Protección real
+sigue pidiendo Pro o repo público.
 
 ```
 git checkout -b <rama>

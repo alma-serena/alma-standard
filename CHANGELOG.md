@@ -2,6 +2,17 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.11 — 2026-11-01
+
+En cuenta personal con repo privado la protección de rama responde 403.
+El push directo a main no se puede impedir; sí se puede hacer visible.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-44 · MIS-015** | Workflow guardia-main.yml: en cada push a main, por cada commit, la API de PRs asociados. Sin PR mergeado el job falla y abre (o comenta) un issue. Merge commit, squash y rebase pasan. Convención: nunca push directo a main; la guardia lo hace visible, no lo impide | A15: main de copiloto sin protección. Un check rojo y un issue no son candado, pero dejan de ser silencio |
+
+---
+
 ## v0.1.10 — 2026-10-31
 
 El anexo V-40 solo se encendía con `php:` en `proyecto-<nombre>.md`. Un

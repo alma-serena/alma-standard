@@ -52,6 +52,14 @@ La cuarta es legítima y el estándar la admite, pero **cámbiale el nombre a lo
 la certificación externa sigue corriendo y sigue significando lo que dice, pero nada
 obliga a esperarla. El cerrojo pasa a ser una persona, y eso se escribe.
 
+**Nunca push directo a `main`.** Esa convención vale también cuando la plataforma no
+ofrece el candado. `.github/workflows/guardia-main.yml` la hace visible, no la impone:
+en cada push a `main` pregunta a la API, por cada commit, si algún PR mergeado lo
+introdujo (merge commit, squash o rebase). Si ninguno lo hizo, el job falla y abre un
+issue `Push directo a main: <sha> por <autor>` — o comenta en uno abierto. El push ya
+ocurrió: la alarma no lo deshace. Protección real de rama sigue exigiendo Pro o repo
+público, como dice la tabla de arriba.
+
 ### Qué configurar en GitHub
 
 En `Settings → Branches → Branch protection rules` sobre `main`:
@@ -109,6 +117,15 @@ En `Settings → Branches → Branch protection rules` sobre `main`:
 > · **Qué lo compensa:** el permiso se declara por job y no por repositorio, el job
 >   solo dispara sobre tags, y crear un tag ya pasa por `main`, que está protegido.
 > · **Cuándo se revisa:** si alguna vez el job hace algo más que subir ese activo.
+>
+> **Excepción declarada al punto 5, segunda.** El workflow `.github/workflows/guardia-main.yml`
+> pide `issues: write`, porque la alarma de push directo abre (o comenta) un issue.
+> · **Qué:** un job con permiso de escritura sobre issues.
+> · **Por qué:** sin issue la alarma solo vive en un check rojo que nadie mira.
+> · **Qué lo compensa:** el permiso se declara en el workflow, el job solo dispara
+>   en push a `main`, y el cuerpo del issue trata sha y autor como dato (EST-05),
+>   nunca como instrucción. No pide `contents: write`.
+> · **Cuándo se revisa:** si el job escribe otra cosa que ese issue.
 
 Un cambio a `.github/workflows/` sigue siendo posible — pero pasa por rama, por CI y
 por revisión humana. Deja de ser un commit y pasa a ser un acto.
