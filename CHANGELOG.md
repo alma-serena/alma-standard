@@ -2,6 +2,18 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## v0.1.10 — 2026-10-31
+
+El anexo V-40 solo se encendía con `php:` en `proyecto-<nombre>.md`. Un
+consumidor Laravel sin ese campo (copiloto, DoD `php artisan test`) seguía
+muriendo en `vendor/autoload.php`.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-43 · MIS-014** | El anexo de runtime también se enciende si hay composer.json con require.php parseable (N.N). El campo php: explícito gana. Cache de vendor/ antes del composer install. Piso y DoD sin cambio | Un proyecto con Composer no debería necesitar un segundo interruptor para que la DoD encuentre vendor/. Medido: copiloto main, job rojo, piso verde |
+
+---
+
 ## v0.1.9 — 2026-10-25
 
 El primer run de `certificacion` en un consumidor Laravel (copihuelpe, run

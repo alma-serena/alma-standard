@@ -72,6 +72,28 @@ correr invalido-major falla "se espera N.N"
 escribir "$TMP/sin-php" "$(printf '%s\n' 'anexo: ninguno' 'interfaz: no' 'tests: bash bin/perfil.sh')"
 correr sin-php pasa '^activar=no$'
 
+# MIS-014: composer.json con require.php enciende el anexo sin campo php:
+mkdir -p "$TMP/composer-php"
+printf '%s\n' 'anexo: laravel' 'interfaz: no' 'tests: php artisan test' \
+  >"$TMP/composer-php/proyecto-caso.md"
+printf '%s\n' '{ "require": { "php": "^8.3", "laravel/framework": "^13.0" } }' \
+  >"$TMP/composer-php/composer.json"
+correr composer-php pasa '^activar=si$'
+salida="$(RAIZ_PROYECTO="$TMP/composer-php" "$BASH_BIN" "$EST/verificadores/anexo-php.sh" 2>&1)"
+if printf '%s\n' "$salida" | grep -q '^version=8.3$'; then
+  echo "  ok    · composer-php-version"
+  ok=$((ok+1))
+else
+  echo "  FALLA · composer-php-version: no emitio version=8.3"
+  fallos=$((fallos+1))
+fi
+
+# php: gana sobre composer.json
+mkdir -p "$TMP/php-gana"
+printf '%s\n' 'php: 8.4' 'anexo: laravel' >"$TMP/php-gana/proyecto-caso.md"
+printf '%s\n' '{ "require": { "php": "^8.3" } }' >"$TMP/php-gana/composer.json"
+correr php-gana pasa '^version=8.4$'
+
 # catalogo.sh no rechaza un campo que no conoce
 mkdir -p "$TMP/catalogo-php"
 printf '%s\n' \
