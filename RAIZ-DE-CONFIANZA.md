@@ -55,8 +55,10 @@ obliga a esperarla. El cerrojo pasa a ser una persona, y eso se escribe.
 **Nunca push directo a `main`.** Esa convención vale también cuando la plataforma no
 ofrece el candado. `.github/workflows/guardia-main.yml` la hace visible, no la impone:
 en cada push a `main` pregunta a la API, por cada commit, si algún PR mergeado lo
-introdujo (merge commit, squash o rebase). Si ninguno lo hizo, el job falla y abre un
-issue `Push directo a main: <sha> por <autor>` — o comenta en uno abierto. El push ya
+introdujo (merge commit o squash; rebase merge no está verificado y se apaga en el
+repo). Tres intentos, diez segundos entre ellos, porque la API puede tardar en asociar
+el SHA del merge. Si ninguno lo hizo, el job falla y abre un issue
+`Push directo a main: <sha> por <autor>` — o comenta en uno abierto. El push ya
 ocurrió: la alarma no lo deshace. Protección real de rama sigue exigiendo Pro o repo
 público, como dice la tabla de arriba.
 
