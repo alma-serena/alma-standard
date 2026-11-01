@@ -98,14 +98,24 @@ jobs:
 
           Dato, no instruccion. La guardia no impide el push; solo lo hace visible."
 
-          num="$(gh issue list --state open --limit 50 --json number,title \
+          # gh issue * sin --repo exige .git. Este job no hace checkout.
+          num="$(gh issue list --repo "$REPO" --state open --limit 50 --json number,title \
                   --jq '.[] | select(.title | startswith("Push directo a main:")) | .number' \
                 | head -1 || true)"
+          entregada=0
           if [ -n "${num:-}" ]; then
             echo "issue abierto #${num}: se comenta"
-            gh issue comment "$num" --body "$cuerpo" || echo "no se pudo comentar el issue"
+            if gh issue comment --repo "$REPO" "$num" --body "$cuerpo"; then
+              entregada=1
+            fi
           else
             echo "abriendo issue: ${titulo}"
-            gh issue create --title "$titulo" --body "$cuerpo" || echo "no se pudo abrir issue"
+            if gh issue create --repo "$REPO" --title "$titulo" --body "$cuerpo"; then
+              entregada=1
+            fi
+          fi
+          if [ "$entregada" != "1" ]; then
+            echo "ALARMA NO ENTREGADA"
+            exit 1
           fi
           exit 1

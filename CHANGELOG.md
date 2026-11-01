@@ -2,26 +2,15 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
-## v0.1.11 — 2026-11-01
+## v0.1.10 — 2026-11-01
 
-En cuenta personal con repo privado la protección de rama responde 403.
-El push directo a main no se puede impedir; sí se puede hacer visible.
-
-| | Qué | Por qué |
-|---|---|---|
-| **V-44 · MIS-015** | Workflow guardia-main.yml: en cada push a main, por cada commit, la API de PRs asociados. Sin PR mergeado: 3 intentos con 10 s; si sigue vacío, el job falla y abre (o comenta) un issue. Merge commit y squash pasan. Rebase merge no verificado: se apaga en el repo. Convención: nunca push directo a main; la guardia lo hace visible, no lo impide | A15: main de copiloto sin protección. Un check rojo y un issue no son candado, pero dejan de ser silencio. La API puede tardar segundos en asociar el SHA del merge |
-
----
-
-## v0.1.10 — 2026-10-31
-
-El anexo V-40 solo se encendía con `php:` en `proyecto-<nombre>.md`. Un
-consumidor Laravel sin ese campo (copiloto, DoD `php artisan test`) seguía
-muriendo en `vendor/autoload.php`.
+Primer tag después de `v0.1.9`. Incluye [#20](https://github.com/alma-serena/alma-standard/pull/20) (V-43) y [#21](https://github.com/alma-serena/alma-standard/pull/21) (V-44). El CHANGELOG había numerado V-44 como v0.1.11 antes de existir el tag; se publica como v0.1.10.
 
 | | Qué | Por qué |
 |---|---|---|
-| **V-43 · MIS-014** | El anexo de runtime también se enciende si hay composer.json con require.php parseable (N.N). El campo php: explícito gana. Cache de vendor/ antes del composer install. Piso y DoD sin cambio | Un proyecto con Composer no debería necesitar un segundo interruptor para que la DoD encuentre vendor/. Medido: copiloto main, job rojo, piso verde |
+| **V-43 · MIS-014 · #20** | El anexo de runtime también se enciende si hay composer.json con require.php parseable (N.N). El campo php: explícito gana. Cache de vendor/ antes del composer install. Piso y DoD sin cambio | Un proyecto con Composer no debería necesitar un segundo interruptor para que la DoD encuentre vendor/. Medido: copiloto main, job rojo, piso verde |
+| **V-44 · MIS-015 · #21** | Workflow guardia-main.yml: en cada push a main, por cada commit, la API de PRs asociados. Sin PR mergeado: 3 intentos con 10 s; si sigue vacío, el job falla y abre (o comenta) un issue. Merge commit y squash pasan. Rebase merge no verificado: se apaga en el repo. Convención: nunca push directo a main; la guardia lo hace visible, no lo impide | A15: main de copiloto sin protección. Un check rojo y un issue no son candado, pero dejan de ser silencio. La API puede tardar segundos en asociar el SHA del merge |
+| **V-45** | `gh issue create/comment/list` llevan `--repo`. Sin checkout, `gh` sin `--repo` muere: `fatal: not a git repository`. Si la entrega falla: `ALARMA NO ENTREGADA` y exit 1. Sin etiqueta. `permissions` explícitos: contents/pull-requests read, issues write | Medido: guardia-prueba run 41262275712. El job detectó el push (intento 3) y no abrió issue |
 
 ---
 
