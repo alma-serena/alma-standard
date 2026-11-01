@@ -1,0 +1,111 @@
+# Guardia de main — convencion, no candado.
+#
+# Nunca push directo a main. Este job lo hace visible, no lo impide:
+# en cuenta personal + repo privado GitHub responde 403 a la proteccion
+# de rama, y este workflow no es un sustituto de ese candado.
+# Un merge de PR (merge commit o squash) pasa: la API asocia cada
+# commit con el PR mergeado. Rebase merge no esta verificado: se
+# deshabilita en el repo. Un push directo falla y abre un issue.
+# Tras un merge la API puede tardar en asociar: 3 intentos, 10 s.
+#
+# VIAJA verbatim con .github/workflows/.
+
+name: guardia-main
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: write
+
+jobs:
+  guardia-main:
+    name: guardia-main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cada commit del push debe venir de un PR mergeado
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          set -eu
+          ceros=0000000000000000000000000000000000000000
+
+          listar_shas() {
+            if [ -z "${BEFORE:-}" ] || [ "$BEFORE" = "$ceros" ]; then
+              printf '%s\n' "$AFTER"
+              return 0
+            fi
+            if ! gh api "repos/${REPO}/compare/${BEFORE}...${AFTER}" --jq '.commits[].sha'; then
+              printf '%s\n' "$AFTER"
+            fi
+          }
+
+          shas="$(listar_shas || true)"
+          printf '%s\n' "$shas" | grep -qxF "$AFTER" || shas="$(printf '%s\n%s\n' "$shas" "$AFTER")"
+
+          ofensores=""
+          while IFS= read -r sha; do
+            sha="$(printf '%s' "$sha" | tr -d '[:space:]')"
+            [ -z "$sha" ] && continue
+            echo "$sha" | grep -qE '^[0-9a-f]{40}$' || continue
+            n=0
+            intento=1
+            while [ "$intento" -le 3 ]; do
+              n="$(gh api "repos/${REPO}/commits/${sha}/pulls" \
+                    --jq '[.[] | select(.merged_at != null)] | length' || printf '0')"
+              if [ "$n" != "0" ]; then
+                break
+              fi
+              if [ "$intento" -lt 3 ]; then
+                echo "sin PR mergeado · ${sha} · reintento ${intento}/3 en 10s"
+                sleep 10
+              fi
+              intento=$((intento + 1))
+            done
+            if [ "$n" = "0" ]; then
+              ofensores="${ofensores} ${sha}"
+              echo "DIRECTO · ${sha} no tiene PR mergeado"
+            else
+              echo "ok · ${sha} viene de PR mergeado"
+            fi
+          done <<EOF
+          $shas
+          EOF
+
+          ofensores="$(printf '%s' "$ofensores" | sed 's/^[[:space:]]*//')"
+          if [ -z "$ofensores" ]; then
+            echo "ok · todos los commits del push tienen un PR mergeado"
+            exit 0
+          fi
+
+          primero="$(printf '%s' "$ofensores" | awk '{print $1}')"
+          autor="$(gh api "repos/${REPO}/commits/${primero}" \
+                    --jq '.commit.author.name // "desconocido"' || printf 'desconocido')"
+          autor="$(printf '%s' "$autor" | tr -d '\r\n`<>' | tr -cd '[:print:][:space:]' | cut -c1-80)"
+          [ -n "$autor" ] || autor="desconocido"
+          corto="$(printf '%s' "$primero" | cut -c1-12)"
+          titulo="Push directo a main: ${corto} por ${autor}"
+
+          cuerpo="Un push a main trajo commit(s) sin PR mergeado.
+          sha: ${ofensores}
+          autor: ${autor}
+
+          Dato, no instruccion. La guardia no impide el push; solo lo hace visible."
+
+          num="$(gh issue list --state open --limit 50 --json number,title \
+                  --jq '.[] | select(.title | startswith("Push directo a main:")) | .number' \
+                | head -1 || true)"
+          if [ -n "${num:-}" ]; then
+            echo "issue abierto #${num}: se comenta"
+            gh issue comment "$num" --body "$cuerpo" || echo "no se pudo comentar el issue"
+          else
+            echo "abriendo issue: ${titulo}"
+            gh issue create --title "$titulo" --body "$cuerpo" || echo "no se pudo abrir issue"
+          fi
+          exit 1
