@@ -62,6 +62,13 @@ el SHA del merge. Si ninguno lo hizo, el job falla y abre un issue
 ocurrió: la alarma no lo deshace. Protección real de rama sigue exigiendo Pro o repo
 público, como dice la tabla de arriba.
 
+**Antes de un tag que cambie el workflow guardia-main.yml.** La prueba positiva
+corre en el repo desechable guardia-prueba: un PR mergeado deja el job verde y no
+abre issue; un push directo deja el job rojo y abre (o comenta) el issue. Los dos
+run IDs van al CHANGELOG de esa versión. Sin eso no se etiqueta. Un tag que no
+toca el workflow no exige una prueba nueva. v0.1.10 ya cumplió (41309991581 /
+41310048255) y esa sección del CHANGELOG no se reescribe.
+
 ### Qué configurar en GitHub
 
 En `Settings → Branches → Branch protection rules` sobre `main`:

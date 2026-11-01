@@ -2,6 +2,14 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## Sin publicar
+
+No forma parte de v0.1.10. Entra en el tag siguiente.
+
+| | Qué | Por qué |
+|---|---|---|
+| **V-46** | Antes de un tag que cambie el workflow guardia-main.yml: prueba positiva en guardia-prueba (PR mergeado verde sin issue + push directo rojo con issue). Los dos run IDs van al CHANGELOG de esa versión. Sin eso no se etiqueta | v0.1.10 publicó la guardia; la prueba que demuestra que la alarma se entrega llegó después del texto de esa versión y no se reescribe |
+
 ## v0.1.10 — 2026-11-01
 
 Primer tag después de `v0.1.9`. Incluye [#20](https://github.com/alma-serena/alma-standard/pull/20) (V-43) y [#21](https://github.com/alma-serena/alma-standard/pull/21) (V-44). El CHANGELOG había numerado V-44 como v0.1.11 antes de existir el tag; se publica como v0.1.10.
