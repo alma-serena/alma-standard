@@ -55,7 +55,7 @@ ANDAMIAJE_EXTRA='.git .alma docs .gitignore .gitattributes README.md LICENSE'
 # lista confesaba mas arriba: una lista escrita de memoria olvida lo que no se mira.
 ANDAMIAJE_ESTANDAR="$ANDAMIAJE_RESPALDO"
 if [ -f .alma/manifest.sha256 ]; then
-  derivado="$(awk '{ $1=""; sub(/^[[:space:]]+/,""); print }' .alma/manifest.sha256 \
+  derivado="$(sed -E 's/^[0-9a-f]{64} [ *]//' .alma/manifest.sha256 \
               | sed 's#/.*##' | grep -v '^$' | sort -u | tr '\n' ' ')"
   [ -n "$derivado" ] && ANDAMIAJE_ESTANDAR="$derivado"
 fi
