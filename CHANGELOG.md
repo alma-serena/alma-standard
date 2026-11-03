@@ -8,6 +8,7 @@ No forma parte de v0.1.10. Entra en el tag siguiente.
 
 | | Qué | Por qué |
 |---|---|---|
+| **V-47** | `verificadores/andamiaje.sh` y `verificadores/catalogo.sh` leen la ruta del manifest con `sed -E 's/^[0-9a-f]{64} [ *]//'`: aceptan el separador de texto (`  `) y el binario (` *`). Ya no colapsan espacios dentro de la ruta | Un manifest regenerado en Git Bash usa ` *`; con él `andamiaje` daba 8 FALLAS falsas (rutas con `*` delante) y `catalogo` derivaba mal. `sha256sum -c` (hook) ya aceptaba los dos. Medido sobre el árbol de `695e0fd` |
 | **V-46** | Antes de un tag que cambie el workflow guardia-main.yml: prueba positiva en guardia-prueba (PR mergeado verde sin issue + push directo rojo con issue). Los dos run IDs van al CHANGELOG de esa versión. Sin eso no se etiqueta | v0.1.10 publicó la guardia; la prueba que demuestra que la alarma se entrega llegó después del texto de esa versión y no se reescribe |
 
 ## v0.1.10 — 2026-11-01

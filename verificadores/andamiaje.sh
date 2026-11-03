@@ -25,7 +25,9 @@ if [ ! -f .alma/manifest.sha256 ]; then
   echo "          del release del tag (D-C48). Esta comprobacion queda pendiente, no ok."
   echo "andamiaje: sin fallas (1 aviso)"; exit 0
 fi
-listados="$(awk '{ $1=""; sub(/^[[:space:]]+/,""); print }' .alma/manifest.sha256)"
+# V-47 · Ruta = todo lo que sigue al hash y al separador. sha256sum escribe "  " en
+# modo texto y " *" en modo binario (Git Bash en Windows); se aceptan los dos.
+listados="$(sed -E 's/^[0-9a-f]{64} [ *]//' .alma/manifest.sha256)"
 raices="$(printf '%s\n' "$listados" | sed 's#/.*##' | sort -u)"
 for r in $raices; do
   [ -d "$r" ] || continue
