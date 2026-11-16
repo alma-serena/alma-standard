@@ -100,6 +100,18 @@ Descargado, en `.alma/manifest.sha256`. Ahí lo leen dos cosas: el hook, para co
 integridad de los archivos verbatim; y `verificadores/catalogo.sh`, que **deriva de él**
 qué rutas son andamiaje del estándar en vez de recordarlas en una lista `[D-C46]`.
 
+## Migración a v0.1.11 (mapa)
+
+Todo proyecto con `interfaz: si` **falla** al subir hasta que `proyecto-<nombre>.md`
+declare `mapa: pendiente` (una línea). Eso desbloquea el verificador en convergencia;
+`conforme` sigue exigiendo un mapa `ACEPTADO` con copia y `mapa-origen:`. Detalle en
+`.agents/rules/diseno.md` («El mapa») y `verificadores/mapa.sh`.
+
+Si en Windows copias `verificadores/mapa.sh` a un temporal para correrlo fuera del
+repo, hazlo con `git show <ref>:verificadores/mapa.sh > archivo` desde Git Bash
+(finales LF). `Set-Content` de PowerShell o una copia CRLF rompen el script; el
+propio verificador falla con mensaje claro si detecta CRLF en sí mismo.
+
 ## Lo que `alma:upgrade` NO hace
 
 - **No hace push.** El ancla es acto humano.

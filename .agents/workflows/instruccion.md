@@ -35,6 +35,18 @@ no comandos de ejemplo: si no existen en este proyecto, el modo es génesis.
 Contexto que no cabe arriba.
 ```
 
+## Pantallas (solo con `interfaz: si`)
+
+En la cabecera de la misión, junto a Estado / Modo / REQ / Autoridad:
+
+```
+**pantallas:** PANnn, PANnn | ninguna
+```
+
+Lista los IDs del mapa que la misión toca, o `ninguna`. El verificador exige mapa
+`ACEPTADO` y IDs con `vigencia: vigente` cuando la lista no es `ninguna`. En proyectos
+con `interfaz: no` (o sin interfaz) el campo no aplica.
+
 ## Checklist
 
 - [ ] ¿El modo de misión está declarado?
@@ -47,6 +59,7 @@ Contexto que no cabe arriba.
 - [ ] ¿Alguna de las cinco puertas de OPS-01 se cruza en el camino? ¿Está marcada?
 - [ ] En una funcionalidad: **¿hay acciones candidatas al registro de críticas?**
       Pregunta obligatoria, no opcional.
+- [ ] Con `interfaz: si`: ¿`pantallas:` lista IDs del mapa o `ninguna`?
 
 ## Dónde vive
 
