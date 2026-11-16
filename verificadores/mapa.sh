@@ -8,8 +8,20 @@
 # Sin temporales de nombre fijo; anclado a la raiz (H-VER-1/5). El mermaid se lee
 # con expresiones regulares sobre la sintaxis permitida; cualquier otra linea
 # dentro de un bloque mermaid es FALLA. Ninguna comprobacion depende del kit (linea C).
+#
+# Windows: copiar este script con `git show <ref>:verificadores/mapa.sh > mapa.sh`
+# desde Git Bash (finales LF). Set-Content de PowerShell o una copia CRLF lo rompen.
 
 set -u
+
+# CRLF en este archivo: bash puede arrancar, pero tokens llevan \r y fallan opaco.
+if grep -q $'\r' "$0" 2>/dev/null; then
+  echo "  FALLA · mapa.sh tiene finales CRLF."
+  echo "  Copialo con: git show <ref>:verificadores/mapa.sh > mapa.sh  (Git Bash, LF)."
+  echo "  Set-Content de PowerShell o una copia CRLF lo rompen."
+  exit 1
+fi
+
 fallos=0; avisos=0
 CON_DIFF=0
 ESP_DIR=""
@@ -107,19 +119,15 @@ validar_mermaid() { # $1 etiqueta  $2 archivo-nodos  stdin=bloque
         *) err "$etiq: primera linea mermaid debe ser 'flowchart TD' o 'flowchart LR' (vio: $linea)"; return 1 ;;
       esac
     fi
+    # Nodo: PANnn o PANnn["nombre"]. Se admiten mezclados en la misma arista.
     local ok_linea=0 a="" b=""
+    local re_nodo='PAN[0-9]{2,}(\["[^"]*"\])?'
     if printf '%s\n' "$linea" | grep -qE '^PAN[0-9]{2,}\["[^"]*"\][[:space:]]*$'; then
       a="$(printf '%s\n' "$linea" | sed -E 's/^(PAN[0-9]{2,}).*/\1/')"; ok_linea=1
-    elif printf '%s\n' "$linea" | grep -qE '^PAN[0-9]{2,}\["[^"]*"\][[:space:]]*-->\|"[^"]*"\|[[:space:]]*PAN[0-9]{2,}\["[^"]*"\][[:space:]]*$'; then
+    elif printf '%s\n' "$linea" | grep -qE "^${re_nodo}[[:space:]]*-->\|\"[^\"]*\"\|[[:space:]]*${re_nodo}[[:space:]]*$"; then
       a="$(printf '%s\n' "$linea" | sed -E 's/^(PAN[0-9]{2,}).*/\1/')"
       b="$(printf '%s\n' "$linea" | sed -E 's/.*-->\|"[^"]*"\|[[:space:]]*(PAN[0-9]{2,}).*/\1/')"; ok_linea=1
-    elif printf '%s\n' "$linea" | grep -qE '^PAN[0-9]{2,}\["[^"]*"\][[:space:]]*-->[[:space:]]*PAN[0-9]{2,}\["[^"]*"\][[:space:]]*$'; then
-      a="$(printf '%s\n' "$linea" | sed -E 's/^(PAN[0-9]{2,}).*/\1/')"
-      b="$(printf '%s\n' "$linea" | sed -E 's/.*-->[[:space:]]*(PAN[0-9]{2,}).*/\1/')"; ok_linea=1
-    elif printf '%s\n' "$linea" | grep -qE '^PAN[0-9]{2,}[[:space:]]*-->\|"[^"]*"\|[[:space:]]*PAN[0-9]{2,}[[:space:]]*$'; then
-      a="$(printf '%s\n' "$linea" | sed -E 's/^(PAN[0-9]{2,}).*/\1/')"
-      b="$(printf '%s\n' "$linea" | sed -E 's/.*-->\|"[^"]*"\|[[:space:]]*(PAN[0-9]{2,}).*/\1/')"; ok_linea=1
-    elif printf '%s\n' "$linea" | grep -qE '^PAN[0-9]{2,}[[:space:]]*-->[[:space:]]*PAN[0-9]{2,}[[:space:]]*$'; then
+    elif printf '%s\n' "$linea" | grep -qE "^${re_nodo}[[:space:]]*-->[[:space:]]*${re_nodo}[[:space:]]*$"; then
       a="$(printf '%s\n' "$linea" | sed -E 's/^(PAN[0-9]{2,}).*/\1/')"
       b="$(printf '%s\n' "$linea" | sed -E 's/.*-->[[:space:]]*(PAN[0-9]{2,}).*/\1/')"; ok_linea=1
     fi
@@ -443,7 +451,14 @@ if [ -n "$ESP_DIR" ]; then
   interfaz_esp=""
   aceptada=0
   if [ -f "$local_estado" ]; then
-    interfaz_esp="$(grep -iE '^Interfaz:[[:space:]]*' "$local_estado" | head -1 | sed -E 's/^[Ii]nterfaz:[[:space:]]*//;s/[[:space:]]*$//')"
+    # Linea "Interfaz: si|no" o celda de tabla "| Interfaz | si |" / "| **Interfaz** | si |"
+    interfaz_esp="$(grep -iE '^Interfaz:[[:space:]]*' "$local_estado" | head -1 \
+      | sed -E 's/^[Ii]nterfaz:[[:space:]]*//;s/[[:space:]]*$//')"
+    if [ -z "$interfaz_esp" ]; then
+      interfaz_esp="$(grep -iE '^\|[[:space:]]*\*{0,2}Interfaz\*{0,2}[[:space:]]*\|' "$local_estado" \
+        | head -1 \
+        | sed -E 's/^\|[[:space:]]*\*{0,2}[Ii]nterfaz\*{0,2}[[:space:]]*\|[[:space:]]*//;s/[[:space:]]*\|.*//;s/\*//g;s/[[:space:]]*$//')"
+    fi
     if grep -qiE '(Estado|estado).*(aceptad|ACEPTAD)' "$local_estado" \
        || grep -qiE '^Estado:[[:space:]]*aceptad' "$local_estado"; then
       aceptada=1

@@ -373,6 +373,126 @@ correr_esp verde-esp pasa "" "$TMP/verde/esp"
 base_prod "$TMP/verde/prod"
 correr_prod verde-prod pasa "" "$TMP/verde/prod"
 
+# ========== verde: mermaid mixto (con/sin ["nombre"] en la misma arista) ==========
+mkdir -p "$TMP/verde-mixto/esp"
+diseno_juguete "$TMP/verde-mixto/esp/diseno.md"
+cat >"$TMP/verde-mixto/esp/ESTADO.md" <<'EOF'
+Interfaz: si
+Estado: aceptada
+EOF
+cat >"$TMP/verde-mixto/esp/mapa.md" <<'EOF'
+# Mapa de juguete — ESP-999
+
+```
+esp: ESP-999
+version: 1
+estado: ACEPTADO
+aceptado-por: caso
+aceptado-fecha: 2026-11-16
+experiencia: no hay
+```
+
+## Pantallas
+
+### PAN01 · Entrar
+
+```
+vigencia: vigente
+actor: usuario
+proposito: entrar
+muestra: —
+pide: —
+acciones: continuar
+vacio: N/A — no aplica
+carga: spinner → espera
+error: mensaje → reintentar
+dominio: —
+comparte: —
+traza: O1, AC1
+```
+
+### PAN02 · Lista
+
+```
+vigencia: vigente
+actor: usuario
+proposito: listar
+muestra: item.nombre
+pide: —
+acciones: abrir
+vacio: vacio → crear
+carga: spinner → espera
+error: mensaje → reintentar
+dominio: —
+comparte: —
+traza: AC2
+```
+
+## Flujos
+
+### FLU01 · mixto — actor: usuario — traza: O1
+
+```mermaid
+flowchart LR
+  PAN01["Entrar"] --> PAN02
+  PAN02 --> PAN02["Lista"]
+  PAN02 -->|"contrapropuesta: nueva version"| PAN02
+  PAN02["Lista"] -->|"abrir: detalle"| PAN01
+```
+
+## Navegación
+
+```
+entrada: PAN01
+persistente: PAN02
+```
+
+```mermaid
+flowchart TD
+  PAN01 --> PAN02["Lista"]
+```
+
+## AC sin superficie
+
+```
+AC3: sin UI en v1
+```
+EOF
+correr_esp verde-mermaid-mixto pasa "" "$TMP/verde-mixto/esp"
+
+# ========== verde: Interfaz en celda de tabla ==========
+mkdir -p "$TMP/verde-tabla/esp"
+diseno_juguete "$TMP/verde-tabla/esp/diseno.md"
+cat >"$TMP/verde-tabla/esp/ESTADO.md" <<'EOF'
+# ESTADO
+
+| Campo | Valor |
+|---|---|
+| **Estado** | Aceptada |
+| **Interfaz** | si |
+EOF
+mapa_valido "$TMP/verde-tabla/esp/mapa.md" ACEPTADO
+correr_esp verde-interfaz-tabla pasa "" "$TMP/verde-tabla/esp"
+
+# ========== rojo: mermaid mixto con nodo que no es ID ==========
+mkdir -p "$TMP/rojo-mixto/esp"
+diseno_juguete "$TMP/rojo-mixto/esp/diseno.md"
+cat >"$TMP/rojo-mixto/esp/ESTADO.md" <<'EOF'
+Interfaz: si
+Estado: aceptada
+EOF
+mapa_valido "$TMP/rojo-mixto/esp/mapa.md" ACEPTADO
+cat >>"$TMP/rojo-mixto/esp/mapa.md" <<'EOF'
+
+### FLU99 · nodo ilegal
+
+```mermaid
+flowchart LR
+  PAN01 --> Foo["no-id"]
+```
+EOF
+correr_esp rojo-mermaid-mixto-noid falla "sintaxis permitida|fuera de la sintaxis" "$TMP/rojo-mixto/esp"
+
 # via catalogo.sh (producto con mapa pendiente no conforme)
 mkdir -p "$TMP/verde/cat/resources/views/components" "$TMP/verde/cat/docs" "$TMP/verde/cat/resources/css"
 cat >"$TMP/verde/cat/proyecto-caso.md" <<'EOF'
