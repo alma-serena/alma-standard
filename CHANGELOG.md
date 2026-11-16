@@ -2,9 +2,9 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
-## Sin publicar
+## v0.1.11 — 2026-11-16
 
-No forma parte de v0.1.10. Entra en el tag siguiente.
+Primer tag después de `v0.1.10`. Incluye [#23](https://github.com/alma-serena/alma-standard/pull/23) (V-46), [#24](https://github.com/alma-serena/alma-standard/pull/24) (V-47) y [#25](https://github.com/alma-serena/alma-standard/pull/25) (V-48).
 
 | | Qué | Por qué |
 |---|---|---|
