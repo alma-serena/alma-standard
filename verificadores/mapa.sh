@@ -11,16 +11,11 @@
 #
 # Windows: copiar este script con `git show <ref>:verificadores/mapa.sh > mapa.sh`
 # desde Git Bash (finales LF). Set-Content de PowerShell o una copia CRLF lo rompen.
+# Guardia CRLF en una sola linea (el \r cae en el comentario final); un bloque if
+# con copia CRLF falla por sintaxis antes de llegar al grep.
 
+grep -Uq $'\r' "$0" && { echo "  FALLA · mapa.sh tiene finales CRLF. Copialo con: git show <ref>:verificadores/mapa.sh > mapa.sh (Git Bash, LF)."; exit 1; } #
 set -u
-
-# CRLF en este archivo: bash puede arrancar, pero tokens llevan \r y fallan opaco.
-if grep -q $'\r' "$0" 2>/dev/null; then
-  echo "  FALLA · mapa.sh tiene finales CRLF."
-  echo "  Copialo con: git show <ref>:verificadores/mapa.sh > mapa.sh  (Git Bash, LF)."
-  echo "  Set-Content de PowerShell o una copia CRLF lo rompen."
-  exit 1
-fi
 
 fallos=0; avisos=0
 CON_DIFF=0
@@ -451,14 +446,16 @@ if [ -n "$ESP_DIR" ]; then
   interfaz_esp=""
   aceptada=0
   if [ -f "$local_estado" ]; then
-    # Linea "Interfaz: si|no" o celda de tabla "| Interfaz | si |" / "| **Interfaz** | si |"
+    # Linea "Interfaz: si|no" o celda de tabla "| Interfaz | si |" / "| **INTERFAZ** | Si |"
+    # Etiqueta sin distinguir mayúsculas; valor a minúsculas antes del case.
     interfaz_esp="$(grep -iE '^Interfaz:[[:space:]]*' "$local_estado" | head -1 \
-      | sed -E 's/^[Ii]nterfaz:[[:space:]]*//;s/[[:space:]]*$//')"
+      | sed -E 's/^[^:]+:[[:space:]]*//;s/[[:space:]]*$//')"
     if [ -z "$interfaz_esp" ]; then
       interfaz_esp="$(grep -iE '^\|[[:space:]]*\*{0,2}Interfaz\*{0,2}[[:space:]]*\|' "$local_estado" \
         | head -1 \
-        | sed -E 's/^\|[[:space:]]*\*{0,2}[Ii]nterfaz\*{0,2}[[:space:]]*\|[[:space:]]*//;s/[[:space:]]*\|.*//;s/\*//g;s/[[:space:]]*$//')"
+        | sed -E 's/^\|[^|]*\|[[:space:]]*//;s/[[:space:]]*\|.*//;s/\*//g;s/[[:space:]]*$//')"
     fi
+    interfaz_esp="$(printf '%s' "$interfaz_esp" | tr '[:upper:]' '[:lower:]')"
     if grep -qiE '(Estado|estado).*(aceptad|ACEPTAD)' "$local_estado" \
        || grep -qiE '^Estado:[[:space:]]*aceptad' "$local_estado"; then
       aceptada=1
@@ -470,10 +467,10 @@ if [ -n "$ESP_DIR" ]; then
   fi
 
   case "$interfaz_esp" in
-    si|sí|SI|Sí)
+    si|sí)
       [ -f "$local_mapa" ] || err "Interfaz: si y no existe mapa.md"
       ;;
-    no|NO|No)
+    no)
       ok "ESP declara Interfaz: no"
       if [ "$fallos" -eq 0 ]; then
         echo "mapa: sin fallas${avisos:+ ($avisos aviso/s)}"; exit 0
