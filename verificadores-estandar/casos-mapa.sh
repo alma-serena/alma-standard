@@ -474,6 +474,41 @@ EOF
 mapa_valido "$TMP/verde-tabla/esp/mapa.md" ACEPTADO
 correr_esp verde-interfaz-tabla pasa "" "$TMP/verde-tabla/esp"
 
+# ========== verde: INTERFAZ mayúsculas en tabla + valor Si ==========
+mkdir -p "$TMP/verde-interfaz-mayus/esp"
+diseno_juguete "$TMP/verde-interfaz-mayus/esp/diseno.md"
+cat >"$TMP/verde-interfaz-mayus/esp/ESTADO.md" <<'EOF'
+# ESTADO
+
+| Campo | Valor |
+|---|---|
+| **Estado** | Aceptada |
+| **INTERFAZ** | Si |
+EOF
+mapa_valido "$TMP/verde-interfaz-mayus/esp/mapa.md" ACEPTADO
+correr_esp verde-interfaz-mayus-tabla pasa "" "$TMP/verde-interfaz-mayus/esp"
+
+# ========== verde: Interfaz: NO (ESP sin interfaz) ==========
+mkdir -p "$TMP/verde-interfaz-no/esp"
+cat >"$TMP/verde-interfaz-no/esp/ESTADO.md" <<'EOF'
+Interfaz: NO
+Estado: aceptada
+EOF
+correr_esp verde-interfaz-NO pasa "" "$TMP/verde-interfaz-no/esp"
+
+# ========== rojo: copia CRLF del script ==========
+CRLF_TMP="$(mktemp "${TMPDIR:-/tmp}/alma-mapa-crlf.XXXXXX")"
+sed 's/$/\r/' "$EST/verificadores/mapa.sh" >"$CRLF_TMP"
+codigo_crlf=0
+salida_crlf="$("$BASH_BIN" "$CRLF_TMP" 2>&1)" || codigo_crlf=$?
+if [ "$codigo_crlf" -eq 1 ] && printf '%s\n' "$salida_crlf" | grep -q 'CRLF'; then
+  ok_uno 'rojo-crlf (falla: CRLF)'
+else
+  falla_uno "rojo-crlf: esperaba exit 1 y texto CRLF (codigo=$codigo_crlf)"
+  printf '%s\n' "$salida_crlf" | sed 's/^/           /' | head -10
+fi
+rm -f "$CRLF_TMP"
+
 # ========== rojo: mermaid mixto con nodo que no es ID ==========
 mkdir -p "$TMP/rojo-mixto/esp"
 diseno_juguete "$TMP/rojo-mixto/esp/diseno.md"
