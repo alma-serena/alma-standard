@@ -97,7 +97,7 @@ ANDAMIAJE="$(campo andamiaje "$PROY" | tr ',' ' ')"
 # ruta no existia. No fue deriva: fue un valor plausible que nadie comprobaba.
 # Un valor con `<` o `>` es la plantilla sin rellenar, y eso SI es comprobable con
 # certeza mecanica. Cubre cualquier campo copiado, no solo el que se descubrio.
-for c in andamiaje anexo interfaz componentes catalogo tokens tokens-base maqueta origen; do
+for c in andamiaje anexo interfaz componentes catalogo tokens tokens-base maqueta origen mapa mapa-origen; do
   v="$(campo "$c" "$PROY")"
   case "$v" in
     *"<"*|*">"*) err "'$PROY': '$c' sigue con el marcador de la plantilla: '$v'" ;;
@@ -570,6 +570,24 @@ if grep -q '^--alma-color-' "$mapa_dark" 2>/dev/null; then
   medir_contraste_tema "dark" "$mapa_dark"
 fi
 rm -f "$mapa_light" "$mapa_dark"
+
+# --- 12b · mapa de pantallas y flujos (V-48 / REQ-V48) ----------------------
+# Un verificador, dos llamadores: mapa.sh lo usa tambien alma-serena con --esp.
+# Aqui solo modo producto. --diff degrada FALLA a aviso (D-C44).
+MAPA_SH="$RAIZ_ESTANDAR/verificadores/mapa.sh"
+[ -f "$MAPA_SH" ] || MAPA_SH="verificadores/mapa.sh"
+if [ -f "$MAPA_SH" ]; then
+  mapa_args=()
+  [ "$CON_DIFF" -eq 1 ] && mapa_args+=(--diff)
+  mapa_rc=0
+  RAIZ_PROYECTO="${RAIZ_PROYECTO:-$PWD}" RAIZ_ESTANDAR="$RAIZ_ESTANDAR" \
+    bash "$MAPA_SH" "${mapa_args[@]}" || mapa_rc=$?
+  if [ "$mapa_rc" -ne 0 ]; then
+    fallos=$((fallos+1))
+  fi
+else
+  aviso "no se encontro verificadores/mapa.sh: no se comprobó el mapa"
+fi
 
 # --- 12 · outline: none|0 sin :focus-visible en el mismo archivo (E.4) ------
 archivos_foco="$DIRS_COMP $ARCH_TOK"

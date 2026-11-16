@@ -12,6 +12,42 @@ el anexo; el **catálogo** vive en el proyecto.
 > real: varias versiones de la misma tabla, filtros propios por pantalla y colores
 > literales en el código, corrigiéndose meses después.
 
+## 1a · El mapa
+
+**Todo proyecto con interfaz tiene un mapa de pantallas y flujos aceptado antes de
+cualquier misión que toque interfaz.** No es maqueta, ni diseño visual, ni catálogo de
+componentes: es la estructura — pantallas, estados, acciones, flujos, navegación y su
+traza a objetivos y AC.
+
+**Dónde vive (decisión A, Nico 2026-11-16):** la fuente está en la ESP (mapa.md junto
+a diseno.md). El producto lleva una **copia fija, byte a byte**, en docs/mapa.md
+(u otra ruta declarada). Su procedencia y hash van en `proyecto-<nombre>.md`:
+
+```
+mapa: docs/mapa.md
+mapa-origen: alma-serena@<sha> · sha256 <hash>
+```
+
+`mapa: pendiente` es el valor de migración: aviso con nombre; **FALLA** si el catálogo
+se declara `conforme`. Sin el campo `mapa:` y con `interfaz: si`, **FALLA**.
+
+**Desviación menor** (un campo, un estado o un diálogo dentro de una pantalla existente):
+la misión sigue y la anota. **Desviación mayor** (pantalla nueva, flujo nuevo o retiro):
+la misión pausa; la enmienda se hace en la ESP y se recopia. **La misión nunca edita el
+mapa** del producto.
+
+**Caminos infelices** — vacío, carga (incluidas esperas largas del agente) y error —
+van en cada pantalla, con siguiente paso, o `N/A — <razón>`. Vacíos no.
+
+La plantilla del mapa está en plantillas/. El verificador es
+`verificadores/mapa.sh` (modo `--esp` para la ESP; modo producto vía
+`verificadores/catalogo.sh`).
+
+**Pendiente — índice inverso de vistas (regla b).** Campo `vistas:` por pantalla. Se
+adopta tras el primer mapa real de WorldWeaver si la revisión de diff muestra una
+misión con `pantallas: ninguna` que tocó vistas, o a más tardar en la versión siguiente
+a v0.1.11. Hasta entonces no hay comprobación de máquina.
+
 ## 1 · El catálogo
 
 **Todo proyecto con interfaz tiene un catálogo de componentes y una maqueta que lo
@@ -282,6 +318,12 @@ significa que el catálogo esté sano.
 | 10 | Con `tokens-base:`: propiedad `--alma-*` en `tokens:` que no existe en la base |
 | 11 | Contraste insuficiente en pares de rol (ambos temas); valor no resoluble → aviso |
 | 12 | `outline: none\|0` sin `:focus-visible` en el mismo archivo |
+| M1 | Con `interfaz: si` y sin `mapa:` → FALLA |
+| M2 | `mapa: pendiente` → aviso; con `conforme` → FALLA |
+| M3 | Misión abierta con `pantallas:` (no `ninguna`) y mapa ≠ `ACEPTADO` → FALLA |
+| M4 | `pantallas:` con ID inexistente o `retirada` → FALLA |
+| M5 | Hash de la copia ≠ `mapa-origen:` → FALLA |
+| M6 | Mermaid fuera de sintaxis, sin traza, nodo inventado, inalcanzable, estado vacío → FALLA |
 
 **Lo que ninguna máquina comprueba, dicho con nombre:**
 
@@ -306,6 +348,21 @@ significa que el catálogo esté sano.
   humana.
 - **Proporción del contenido dentro del marco** — si la media reserva el marco y el
   contenido no lo desborda ni lo deja ambiguo.
+
+**Lo que el verde del mapa no afirma** (tampoco el del catálogo):
+
+- Que estén todas las pantallas que el producto necesita.
+- Que estén todos los caminos de aprobar, descartar y cancelar que el dominio tiene.
+- Que los estados estén diseñados y no solo nombrados.
+- Que la traza sea correcta (solo que el ID existe).
+- Que las razones `N/A` y «sin superficie» sean ciertas.
+- Que `ACEPTADO` lo haya escrito un humano.
+- Que la copia del producto sea la que se aceptó: el verificador solo comprueba que no
+  se editó después de copiarla (hash declarado), no que el hash declarado sea el del
+  mapa aceptado.
+- Que el producto construido corresponda al mapa.
+- Que una misión con `pantallas: ninguna` no haya tocado interfaz.
+- Que `interfaz: no` sea verdad.
 
 > **Por qué cambió el mapa (E.1–E.5).** La revisión de identidad visual 2026-09-30
 > amplió lo comprobable (medida, tipografía, roles de token, capa de marca, contraste,

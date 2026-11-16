@@ -29,6 +29,7 @@ catalogo: docs/catalogo.md
 tokens: resources/css/tokens.css
 maqueta: /dev/maqueta-caso
 origen: desde cero
+mapa: pendiente
 ```
 EOF
   cat >"$raiz/docs/catalogo.md" <<'EOF'

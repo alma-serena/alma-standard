@@ -65,7 +65,15 @@ tokens: resources/css/tokens.css
 tokens-base: <ruta de la hoja base si hay capa de marca; si no, borrar esta línea>
 maqueta: <ruta de la maqueta en desarrollo>
 origen: desde cero
+mapa: pendiente
+mapa-origen: <alma-serena@sha · sha256 hash — solo si mapa: es una ruta; si pendiente, borrar esta línea>
 ```
+
+`mapa:` es obligatorio con `interfaz: si`. Valores: `pendiente` (aviso; **FALLA** si el
+catálogo se declara `conforme`) o la ruta de la copia fija (docs/mapa.md). Con ruta,
+`mapa-origen:` declara procedencia y hash:
+`alma-serena@<sha-del-commit-de-la-ESP> · sha256 <hash>`. El verificador exige que el
+sha256 del archivo coincida; no comprueba que ese hash sea el del mapa aceptado en la ESP.
 
 `tokens-base:` es **opcional**. Si el proyecto no tiene capa de marca, **borra la línea**
 entera (no dejes el marcador). Si está, apunta a la hoja base (p. ej. la del paquete

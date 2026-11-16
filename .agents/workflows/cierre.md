@@ -69,6 +69,18 @@ retomar vuelve a ser reconstruir.
 | Siguiente | la primera acción de quien retome |
 ```
 
+## Desviaciones del mapa
+
+Si el proyecto tiene `interfaz: si` y un mapa:
+
+| Tipo | Qué es | Qué hace la misión |
+|---|---|---|
+| **Menor** | Un campo, un estado o un diálogo **dentro** de una pantalla existente | Sigue y lo anota en el cierre |
+| **Mayor** | Pantalla nueva, flujo nuevo o retiro de pantalla | Pausa; la enmienda se hace en la ESP y se recopia al producto |
+
+**La misión nunca edita el mapa** del producto: es copia fija byte a byte. La enmienda
+vive en la ESP; el producto solo vuelve a copiar tras la aceptación.
+
 ## Pausa
 
 Una misión que se pausa **no** se cierra: se marca `pausada` y se llena la plantilla
