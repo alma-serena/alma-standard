@@ -46,8 +46,10 @@ Las celdas `vacio`, `carga` y `error` admiten `N/A — <razón>`. Vacías no.
 ## Flujos
 
 IDs `FLUnn`. Los nodos son IDs de pantalla. **Sintaxis permitida, y nada más:**
-`flowchart TD` o `flowchart LR`; nodos `PANnn["nombre"]`; aristas `-->` y
-`-->|"acción: efecto"|` (la etiqueta siempre entre comillas). Incluir aprobar,
+`flowchart TD` o `flowchart LR`; nodos `PANnn["nombre"]` o solo `PANnn`; aristas `-->` y
+`-->|"acción: efecto"|` (la etiqueta siempre entre comillas). Se admiten nodos con o
+sin `["nombre"]` en la misma arista (`PAN02 --> PAN06["X"]`, `PAN04["X"] --> PAN04`).
+Ejemplo de lazo con etiqueta: `PAN02 -->|"contrapropuesta: …"| PAN02`. Incluir aprobar,
 descartar, contrapropuesta, cancelar y los errores relevantes cuando el dominio los tiene.
 
 ### FLU01 · <nombre> — actor: <actor> — traza: O1, AC1
