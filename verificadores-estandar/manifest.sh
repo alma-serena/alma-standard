@@ -37,5 +37,5 @@ if [ -z "$archivos" ]; then
 fi
 
 printf '%s\n' "$archivos" | while IFS= read -r f; do
-  sha256sum "$f"
+  sha256sum "$f" </dev/null
 done

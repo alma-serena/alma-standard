@@ -14,7 +14,8 @@ son documentos normativos y los verificadores que los comprueban.
 
 ## Stack
 
-No hay lenguaje ni framework: `bash` + coreutils, sin dependencias.
+Núcleo: `bash` + coreutils, sin dependencias. Herramienta opcional de capturas en
+`herramientas/capturas/` (Node ≥ 20 + Playwright); no forma parte del piso de CI.
 
 ## Comandos ejecutables
 
@@ -25,10 +26,13 @@ tests:  bash verificadores-estandar/coherencia.sh && bash verificadores-estandar
 lint:   no existe
 ```
 
+Pruebas de la herramienta de capturas (local, tras `npm install` en esa carpeta):
+`cd herramientas/capturas && npm test`.
+
 ## Catálogo de interfaz
 
 ```
-andamiaje: AGENTS.md, CLAUDE.md, METODOLOGIA.md, INSTALACION.md, CHANGELOG.md, ALMA-UPGRADE.md, RAIZ-DE-CONFIANZA.md, .agents/, .github/, .githooks/, verificadores/, verificadores-estandar/, plantillas/, .alma/, .gitattributes, proyecto-*.md
+andamiaje: AGENTS.md, CLAUDE.md, METODOLOGIA.md, INSTALACION.md, CHANGELOG.md, ALMA-UPGRADE.md, RAIZ-DE-CONFIANZA.md, .agents/, .github/, .githooks/, verificadores/, verificadores-estandar/, plantillas/, herramientas/, .alma/, .gitattributes, proyecto-*.md
 anexo: ninguno
 interfaz: no
 ```
@@ -37,7 +41,7 @@ interfaz: no
 
 ```
 rutas_secretas: .env
-herramientas: git
+herramientas: git, node
 ```
 
 ## Excepciones declaradas

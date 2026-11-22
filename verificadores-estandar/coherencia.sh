@@ -10,7 +10,8 @@ ok()  { echo "  ok    · $*"; }
 
 # Archivos de OTROS repos que el estandar cita como ejemplo. Se excluyen uno a uno y
 # con nombre: aflojar la expresion regular esconderia roturas reales.
-externos=" proyeccion.json log.jsonl model.py log.py composer.json package.json phpunit.xml .env "
+# medidas.json: nombre del artefacto que escribe capturar.mjs (no vive en el árbol).
+externos=" proyeccion.json log.jsonl model.py log.py composer.json package.json phpunit.xml .env medidas.json "
 
 echo "== 1 · referencias cruzadas resuelven a la RUTA citada =="
 # H-CIS-4: antes se resolvia por basename, asi que una ruta rota pasaba si existia
@@ -27,7 +28,8 @@ while IFS=: read -r origen ref; do
   if [ -e "$dir/$ref" ] || [ -e "./$ref" ]; then continue; fi
   err "referencia rota: '$ref' citada en $origen"
   faltan=$((faltan+1))
-done <<< "$(grep -rnoE '`[.A-Za-z0-9_/-]+\.(md|sh|yml|json)`' --include='*.md' . \
+done <<< "$(grep -rnoE '`[.A-Za-z0-9_/-]+\.(md|sh|yml|json)`' --include='*.md' \
+            --exclude-dir=node_modules --exclude-dir=vendor . \
             | sed 's/`//g' | awk -F: '{print $1":"$3}')"
 [ "$faltan" -eq 0 ] && ok "todas las referencias resuelven a su ruta"
 
@@ -68,13 +70,13 @@ done
 echo "== 3 · ningun archivo normativo cita un BORRADOR como si fuera norma =="
 # H-CIS-3: antes esta seccion nunca llamaba a err — pasaba en verde hubiera o no
 # coincidencias, que es exactamente el verificador nominal que el estandar prohibe.
-borradores=$(grep -rl 'BORRADOR' --include='*.md' . 2>/dev/null | sed 's|^\./||' || true)
+borradores=$(grep -rl 'BORRADOR' --include='*.md' --exclude-dir=node_modules --exclude-dir=vendor . 2>/dev/null | sed 's|^\./||' || true)
 if [ -z "$borradores" ]; then
   ok "ningun borrador en el arbol"
 else
   malos=0
   for b in $borradores; do
-    citantes=$(grep -rl "$(basename "$b")" --include='*.md' . 2>/dev/null \
+    citantes=$(grep -rl "$(basename "$b")" --include='*.md' --exclude-dir=node_modules --exclude-dir=vendor . 2>/dev/null \
                | sed 's|^\./||' | grep -v "^$b$" | grep -v 'BORRADOR' || true)
     for c in $citantes; do
       grep -q 'BORRADOR' "$c" 2>/dev/null && continue   # borrador citando borrador: ok
