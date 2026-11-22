@@ -7,7 +7,7 @@ Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 | | Qué | Por qué |
 |---|---|---|
 | **MIS-971** | Herramienta versionada `herramientas/capturas/`: Playwright captura 1440/390 × claro/oscuro, archivo de medidas (desborde, contraste WCAG, clic menores de 24 px), fixtures de prueba y README. `proyecto-estandar.md` declara `herramientas/` en el andamiaje. `verificadores-estandar/coherencia.sh` excluye node_modules/vendor al barrer referencias | Consola 2.3.3: agentes que tocan interfaz se revisan con capturas; MIS-753 dejó scripts sueltos en TEMP sin versionar |
-| **MIS-983** | `sha256sum`/`shasum` de `mapa.sh`, `casos-mapa.sh` y `manifest.sh` leen `</dev/null`; caso `verde-prod-stdin-cerrado` corre el mapa con stdin cerrado | El CI local lanza bash sin descriptor de entrada válido: `sha256sum` fallaba con «Bad file descriptor», el hash salía vacío y `verde-prod` daba rojo |
+| **MIS-983** | `sha256sum`/`shasum` de `verificadores/mapa.sh`, `verificadores-estandar/casos-mapa.sh` y `verificadores-estandar/manifest.sh` leen `</dev/null`; caso `verde-prod-stdin-cerrado` corre el mapa con stdin cerrado | El CI local lanza bash sin descriptor de entrada válido: `sha256sum` fallaba con «Bad file descriptor», el hash salía vacío y `verde-prod` daba rojo |
 
 ## v0.1.11 — 2026-11-16
 
