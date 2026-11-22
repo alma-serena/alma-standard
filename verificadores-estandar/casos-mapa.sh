@@ -63,9 +63,9 @@ correr_esp() {
 
 hash_de() {
   if command -v sha256sum >/dev/null 2>&1; then
-    sha256sum "$1" | awk '{print $1}'
+    sha256sum "$1" </dev/null | awk '{print $1}'
   else
-    shasum -a 256 "$1" | awk '{print $1}'
+    shasum -a 256 "$1" </dev/null | awk '{print $1}'
   fi
 }
 
@@ -372,6 +372,18 @@ correr_esp verde-esp pasa "" "$TMP/verde/esp"
 
 base_prod "$TMP/verde/prod"
 correr_prod verde-prod pasa "" "$TMP/verde/prod"
+
+# CI sin stdin (MIS-983): el CI del buzon lanza bash sin descriptor de entrada valido;
+# sha256sum fallaba ahi con "Bad file descriptor" y el hash salia vacio. El mismo
+# mapa que pasa arriba debe seguir pasando con stdin cerrado.
+salida_sin_stdin="$(RAIZ_PROYECTO="$TMP/verde/prod" RAIZ_ESTANDAR="$EST" \
+                    "$BASH_BIN" "$EST/verificadores/mapa.sh" 2>&1 <&-)"
+if [ $? -eq 0 ]; then
+  ok_uno "verde-prod-stdin-cerrado (pasa)"
+else
+  falla_uno "verde-prod-stdin-cerrado: esperaba pasa con stdin cerrado"
+  printf '%s\n' "$salida_sin_stdin" | sed 's/^/           /' | head -25
+fi
 
 # ========== verde: mermaid mixto (con/sin ["nombre"] en la misma arista) ==========
 mkdir -p "$TMP/verde-mixto/esp"
