@@ -1,0 +1,3441 @@
+{
+  "base": "http://127.0.0.1:8787",
+  "generado": "2026-11-22T03:41:20.774Z",
+  "herramienta": "alma-capturas",
+  "rutas": {
+    "/": {
+      "1440-claro": {
+        "archivo": "inicio-1440-claro.png",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "tema": "claro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 1440,
+          "viewportWidth": 1440,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": []
+        }
+      },
+      "1440-oscuro": {
+        "archivo": "inicio-1440-oscuro.png",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "tema": "oscuro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 1440,
+          "viewportWidth": 1440,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": []
+        }
+      },
+      "390-claro": {
+        "archivo": "inicio-390-claro.png",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "tema": "claro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 390,
+          "viewportWidth": 390,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": []
+        }
+      },
+      "390-oscuro": {
+        "archivo": "inicio-390-oscuro.png",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "tema": "oscuro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 390,
+          "viewportWidth": 390,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": []
+        }
+      }
+    },
+    "/proyectos": {
+      "1440-claro": {
+        "archivo": "proyectos-1440-claro.png",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "tema": "claro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 1440,
+          "viewportWidth": 1440,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": []
+        }
+      },
+      "1440-oscuro": {
+        "archivo": "proyectos-1440-oscuro.png",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "tema": "oscuro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 1440,
+          "viewportWidth": 1440,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": []
+        }
+      },
+      "390-claro": {
+        "archivo": "proyectos-390-claro.png",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "tema": "claro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 390,
+          "viewportWidth": 390,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": []
+        }
+      },
+      "390-oscuro": {
+        "archivo": "proyectos-390-oscuro.png",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "tema": "oscuro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 390,
+          "viewportWidth": 390,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": []
+        }
+      }
+    },
+    "/proyectos/alma": {
+      "1440-claro": {
+        "archivo": "proyectos__alma-1440-claro.png",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "tema": "claro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 1440,
+          "viewportWidth": 1440,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": [
+            {
+              "selector": "html > body > main > section:nth-of-type(1) > ul > li:nth-of-type(9) > a",
+              "ancho": 65.45,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(1) > a",
+              "ancho": 195.14,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(2) > a",
+              "ancho": 165.14,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(3) > a",
+              "ancho": 136.98,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(4) > a",
+              "ancho": 179.47,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(5) > a",
+              "ancho": 146.86,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(6) > a",
+              "ancho": 156.61,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(7) > a",
+              "ancho": 139.84,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(8) > a",
+              "ancho": 149.72,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(1) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(2) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(3) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(4) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(5) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(6) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(7) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(8) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(9) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(10) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(11) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(12) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(13) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(14) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(15) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(16) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(17) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(18) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(19) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(20) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > p > a",
+              "ancho": 218.53,
+              "alto": 21,
+              "valor": 21
+            }
+          ]
+        }
+      },
+      "1440-oscuro": {
+        "archivo": "proyectos__alma-1440-oscuro.png",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "tema": "oscuro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 1440,
+          "viewportWidth": 1440,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": [
+            {
+              "selector": "html > body > main > section:nth-of-type(1) > ul > li:nth-of-type(9) > a",
+              "ancho": 65.45,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(1) > a",
+              "ancho": 195.14,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(2) > a",
+              "ancho": 165.14,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(3) > a",
+              "ancho": 136.98,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(4) > a",
+              "ancho": 179.47,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(5) > a",
+              "ancho": 146.86,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(6) > a",
+              "ancho": 156.61,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(7) > a",
+              "ancho": 139.84,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(8) > a",
+              "ancho": 149.72,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(1) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(2) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(3) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(4) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(5) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(6) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(7) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(8) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(9) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(10) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(11) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(12) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(13) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(14) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(15) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(16) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(17) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(18) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(19) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(20) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > p > a",
+              "ancho": 218.53,
+              "alto": 21,
+              "valor": 21
+            }
+          ]
+        }
+      },
+      "390-claro": {
+        "archivo": "proyectos__alma-390-claro.png",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "tema": "claro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 390,
+          "viewportWidth": 390,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": [
+            {
+              "selector": "html > body > main > section:nth-of-type(1) > ul > li:nth-of-type(9) > a",
+              "ancho": 65.45,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(1) > a",
+              "ancho": 195.14,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(2) > a",
+              "ancho": 165.14,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(3) > a",
+              "ancho": 136.98,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(4) > a",
+              "ancho": 179.47,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(5) > a",
+              "ancho": 146.86,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(6) > a",
+              "ancho": 156.61,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(7) > a",
+              "ancho": 139.84,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(8) > a",
+              "ancho": 149.72,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(1) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(2) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(3) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(4) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(5) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(6) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(7) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(8) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(9) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(10) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(11) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(12) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(13) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(14) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(15) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(16) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(17) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(18) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(19) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(20) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > p > a",
+              "ancho": 218.53,
+              "alto": 21,
+              "valor": 21
+            }
+          ]
+        }
+      },
+      "390-oscuro": {
+        "archivo": "proyectos__alma-390-oscuro.png",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "tema": "oscuro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 390,
+          "viewportWidth": 390,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": [
+            {
+              "selector": "html > body > main > section:nth-of-type(1) > ul > li:nth-of-type(9) > a",
+              "ancho": 65.45,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(1) > a",
+              "ancho": 195.14,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(2) > a",
+              "ancho": 165.14,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(3) > a",
+              "ancho": 136.98,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(4) > a",
+              "ancho": 179.47,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(5) > a",
+              "ancho": 146.86,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(6) > a",
+              "ancho": 156.61,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(7) > a",
+              "ancho": 139.84,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(4) > ul > li:nth-of-type(8) > a",
+              "ancho": 149.72,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(1) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(2) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(3) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(4) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(5) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(6) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(7) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(8) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(9) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(10) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(11) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(12) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(13) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(14) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(15) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(16) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(17) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(18) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(19) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > ul > li:nth-of-type(20) > a",
+              "ancho": 59.41,
+              "alto": 21,
+              "valor": 21
+            },
+            {
+              "selector": "html > body > main > section:nth-of-type(5) > p > a",
+              "ancho": 218.53,
+              "alto": 21,
+              "valor": 21
+            }
+          ]
+        }
+      }
+    },
+    "/misiones": {
+      "1440-claro": {
+        "archivo": "misiones-1440-claro.png",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "tema": "claro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 1440,
+          "viewportWidth": 1440,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": [
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(1) > select",
+              "ancho": 211,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(2) > select",
+              "ancho": 171,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(3) > select",
+              "ancho": 81,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(4) > select",
+              "ancho": 74,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > p > a",
+              "ancho": 64.23,
+              "alto": 21,
+              "valor": 21
+            }
+          ]
+        }
+      },
+      "1440-oscuro": {
+        "archivo": "misiones-1440-oscuro.png",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "tema": "oscuro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 1440,
+          "viewportWidth": 1440,
+          "elementos": []
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": [
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(1) > select",
+              "ancho": 211,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(2) > select",
+              "ancho": 171,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(3) > select",
+              "ancho": 81,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(4) > select",
+              "ancho": 74,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > p > a",
+              "ancho": 64.23,
+              "alto": 21,
+              "valor": 21
+            }
+          ]
+        }
+      },
+      "390-claro": {
+        "archivo": "misiones-390-claro.png",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "tema": "claro",
+        "status": 200,
+        "desborde": {
+          "hay": true,
+          "scrollWidth": 641,
+          "viewportWidth": 390,
+          "elementos": [
+            {
+              "selector": "html > body > main",
+              "scrollWidth": 641,
+              "clientWidth": 390,
+              "right": 390,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div",
+              "scrollWidth": 625,
+              "clientWidth": 358,
+              "right": 374,
+              "valor": 625
+            },
+            {
+              "selector": "html > body > main > div > table",
+              "scrollWidth": 625,
+              "clientWidth": 625,
+              "right": 641.47,
+              "valor": 642
+            },
+            {
+              "selector": "html > body > main > div > table > thead",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr > th:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr > th:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr > th:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr > th:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(7) > span",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 591.11,
+              "valor": 592
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 625.67,
+              "valor": 626
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(7) > span",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 591.11,
+              "valor": 592
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(7) > span",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 591.11,
+              "valor": 592
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            }
+          ]
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": [
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(1) > select",
+              "ancho": 211,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(2) > select",
+              "ancho": 171,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(3) > select",
+              "ancho": 81,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(4) > select",
+              "ancho": 74,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > p > a",
+              "ancho": 64.23,
+              "alto": 21,
+              "valor": 21
+            }
+          ]
+        }
+      },
+      "390-oscuro": {
+        "archivo": "misiones-390-oscuro.png",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "tema": "oscuro",
+        "status": 200,
+        "desborde": {
+          "hay": true,
+          "scrollWidth": 641,
+          "viewportWidth": 390,
+          "elementos": [
+            {
+              "selector": "html > body > main",
+              "scrollWidth": 641,
+              "clientWidth": 390,
+              "right": 390,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div",
+              "scrollWidth": 625,
+              "clientWidth": 358,
+              "right": 374,
+              "valor": 625
+            },
+            {
+              "selector": "html > body > main > div > table",
+              "scrollWidth": 625,
+              "clientWidth": 625,
+              "right": 641.47,
+              "valor": 642
+            },
+            {
+              "selector": "html > body > main > div > table > thead",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr > th:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr > th:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr > th:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > thead > tr > th:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(7) > span",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 591.11,
+              "valor": 592
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(2) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 625.67,
+              "valor": 626
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(5) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(6) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(7) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(8) > td:nth-of-type(7) > span",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 591.11,
+              "valor": 592
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(9) > td:nth-of-type(7) > span",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 591.11,
+              "valor": 592
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(10) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 632.47,
+              "valor": 633
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(11) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(12) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(13) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(14) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(15) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(16) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(17) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(18) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(19) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(20) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(21) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(22) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(23) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(24) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25)",
+              "scrollWidth": 624,
+              "clientWidth": 624,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(4)",
+              "scrollWidth": 70,
+              "clientWidth": 70,
+              "right": 407.52,
+              "valor": 408
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(5)",
+              "scrollWidth": 69,
+              "clientWidth": 69,
+              "right": 477.17,
+              "valor": 478
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(6)",
+              "scrollWidth": 88,
+              "clientWidth": 88,
+              "right": 566.61,
+              "valor": 567
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(7)",
+              "scrollWidth": 73,
+              "clientWidth": 73,
+              "right": 640.97,
+              "valor": 641
+            },
+            {
+              "selector": "html > body > main > div > table > tbody > tr:nth-of-type(25) > td:nth-of-type(7) > time",
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "right": 621.08,
+              "valor": 622
+            }
+          ]
+        },
+        "contraste": {
+          "bajo": []
+        },
+        "clic": {
+          "pequenos": [
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(1) > select",
+              "ancho": 211,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(2) > select",
+              "ancho": 171,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(3) > select",
+              "ancho": 81,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > section > label:nth-of-type(4) > select",
+              "ancho": 74,
+              "alto": 19,
+              "valor": 19
+            },
+            {
+              "selector": "html > body > main > div > p > a",
+              "ancho": 64.23,
+              "alto": 21,
+              "valor": 21
+            }
+          ]
+        }
+      }
+    }
+  }
+}
