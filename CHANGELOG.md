@@ -2,6 +2,12 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
+## Sin etiquetar
+
+| | Qué | Por qué |
+|---|---|---|
+| **MIS-971** | Herramienta versionada `herramientas/capturas/`: Playwright captura 1440/390 × claro/oscuro, archivo de medidas (desborde, contraste WCAG, clic menores de 24 px), fixtures de prueba y README. `proyecto-estandar.md` declara `herramientas/` en el andamiaje. `verificadores-estandar/coherencia.sh` excluye node_modules/vendor al barrer referencias | Consola 2.3.3: agentes que tocan interfaz se revisan con capturas; MIS-753 dejó scripts sueltos en TEMP sin versionar |
+
 ## v0.1.11 — 2026-11-16
 
 Primer tag después de `v0.1.10`. Incluye [#23](https://github.com/alma-serena/alma-standard/pull/23) (V-46), [#24](https://github.com/alma-serena/alma-standard/pull/24) (V-47) y [#25](https://github.com/alma-serena/alma-standard/pull/25) (V-48).

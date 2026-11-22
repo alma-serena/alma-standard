@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Fixture pasa</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0;
+      font: 16px/1.5 system-ui, sans-serif;
+      color: #111;
+      background: #fff;
+      max-width: 40rem;
+      padding: 1.5rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { color: #f2f2f2; background: #121212; }
+    }
+    a.cta, button.cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      min-height: 48px;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background: #1a1a1a;
+      border: 0;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    @media (prefers-color-scheme: dark) {
+      a.cta, button.cta { color: #111; background: #f2f2f2; }
+    }
+    p { margin: 1rem 0; }
+  </style>
+</head>
+<body>
+  <h1>Página que pasa</h1>
+  <p>Texto con contraste suficiente sobre el fondo.</p>
+  <p><a class="cta" href="#ok">Acción ancha</a></p>
+  <p><button type="button" class="cta">Botón ancho</button></p>
+</body>
+</html>

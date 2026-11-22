@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Fixture falla</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0;
+      font: 14px/1.4 system-ui, sans-serif;
+      color: #bbb;
+      background: #ccc;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { color: #444; background: #333; }
+    }
+    #banda-ancha {
+      width: 2200px;
+      height: 40px;
+      background: #999;
+    }
+    a.mini, button.mini {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      font-size: 8px;
+      line-height: 16px;
+      text-align: center;
+      color: #aaa;
+      background: #bbb;
+      border: 0;
+      text-decoration: none;
+      overflow: hidden;
+    }
+    p.bajo { color: #b0b0b0; background: #c0c0c0; padding: 0.25rem; }
+  </style>
+</head>
+<body>
+  <h1 class="bajo">Título con poco contraste</h1>
+  <p class="bajo">Párrafo gris sobre gris — debe fallar WCAG 4,5:1.</p>
+  <div id="banda-ancha">banda que desborda horizontalmente</div>
+  <p>
+    <a class="mini" href="#x">x</a>
+    <button type="button" class="mini">y</button>
+  </p>
+</body>
+</html>

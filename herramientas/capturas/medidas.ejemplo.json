@@ -1,0 +1,23 @@
+{
+  "base": "http://localhost:8787",
+  "generado": "2026-11-21T00:00:00.000Z",
+  "herramienta": "alma-capturas",
+  "rutas": {
+    "/": {
+      "1440-claro": {
+        "archivo": "inicio-1440-claro.png",
+        "viewport": { "width": 1440, "height": 900 },
+        "tema": "claro",
+        "status": 200,
+        "desborde": {
+          "hay": false,
+          "scrollWidth": 1440,
+          "viewportWidth": 1440,
+          "elementos": []
+        },
+        "contraste": { "bajo": [] },
+        "clic": { "pequenos": [] }
+      }
+    }
+  }
+}
