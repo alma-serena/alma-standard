@@ -225,6 +225,176 @@ button:focus-visible { outline-width: var(--alma-borde-ancho); outline-style: so
   >"$TMP/outline-pasa/resources/views/components/boton.blade.php"
 correr outline-pasa pasa
 
+# ===== V-49: ancla de la base (7, 13, 14, 15) y dos modos de tema (11) =====
+SHA_BASE="f5d6954a1b2c3d4e5f60718293a4b5c6d7e8f901"
+SHA_OTRO="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+preparar_laravel_anclada() {
+  local dest="$1"
+  clonar "$dest"
+  sed -i 's/^anexo: ninguno/anexo: laravel/' "$dest/proyecto-caso.md"
+  sed -i "s|^origen: desde cero|origen: alma/ui-laravel v0.2.0 · $SHA_BASE|" "$dest/proyecto-caso.md"
+  mkdir -p "$dest/vendor/composer"
+  cat >"$dest/composer.json" <<'EOF'
+{
+  "repositories": [
+    { "type": "vcs", "url": "../../alma-ui-laravel" }
+  ],
+  "require": {
+    "alma/ui-laravel": "0.2.0"
+  }
+}
+EOF
+  cat >"$dest/composer.lock" <<EOF
+{
+  "packages": [
+    {
+      "name": "alma/ui-laravel",
+      "version": "v0.2.0",
+      "source": { "type": "git", "url": "../../alma-ui-laravel", "reference": "$SHA_BASE" }
+    }
+  ]
+}
+EOF
+  cat >"$dest/vendor/composer/installed.json" <<EOF
+{
+  "packages": [
+    {
+      "name": "alma/ui-laravel",
+      "version": "v0.2.0",
+      "installation-source": "source",
+      "source": { "type": "git", "url": "../../alma-ui-laravel", "reference": "$SHA_BASE" }
+    }
+  ]
+}
+EOF
+}
+
+# --- 7 · origen con base exige etiqueta y SHA40; tokens-base en vendor/ prohíbe 'desde cero' ---
+clonar "$TMP/7-sin-sha-falla"
+sed -i 's|^origen: desde cero|origen: alma/ui-laravel v0.2.0|' "$TMP/7-sin-sha-falla/proyecto-caso.md"
+correr 7-sin-sha-falla falla '7 ·.*SHA'
+
+clonar "$TMP/7-vendor-desde-cero-falla"
+mkdir -p "$TMP/7-vendor-desde-cero-falla/vendor/alma/ui-laravel"
+cp "$TMP/7-vendor-desde-cero-falla/resources/css/tokens.css" \
+   "$TMP/7-vendor-desde-cero-falla/vendor/alma/ui-laravel/tokens.css"
+sed -i 's|tokens: resources/css/tokens.css|tokens: resources/css/tokens.css\ntokens-base: vendor/alma/ui-laravel/tokens.css|' \
+  "$TMP/7-vendor-desde-cero-falla/proyecto-caso.md"
+correr 7-vendor-desde-cero-falla falla '7 ·.*vendor/'
+
+preparar_laravel_anclada "$TMP/7-13-14-15-pasa"
+correr 7-13-14-15-pasa pasa
+
+# --- 13 · ancla en composer.lock ---
+preparar_laravel_anclada "$TMP/13-dist-path-falla"
+cat >"$TMP/13-dist-path-falla/composer.lock" <<EOF
+{
+  "packages": [
+    {
+      "name": "alma/ui-laravel",
+      "version": "v0.2.0",
+      "source": { "type": "git", "reference": "$SHA_BASE" },
+      "dist": { "type": "path", "url": "../../alma-ui-laravel" }
+    }
+  ]
+}
+EOF
+correr 13-dist-path-falla falla '13 ·.*dist\.type=path'
+
+preparar_laravel_anclada "$TMP/13-sha-distinto-falla"
+sed -i "s/$SHA_BASE/$SHA_OTRO/" "$TMP/13-sha-distinto-falla/composer.lock"
+correr 13-sha-distinto-falla falla '13 ·.*reference='
+
+preparar_laravel_anclada "$TMP/13-version-distinta-falla"
+sed -i 's/"v0.2.0"/"v0.1.0"/' "$TMP/13-version-distinta-falla/composer.lock"
+correr 13-version-distinta-falla falla '13 ·.*version='
+
+clonar "$TMP/13-sin-lockfile-conforme-falla"
+sed -i "s|^origen: desde cero|origen: alma/ui-laravel v0.2.0 · $SHA_BASE|" \
+  "$TMP/13-sin-lockfile-conforme-falla/proyecto-caso.md"
+sed -i 's/en convergencia/conforme/' "$TMP/13-sin-lockfile-conforme-falla/docs/catalogo.md"
+correr 13-sin-lockfile-conforme-falla falla '13 ·.*no define lockfile'
+
+# --- 14 · instalado = lock ---
+preparar_laravel_anclada "$TMP/14-installed-ref-falla"
+sed -i "s/$SHA_BASE/$SHA_OTRO/" "$TMP/14-installed-ref-falla/vendor/composer/installed.json"
+correr 14-installed-ref-falla falla '14 ·.*reference='
+
+preparar_laravel_anclada "$TMP/14-sin-vendor-pasa"
+rm -rf "$TMP/14-sin-vendor-pasa/vendor"
+correr 14-sin-vendor-pasa pasa
+
+# --- 15 · diagnostico: path en composer.json ---
+preparar_laravel_anclada "$TMP/15-composer-path-falla"
+cat >"$TMP/15-composer-path-falla/composer.json" <<'EOF'
+{
+  "repositories": [
+    { "type": "path", "url": "../../alma-ui-laravel" }
+  ],
+  "require": {
+    "alma/ui-laravel": "0.2.0"
+  }
+}
+EOF
+correr 15-composer-path-falla falla '15 ·.*cambia a vcs'
+
+# --- 11 · modo (b): :root atenuado + [data-tema="claro"] (sobre union base+marca) ---
+clonar "$TMP/11-data-tema-pasa"
+cat >"$TMP/11-data-tema-pasa/resources/css/tokens-base.css" <<'EOF'
+:root {
+  --alma-color-fondo: #111111;
+  --alma-color-superficie: #1a1a1a;
+  --alma-color-texto: #f5f5f5;
+  --alma-color-texto-secundario: #cccccc;
+  --alma-color-borde: #444444;
+  --alma-color-borde-control: #999999;
+  --alma-color-accion: #66aaff;
+  --alma-color-sobre-accion: #111111;
+  --alma-color-peligro: #ff8888;
+  --alma-fuente: system-ui, sans-serif;
+  --alma-fuente-display: Georgia, serif;
+  --alma-fuente-dato: ui-monospace, monospace;
+  --alma-tamano-cuerpo: 1rem;
+  --alma-tamano-titulo: 1.5rem;
+  --alma-espacio: 1rem;
+  --alma-radio: 0.25rem;
+  --alma-borde-ancho: 1px;
+}
+[data-tema="claro"] {
+  --alma-color-fondo: #ffffff;
+  --alma-color-superficie: #f5f5f5;
+  --alma-color-texto: #111111;
+  --alma-color-texto-secundario: #333333;
+  --alma-color-borde: #cccccc;
+  --alma-color-borde-control: #666666;
+  --alma-color-accion: #0055aa;
+  --alma-color-sobre-accion: #ffffff;
+  --alma-color-peligro: #990000;
+}
+EOF
+cat >"$TMP/11-data-tema-pasa/resources/css/tokens.css" <<'EOF'
+@import './tokens-base.css';
+:root {
+  --alma-fuente-display: Georgia, serif;
+}
+EOF
+sed -i 's|tokens: resources/css/tokens.css|tokens: resources/css/tokens.css\ntokens-base: resources/css/tokens-base.css|' \
+  "$TMP/11-data-tema-pasa/proyecto-caso.md"
+correr 11-data-tema-pasa pasa
+
+clonar "$TMP/11-data-tema-falla"
+cp "$TMP/11-data-tema-pasa/resources/css/tokens-base.css" \
+   "$TMP/11-data-tema-falla/resources/css/tokens-base.css"
+cp "$TMP/11-data-tema-pasa/resources/css/tokens.css" \
+   "$TMP/11-data-tema-falla/resources/css/tokens.css"
+sed -i 's|tokens: resources/css/tokens.css|tokens: resources/css/tokens.css\ntokens-base: resources/css/tokens-base.css|' \
+  "$TMP/11-data-tema-falla/proyecto-caso.md"
+# contraste malo solo en [data-tema="claro"]
+sed -i 's/--alma-color-texto: #111111;/--alma-color-texto: #cccccc;/' \
+  "$TMP/11-data-tema-falla/resources/css/tokens-base.css"
+correr 11-data-tema-falla falla 'contraste claro/'
+
 echo
 if [ "$fallos_casos" -gt 0 ]; then
   echo "casos: $fallos_casos FALLA(S) / $ok_casos ok"

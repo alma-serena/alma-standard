@@ -163,16 +163,25 @@ ARCH_TOK_BASE="$(campo tokens-base "$PROY")"
 [ -z "$ARCH_TOK" ]  && err "'$PROY' declara interfaz y no declara 'tokens:'"
 
 # ORIGEN · diseno.md §1: "una base adoptada con su version, o «desde cero»". Se exige
-# y se enumera. Hasta el 2026-09-27 el campo se declaraba y NADIE lo leia, asi que
-# escribirlo o no escribirlo daba el mismo resultado: la regla existia sin dientes,
-# el mismo defecto que [V-6] corrigio una capa mas arriba.
+# y se enumera. Con base adoptada (V-49): <paquete> vX.Y.Z · <sha40>.
 ORIGEN="$(campo origen "$PROY")"
+ORIGEN_PKG=""
+ORIGEN_TAG=""
+ORIGEN_SHA=""
 if [ -z "$ORIGEN" ]; then
-  err "'$PROY' declara interfaz y no declara 'origen:' (base adoptada con su version, o 'desde cero')"
-elif [ "$ORIGEN" != "desde cero" ]; then
-  # Una base sin version no es una base adoptada: es un nombre.
-  printf '%s\n' "$ORIGEN" | grep -qE '[^[:space:]]+[[:space:]]+v?[0-9]' \
-    || err "'origen: $ORIGEN' nombra una base sin version. §1 exige la version, o 'desde cero'"
+  err "7 · '$PROY' declara interfaz y no declara 'origen:' (base adoptada con etiqueta y SHA40, o 'desde cero')"
+elif [ "$ORIGEN" = "desde cero" ]; then
+  case "$ARCH_TOK_BASE" in
+    vendor/*|./vendor/*)
+      err "7 · 'tokens-base: $ARCH_TOK_BASE' apunta dentro de vendor/ pero 'origen:' dice 'desde cero'" ;;
+  esac
+else
+  ORIGEN_PKG="$(printf '%s\n' "$ORIGEN" | awk '{print $1}')"
+  ORIGEN_TAG="$(printf '%s\n' "$ORIGEN" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | head -1 || true)"
+  ORIGEN_SHA="$(printf '%s\n' "$ORIGEN" | grep -oE '\b[0-9a-f]{40}\b' | head -1 || true)"
+  if [ -z "$ORIGEN_PKG" ] || [ -z "$ORIGEN_TAG" ] || [ -z "$ORIGEN_SHA" ]; then
+    err "7 · 'origen: $ORIGEN' debe declarar <paquete> vX.Y.Z · <sha40> (etiqueta y SHA de 40 hex)"
+  fi
 fi
 
 # MAQUETA · se exige presente y sin marcador, y NO se comprueba que responda.
@@ -552,24 +561,84 @@ color-borde-control color-superficie 3.0 ${tema_lbl}/borde-control-superficie
   rm -f "$out"
 }
 
-mapa_light="$(mktemp)"; mapa_dark="$(mktemp)"
-: >"$mapa_light"; : >"$mapa_dark"
-for f in $ARCHIVOS_TOK; do
-  mapa_tema "$f" light "$mapa_light"
-  mapa_tema "$f" dark  "$mapa_dark"
-done
+mapa_tema_data() {
+  # $1 archivo $2 atenuado|claro $3 destino
+  awk -v tema="$2" '
+    BEGIN { en_claro=0; depth=0 }
+    /\[data-tema=["'\'']claro["'\'']\]/ {
+      en_claro=1; depth=0
+    }
+    {
+      line=$0
+      if (en_claro) {
+        for (i=1;i<=length(line);i++) {
+          c=substr(line,i,1)
+          if (c=="{") depth++
+          if (c=="}") {
+            depth--
+            if (depth<=0) { en_claro=0 }
+          }
+        }
+        cur="claro"
+      } else {
+        cur="atenuado"
+      }
+      if (cur!=tema) next
+      while (match(line, /--alma-[a-z0-9-]+[[:space:]]*:[[:space:]]*[^;]+/)) {
+        decl=substr(line, RSTART, RLENGTH)
+        sub(/[[:space:]]*:[[:space:]]*/, "=", decl)
+        print decl
+        line=substr(line, RSTART+RLENGTH)
+      }
+    }
+  ' "$1" >>"$3"
+}
+
 # Ultima definicion gana (marca despues de base): recompactar
 compactar_mapa() {
   awk -F= '{ m[$1]=$2 } END { for (k in m) print k"="m[k] }' "$1" >"$1.compact" && mv "$1.compact" "$1"
 }
-compactar_mapa "$mapa_light"
-compactar_mapa "$mapa_dark"
-medir_contraste_tema "light" "$mapa_light"
-# Solo mide dark si el mapa dark tiene algun color
-if grep -q '^--alma-color-' "$mapa_dark" 2>/dev/null; then
-  medir_contraste_tema "dark" "$mapa_dark"
+
+# El modo de tema se decide sobre la union base+marca, no por archivo (V-49).
+modo_data_claro=0
+for f in $ARCHIVOS_TOK; do
+  if grep -qE '\[data-tema=["'\'']claro["'\'']\]' "$f" 2>/dev/null; then
+    modo_data_claro=1
+    break
+  fi
+done
+
+if [ "$modo_data_claro" -eq 1 ]; then
+  mapa_atenuado="$(mktemp)"; mapa_claro="$(mktemp)"
+  : >"$mapa_atenuado"; : >"$mapa_claro"
+  for f in $ARCHIVOS_TOK; do
+    mapa_tema_data "$f" atenuado "$mapa_atenuado"
+  done
+  cp "$mapa_atenuado" "$mapa_claro"
+  for f in $ARCHIVOS_TOK; do
+    mapa_tema_data "$f" claro "$mapa_claro"
+  done
+  compactar_mapa "$mapa_atenuado"
+  compactar_mapa "$mapa_claro"
+  medir_contraste_tema "atenuado" "$mapa_atenuado"
+  medir_contraste_tema "claro" "$mapa_claro"
+  rm -f "$mapa_atenuado" "$mapa_claro"
+else
+  mapa_light="$(mktemp)"; mapa_dark="$(mktemp)"
+  : >"$mapa_light"; : >"$mapa_dark"
+  for f in $ARCHIVOS_TOK; do
+    mapa_tema "$f" light "$mapa_light"
+    mapa_tema "$f" dark  "$mapa_dark"
+  done
+  compactar_mapa "$mapa_light"
+  compactar_mapa "$mapa_dark"
+  medir_contraste_tema "light" "$mapa_light"
+  # Solo mide dark si el mapa dark tiene algun color
+  if grep -q '^--alma-color-' "$mapa_dark" 2>/dev/null; then
+    medir_contraste_tema "dark" "$mapa_dark"
+  fi
+  rm -f "$mapa_light" "$mapa_dark"
 fi
-rm -f "$mapa_light" "$mapa_dark"
 
 # --- 12b · mapa de pantallas y flujos (V-48 / REQ-V48) ----------------------
 # Un verificador, dos llamadores: mapa.sh lo usa tambien alma-serena con --esp.
@@ -610,6 +679,128 @@ for ruta in $archivos_foco; do
 $lista
 EOF
 done
+
+# --- 13/14/15 · ancla de la base adoptada (V-49 / REQ-V49) ------------------
+if [ -n "$ORIGEN_PKG" ] && [ -n "$ORIGEN_TAG" ] && [ -n "$ORIGEN_SHA" ]; then
+  if [ "$ANEXO" != "laravel" ]; then
+    if [ "$EST_PROY" = "conforme" ]; then
+      err "13 · 'conforme' declarado y el anexo '$ANEXO' no define lockfile para comprobar el ancla de '$ORIGEN_PKG'"
+    else
+      aviso "13 · el anexo '$ANEXO' no define lockfile: no se puede comprobar el ancla de '$ORIGEN_PKG'"
+    fi
+  elif ! command -v php >/dev/null 2>&1; then
+    err "13 · php no esta en el PATH: no se puede leer composer.lock"
+  else
+    # 15 · diagnostico: repositorio de tipo path en composer.json
+    if [ -f composer.json ]; then
+      res15="$(php -r '
+        $d = json_decode(@file_get_contents("composer.json"), true);
+        if (!is_array($d)) { echo "ERR\tcomposer.json invalido\n"; exit(0); }
+        $repos = $d["repositories"] ?? [];
+        if (is_array($repos)) {
+          foreach ($repos as $r) {
+            if (is_array($r) && ($r["type"] ?? "") === "path") {
+              echo "PATH\t" . ($r["url"] ?? "(sin url)") . "\n";
+            }
+          }
+        }
+      ' 2>&1)"
+      while IFS=$'\t' read -r tipo resto; do
+        [ -z "${tipo:-}" ] && continue
+        case "$tipo" in
+          PATH) err "15 · repositorio de tipo 'path' en composer.json ($resto): cambia a vcs" ;;
+          ERR)  err "15 · $resto" ;;
+        esac
+      done <<EOF
+$res15
+EOF
+    fi
+
+    # 13 · ancla en composer.lock
+    LOCK_REF=""
+    if [ ! -f composer.lock ]; then
+      err "13 · falta composer.lock para comprobar el ancla de '$ORIGEN_PKG'"
+    else
+      res13="$(php -r '
+        $pkg = $argv[1]; $tag = $argv[2]; $sha = $argv[3];
+        $d = json_decode(@file_get_contents("composer.lock"), true);
+        if (!is_array($d)) { echo "ERR\tcomposer.lock invalido\n"; exit(0); }
+        $all = array_merge($d["packages"] ?? [], $d["packages-dev"] ?? []);
+        $found = null;
+        foreach ($all as $p) {
+          if (($p["name"] ?? "") === $pkg) { $found = $p; break; }
+        }
+        if (!$found) { echo "ERR\tpaquete $pkg no encontrado en composer.lock\n"; exit(0); }
+        $stype = $found["source"]["type"] ?? "";
+        $sref  = $found["source"]["reference"] ?? "";
+        $dtype = $found["dist"]["type"] ?? "";
+        $ver   = $found["version"] ?? "";
+        if ($dtype === "path") { echo "ERR\t$pkg tiene dist.type=path en composer.lock\n"; exit(0); }
+        if ($stype !== "git")  { echo "ERR\t$pkg tiene source.type=$stype (se exige git) en composer.lock\n"; exit(0); }
+        if (strpos($ver, "dev-") === 0) { echo "DEV\t$ver\t$sref\n"; exit(0); }
+        $tag_nov = ltrim($tag, "v");
+        $ver_nov = ltrim($ver, "v");
+        if ($ver !== $tag && $ver_nov !== $tag_nov) {
+          echo "ERR\t$pkg en composer.lock tiene version=$ver (origen declara $tag)\n"; exit(0);
+        }
+        if ($sref !== $sha) {
+          echo "ERR\t$pkg en composer.lock tiene reference=$sref (origen declara $sha)\n"; exit(0);
+        }
+        echo "OK\t$sref\n";
+      ' "$ORIGEN_PKG" "$ORIGEN_TAG" "$ORIGEN_SHA" 2>&1)"
+      IFS=$'\t' read -r tipo13 val13 ref13 <<EOF
+$res13
+EOF
+      case "${tipo13:-}" in
+        OK)  LOCK_REF="$val13" ;;
+        DEV)
+          LOCK_REF="$ref13"
+          if [ "$CON_DIFF" -eq 1 ]; then
+            aviso "13 · base '$ORIGEN_PKG' en rama de desarrollo ($val13): no se mergea hasta etiquetar"
+          else
+            err "13 · base '$ORIGEN_PKG' en rama de desarrollo ($val13): certificacion exige etiqueta publicada"
+          fi ;;
+        ERR) err "13 · $val13" ;;
+        *)   err "13 · error al leer composer.lock: $res13" ;;
+      esac
+    fi
+
+    # 14 · instalado = lock (vendor/composer/installed.json)
+    if [ ! -d vendor ]; then
+      aviso "14 · sin vendor/: no se pudo comprobar instalado contra composer.lock para '$ORIGEN_PKG'"
+    elif [ ! -f vendor/composer/installed.json ]; then
+      err "14 · existe vendor/ pero falta vendor/composer/installed.json"
+    else
+      esperado_ref="${LOCK_REF:-$ORIGEN_SHA}"
+      res14="$(php -r '
+        $pkg = $argv[1]; $ref = $argv[2];
+        $d = json_decode(@file_get_contents("vendor/composer/installed.json"), true);
+        if (!is_array($d)) { echo "ERR\tvendor/composer/installed.json invalido\n"; exit(0); }
+        $pkgs = isset($d["packages"]) && is_array($d["packages"]) ? $d["packages"] : $d;
+        $found = null;
+        foreach ($pkgs as $p) {
+          if (is_array($p) && ($p["name"] ?? "") === $pkg) { $found = $p; break; }
+        }
+        if (!$found) { echo "ERR\tpaquete $pkg no encontrado en vendor/composer/installed.json\n"; exit(0); }
+        $isrc  = $found["installation-source"] ?? "";
+        $stype = $found["source"]["type"] ?? "";
+        $sref  = $found["source"]["reference"] ?? "";
+        if ($isrc !== "source") { echo "ERR\t$pkg instalado con installation-source=$isrc (se exige source)\n"; exit(0); }
+        if ($stype !== "git")   { echo "ERR\t$pkg instalado con source.type=$stype (se exige git)\n"; exit(0); }
+        if ($sref !== $ref)     { echo "ERR\t$pkg instalado con reference=$sref (lock exige $ref)\n"; exit(0); }
+        echo "OK\n";
+      ' "$ORIGEN_PKG" "$esperado_ref" 2>&1)"
+      IFS=$'\t' read -r tipo14 val14 <<EOF
+$res14
+EOF
+      case "${tipo14:-}" in
+        OK)  : ;;
+        ERR) err "14 · $val14" ;;
+        *)   err "14 · error al leer vendor/composer/installed.json: $res14" ;;
+      esac
+    fi
+  fi
+fi
 
 if [ $fallos -eq 0 ]; then
   echo "catalogo: sin fallas${avisos:+ ($avisos aviso/s)}"; exit 0

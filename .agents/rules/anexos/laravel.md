@@ -77,6 +77,27 @@ forma de encontrarla no entra.
 > El estándar no nombra ninguna base concreta: la dependencia apunta hacia abajo. Este
 > anexo puede recomendar; quien adopta y versiona es la capa de proyecto.
 
+### Ancla de la base y dependencias internas
+
+- **Repositorio y versión exacta:** declarar el repositorio como `vcs`
+  (`"type": "vcs"`, `"url": "../../<repo-de-la-base>"`) y fijar la versión exacta en
+  `composer.json` (`"<paquete>": "X.Y.Z"`, nunca `^` ni `~`). El tipo `path` está
+  **prohibido** para dependencias internas: ignora el `reference` del lockfile y sirve
+  la rama viva del árbol de trabajo.
+- **Cambiar de versión:** es una misión del proyecto: `composer require <paquete>:X.Y.Z`,
+  actualizar `origen:` (`<paquete> vX.Y.Z · <sha40>`), correr la suite de pruebas y
+  `verificadores/catalogo.sh`. Antes de cerrar, la misión comprueba en el repositorio de
+  la base `git merge-base --is-ancestor <sha> origin/main` y
+  `git ls-remote --tags origin vX.Y.Z`, y anota el cambio en el CHANGELOG del proyecto.
+- **Iterar la base en desarrollo:** en la rama de misión del consumidor se puede
+  requerir temporalmente `dev-<rama-de-la-base>`. El verificador avisa en el hook
+  (`--diff`) y **falla** en certificación (`conforme`), de modo que no se mergea hasta
+  que la base esté mergeada en `main` y etiquetada.
+- **Límite conocido:** la URL local (`../../<repo-de-la-base>`) impide ejecutar el CI
+  PHP en GitHub hasta migrar el repositorio a SSH.
+- **Regla genérica:** todo repositorio consumido como dependencia etiqueta cada versión
+  publicable sobre `main` con el número de su CHANGELOG.
+
 ## Raíces y rutas conocidas de este stack
 
 Bloques **legibles por máquina**: `verificadores/catalogo.sh` y `verificadores/secretos.sh`
