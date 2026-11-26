@@ -692,24 +692,56 @@ if [ -n "$ORIGEN_PKG" ] && [ -n "$ORIGEN_TAG" ] && [ -n "$ORIGEN_SHA" ]; then
     err "13 · php no esta en el PATH: no se puede leer composer.lock"
   else
     # 15 · diagnostico: repositorio de tipo path en composer.json
+    # Falla solo por la base (origen:); otras dependencias internas hermanas -> aviso.
     if [ -f composer.json ]; then
       res15="$(php -r '
+        $pkg = $argv[1];
         $d = json_decode(@file_get_contents("composer.json"), true);
         if (!is_array($d)) { echo "ERR\tcomposer.json invalido\n"; exit(0); }
-        $repos = $d["repositories"] ?? [];
-        if (is_array($repos)) {
-          foreach ($repos as $r) {
-            if (is_array($r) && ($r["type"] ?? "") === "path") {
-              echo "PATH\t" . ($r["url"] ?? "(sin url)") . "\n";
+        $lock_urls = [];
+        if (is_file("composer.lock")) {
+          $dl = json_decode(@file_get_contents("composer.lock"), true);
+          if (is_array($dl)) {
+            foreach (array_merge($dl["packages"] ?? [], $dl["packages-dev"] ?? []) as $p) {
+              if (($p["name"] ?? "") === $pkg) {
+                if (!empty($p["source"]["url"])) $lock_urls[] = $p["source"]["url"];
+                if (!empty($p["dist"]["url"]))   $lock_urls[] = $p["dist"]["url"];
+              }
             }
           }
         }
-      ' 2>&1)"
+        $slug  = str_replace("/", "-", $pkg);
+        $short = (strpos($pkg, "/") !== false) ? substr($pkg, strpos($pkg, "/") + 1) : $pkg;
+        $repos = $d["repositories"] ?? [];
+        if (is_array($repos)) {
+          foreach ($repos as $r) {
+            if (!is_array($r) || ($r["type"] ?? "") !== "path") continue;
+            $url = (string) ($r["url"] ?? "(sin url)");
+            $rpkg = "";
+            $rc = rtrim($url, "/\\") . "/composer.json";
+            if ($url !== "(sin url)" && is_file($rc)) {
+              $rd = json_decode(@file_get_contents($rc), true);
+              if (is_array($rd) && !empty($rd["name"])) $rpkg = (string) $rd["name"];
+            }
+            $base = basename(rtrim($url, "/\\"));
+            $es_base = ($rpkg !== "")
+              ? ($rpkg === $pkg)
+              : (in_array($url, $lock_urls, true) || $base === $slug || $base === $short);
+            $etiqueta = ($rpkg !== "") ? "$rpkg ($url)" : $url;
+            if ($es_base) {
+              echo "PATH_BASE\t$etiqueta\n";
+            } elseif (strpos($url, "../") === 0 || strpos($url, "..\\") === 0 || strpos($rpkg, "alma/") === 0) {
+              echo "PATH_OTRO\t$etiqueta\n";
+            }
+          }
+        }
+      ' "$ORIGEN_PKG" 2>&1)"
       while IFS=$'\t' read -r tipo resto; do
         [ -z "${tipo:-}" ] && continue
         case "$tipo" in
-          PATH) err "15 · repositorio de tipo 'path' en composer.json ($resto): cambia a vcs" ;;
-          ERR)  err "15 · $resto" ;;
+          PATH_BASE) err "15 · repositorio de tipo 'path' en composer.json para la base ($resto): cambia a vcs" ;;
+          PATH_OTRO) aviso "15 · repositorio de tipo 'path' en composer.json ($resto): cambia a vcs" ;;
+          ERR)       err "15 · $resto" ;;
         esac
       done <<EOF
 $res15

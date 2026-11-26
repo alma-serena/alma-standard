@@ -104,11 +104,11 @@ correr() {
   salida="$(RAIZ_PROYECTO="$raiz" RAIZ_ESTANDAR="$EST" "$BASH_BIN" "$EST/verificadores/catalogo.sh" 2>&1)"
   codigo=$?
   if [ "$esperado" = "pasa" ]; then
-    if [ "$codigo" -eq 0 ]; then
-      echo "  ok    · $nombre (pasa)"
+    if [ "$codigo" -eq 0 ] && { [ -z "$patron" ] || printf '%s\n' "$salida" | grep -qE "$patron"; }; then
+      echo "  ok    · $nombre (pasa${patron:+: $patron})"
       ok_casos=$((ok_casos+1))
     else
-      echo "  FALLA · $nombre: esperaba pasa, codigo=$codigo"
+      echo "  FALLA · $nombre: esperaba pasa${patron:+ matching /$patron/}, codigo=$codigo"
       printf '%s\n' "$salida" | sed 's/^/           /' | head -20
       fallos_casos=$((fallos_casos+1))
     fi
@@ -338,6 +338,20 @@ cat >"$TMP/15-composer-path-falla/composer.json" <<'EOF'
 }
 EOF
 correr 15-composer-path-falla falla '15 ·.*cambia a vcs'
+
+preparar_laravel_anclada "$TMP/15-otra-dep-path-aviso-pasa"
+cat >"$TMP/15-otra-dep-path-aviso-pasa/composer.json" <<'EOF'
+{
+  "repositories": [
+    { "type": "vcs", "url": "../../alma-ui-laravel" },
+    { "type": "path", "url": "../../alma-llm" }
+  ],
+  "require": {
+    "alma/ui-laravel": "0.2.0"
+  }
+}
+EOF
+correr 15-otra-dep-path-aviso-pasa pasa 'aviso · 15 ·.*alma-llm.*cambia a vcs'
 
 # --- 11 · modo (b): :root atenuado + [data-tema="claro"] (sobre union base+marca) ---
 clonar "$TMP/11-data-tema-pasa"

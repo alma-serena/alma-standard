@@ -336,7 +336,7 @@ significa que el catálogo esté sano.
 | 12 | `outline: none\|0` sin `:focus-visible` en el mismo archivo |
 | 13 | Ancla en el lockfile del stack: paquete de la base con fuente git (no `path`), `version` = etiqueta de `origen:` y `reference` = SHA de `origen:` (anexo sin lockfile → aviso en convergencia, falla en conforme) |
 | 14 | Instalado igual al lockfile: metadatos de instalación con fuente git y mismo `reference` que el lockfile (sin directorio de dependencias → aviso con nombre) |
-| 15 | Diagnóstico: repositorio de la base declarado de tipo `path` → **FALLA** («cambia a vcs») |
+| 15 | Diagnóstico: repositorio de tipo `path` en `composer.json` — **FALLA** («cambia a vcs») por la base; **aviso** por otras dependencias internas hermanas (`../../…`) |
 | M1 | Con `interfaz: si` y sin `mapa:` → FALLA |
 | M2 | `mapa: pendiente` → aviso; con `conforme` → FALLA |
 | M3 | Misión abierta con `pantallas:` (no `ninguna`) y mapa ≠ `ACEPTADO` → FALLA |

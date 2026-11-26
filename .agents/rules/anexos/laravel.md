@@ -83,7 +83,8 @@ forma de encontrarla no entra.
   (`"type": "vcs"`, `"url": "../../<repo-de-la-base>"`) y fijar la versión exacta en
   `composer.json` (`"<paquete>": "X.Y.Z"`, nunca `^` ni `~`). El tipo `path` está
   **prohibido** para dependencias internas: ignora el `reference` del lockfile y sirve
-  la rama viva del árbol de trabajo.
+  la rama viva del árbol de trabajo. Por ahora el verificador **falla** por la base
+  declarada en `origen:` y da **aviso** por las demás dependencias internas.
 - **Cambiar de versión:** es una misión del proyecto: `composer require <paquete>:X.Y.Z`,
   actualizar `origen:` (`<paquete> vX.Y.Z · <sha40>`), correr la suite de pruebas y
   `verificadores/catalogo.sh`. Antes de cerrar, la misión comprueba en el repositorio de
