@@ -60,6 +60,20 @@ excepciones declaradas, con el formato de cuatro campos. El estándar **no nombr
 ninguna base concreta**: eso es del anexo del stack, que puede recomendarla, y de la
 capa de proyecto, que la declara.
 
+**La base adoptada se consume anclada.** Lo instalado es un commit inmutable registrado
+en el lockfile del stack, y el gestor instala ese commit, no un árbol de trabajo. La
+versión es una etiqueta publicada, nunca una rama (tampoco de misión). Cambiar de
+versión —subir o bajar— es una misión del proyecto que actualiza `origen:` y el
+lockfile; nunca un efecto del trabajo en el repositorio de la base ni de actualizar
+otras dependencias. Si `tokens-base:` apunta dentro de un paquete instalado, `origen:`
+lo nombra con `<paquete> vX.Y.Z · <sha40>`. Es el patrón hermano de la copia fija del
+mapa (`mapa-origen:`): el producto fija el commit exacto que consume en vez de seguir
+una rama viva.
+
+**Regla general:** toda dependencia interna entre proyectos Alma se ancla igual. Por
+ahora el verificador comprueba solo la base de interfaz; las demás dependencias
+internas dan aviso cuando el anexo no define lockfile o no cubre su verificación.
+
 ### Roles canónicos mínimos
 
 Todo catálogo debe cubrir estos roles con una entrada `vigente`. La lista es de
@@ -211,8 +225,10 @@ demás comprobaciones leen la unión base+marca.
 > sin copiar la base entera. Sin el campo, el verificador no distinguía base de marca y
 > no podía exigir que la marca solo toque nombres que la base ya declara.
 
-**Contraste y foco (E.4).** El verificador mide contraste sobre pares de rol, en ambos
-temas (`:root` y `@media (prefers-color-scheme: dark)`), unión base+marca: **4.5:1**
+**Contraste y foco (E.4).** El verificador mide contraste sobre pares de rol, en los
+dos temas del modo declarado —(a) `:root` claro + `@media (prefers-color-scheme: dark)`
+o (b) `:root` atenuado + `[data-tema="claro"]` (decidido sobre la unión base+marca, no
+por archivo)—: **4.5:1**
 para texto (`color-texto`, `color-texto-secundario`, `color-peligro`, `color-accion`,
 `color-acento` si existe) contra fondo y superficie, y para
 `color-sobre-accion`/`color-accion`; **3.0:1** para `color-borde-control` contra fondo y
@@ -312,12 +328,15 @@ significa que el catálogo esté sano.
 | 6b | Número+unidad (`px\|rem\|em\|ch\|vh\|vw\|pt`) fuera de `var()` (exentos: `0`, `%`) |
 | 6c | `font-*`, `line-height`, `letter-spacing` con valor no-`var()` |
 | 6d | Unidad pegada a interpolación Blade (`}}rem` y equivalentes) |
-| 7 | `origen:` ausente, o nombrando una base sin su versión |
+| 7 | `origen:` ausente; o con base, sin etiqueta `vX.Y.Z` y SHA de 40 hex → **FALLA**; o `tokens-base:` bajo paquete instalado con `origen: desde cero` → **FALLA** |
 | 8 | Un campo con el marcador de la plantilla sin rellenar; `maqueta:` ausente |
 | 9 | Rol de token del bloque `roles-tokens` ausente (aviso en convergencia; falla en conforme) |
 | 10 | Con `tokens-base:`: propiedad `--alma-*` en `tokens:` que no existe en la base |
-| 11 | Contraste insuficiente en pares de rol (ambos temas); valor no resoluble → aviso |
+| 11 | Contraste insuficiente en pares de rol (los dos temas del modo: `@media dark` o `[data-tema="claro"]`); valor no resoluble → aviso |
 | 12 | `outline: none\|0` sin `:focus-visible` en el mismo archivo |
+| 13 | Ancla en el lockfile del stack: paquete de la base con fuente git (no `path`), `version` = etiqueta de `origen:` y `reference` = SHA de `origen:` (anexo sin lockfile → aviso en convergencia, falla en conforme) |
+| 14 | Instalado igual al lockfile: metadatos de instalación con fuente git y mismo `reference` que el lockfile (sin directorio de dependencias → aviso con nombre) |
+| 15 | Diagnóstico: repositorio de tipo `path` en `composer.json` — **FALLA** («cambia a vcs») por la base; **aviso** por otras dependencias internas hermanas (`../../…`) |
 | M1 | Con `interfaz: si` y sin `mapa:` → FALLA |
 | M2 | `mapa: pendiente` → aviso; con `conforme` → FALLA |
 | M3 | Misión abierta con `pantallas:` (no `ninguna`) y mapa ≠ `ACEPTADO` → FALLA |
@@ -348,6 +367,11 @@ significa que el catálogo esté sano.
   humana.
 - **Proporción del contenido dentro del marco** — si la media reserva el marco y el
   contenido no lo desborda ni lo deja ambiguo.
+- **Que la etiqueta de la base esté publicada sobre `main`** — el verificador comprueba
+  que el lockfile y lo instalado coinciden con `origen:`, no el historial del repositorio
+  remoto de la base.
+- **Que lo servido coincida con lo verificado** — el verificador inspecciona archivos y
+  lockfile en el árbol, no el servidor en ejecución ni cachés compiladas.
 
 **Lo que el verde del mapa no afirma** (tampoco el del catálogo):
 

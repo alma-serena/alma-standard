@@ -112,6 +112,25 @@ repo, hazlo con `git show <ref>:verificadores/mapa.sh > archivo` desde Git Bash
 (finales LF). `Set-Content` de PowerShell o una copia CRLF rompen el script; el
 propio verificador falla con mensaje claro si detecta CRLF en sí mismo.
 
+## Migración a v0.1.12 (ancla de la base)
+
+Todo proyecto con `interfaz: si` que adopte una base **falla de inmediato** al subir si
+no está anclado (sin valor de migración tipo `pendiente`): falla la comprobación **7**
+(`origen:` sin etiqueta `vX.Y.Z` y SHA de 40 hex, o `tokens-base:` bajo `vendor/` con
+`origen: desde cero`), la **13** (`composer.lock` sin fuente `git` o con `dist.type=path`,
+versión o `reference` distintos de `origen:`), la **14** (instalado en `vendor/` distinto
+del lockfile) y la **15** (repositorio de tipo `path` en `composer.json` para la base;
+otras dependencias internas en `path` dan **aviso**).
+
+Qué cambiar en el proyecto:
+- En `composer.json`: cambiar el repositorio de `"type": "path"` a `"type": "vcs"`
+  (`"url": "../../<repo-de-la-base>"`) y fijar la versión exacta (`"<paquete>": "X.Y.Z"`,
+  sin `^` ni `~`), luego correr `composer require <paquete>:X.Y.Z`.
+- En `proyecto-<nombre>.md`: actualizar `origen:` al formato `<paquete> vX.Y.Z · <sha40>`.
+
+Nota Windows: `git` debe estar en el `PATH` del proceso que corre `composer`, para que
+Composer resuelva los repositorios `vcs` y fije `source.type = git`.
+
 ## Lo que `alma:upgrade` NO hace
 
 - **No hace push.** El ancla es acto humano.
