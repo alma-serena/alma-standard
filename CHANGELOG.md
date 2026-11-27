@@ -2,7 +2,9 @@
 
 Todo cambio nombra su origen. Un cambio sin origen registrado no entra (SAD-08).
 
-## Sin etiquetar
+## v0.1.12 — 2026-11-26
+
+Primer tag después de `v0.1.11`. Incluye [#26](https://github.com/alma-serena/alma-standard/pull/26) (MIS-971, MIS-983) y [#27](https://github.com/alma-serena/alma-standard/pull/27) (V-49).
 
 | | Qué | Por qué |
 |---|---|---|
